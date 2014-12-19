@@ -2,13 +2,13 @@
 # -*- coding: utf-8 -*- #
 from __future__ import unicode_literals
 
-AUTHOR = u'Aqi'
-SITENAME = u'One Blog'
-SITEURL = ''
+AUTHOR = u'阿七'
+SITENAME = u'一个博客'
+SITEURL = 'nobodiness.github.io'
+RELATIVE_URLS = True
+# PATH = 'content'
 
-PATH = 'content'
-
-TIMEZONE = 'Europe/Paris'
+TIMEZONE = 'Asia/Shanghai'
 
 DEFAULT_LANG = u'cn'
 
@@ -19,17 +19,36 @@ TRANSLATION_FEED_ATOM = None
 AUTHOR_FEED_ATOM = None
 AUTHOR_FEED_RSS = None
 
+MD_EXTENSIONS = ['codehilite(css_class=highlight)','extra','nl2br']
+# OUTPUT_PATH = 'output2/'
 # Blogroll
-LINKS = (('Pelican', 'http://getpelican.com/'),
-         ('Python.org', 'http://python.org/'),
-         ('Jinja2', 'http://jinja.pocoo.org/'),
-         ('You can modify those links in your config file', '#'),)
+# LINKS = (('Pelican', 'http://getpelican.com/'),
+#          ('Python.org', 'http://python.org/'),
+#          ('Jinja2', 'http://jinja.pocoo.org/'),
+#          ('You can modify those links in your config file', '#'),)
 
 # Social widget
-SOCIAL = (('You can add links in your config file', '#'),
-          ('Another social link', '#'),)
+# SOCIAL = (('You can add links in your config file', '#'),
+#           ('Another social link', '#'),)
 
 DEFAULT_PAGINATION = 10
 
 # Uncomment following line if you want document-relative URLs when developing
 #RELATIVE_URLS = True
+# OUTPUT_PATH ('nobodiness.github.io/')
+DEFAULT_DATE_FORMAT = '%Y %B %d %a'
+DISQUS_SITENAME = u"nobodiness"
+
+THEME = "pelican-octopress-theme"
+
+# DISPLAY_CATEGORIES_ON_MENU = False
+
+GITHUB_USER = "nobodiness"
+GITHUB_REPO_COUNT = 5
+GITHUB_SKIP_FORK = False
+GITHUB_SHOW_USER_LINK = False
+
+# QR_CODE = True
+
+# SIDEBAR_IMAGE: # Adds specified image to sidebar. Example value: "images/author_photo.jpg"
+# SEARCH_BOX = True #set to true to enable site search box
