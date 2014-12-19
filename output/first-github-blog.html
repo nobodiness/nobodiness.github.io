@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>first Github blog</title>
+  <meta name="author" content="阿七">
+
+
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link href="./favicon.png" rel="icon">
+  <link href="./theme/css/main.css" media="screen, projection"
+        rel="stylesheet" type="text/css">
+  <link href="./theme/css/monokai.css" media="screen, projection"
+        rel="stylesheet" type="text/css">
+  <script src="./theme/js/modernizr-2.0.js"></script>
+  <script src="./theme/js/ender.js"></script>
+  <script src="./theme/js/octopress.js" type="text/javascript"></script>
+
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic"
+        rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic"
+        rel="stylesheet" type="text/css">
+</head>
+
+<body>
+  <header role="banner"><hgroup>
+  <h1><a href="./">一个博客</a></h1>
+</hgroup></header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+</ul>
+
+
+
+<ul class="main-navigation">
+    <li class="active">
+    <a href="./category/python.html">Python</a>
+    </li>
+</ul></nav>
+  <div id="main">
+    <div id="content">
+<div>
+  <article class="hentry" role="article">
+<header>
+      <h1 class="entry-title">first Github blog</h1>
+      <p class="meta"><time datetime="2014-12-19T19:17:00+08:00" pubdate>2014 十二月 19 五</time></p>
+</header>
+
+  <div class="entry-content"><p>我一直相信如果可以一定要用最简单个技术来实现一切.<br />
+所以呢,看到静态博客就觉得很喜欢,一定要整一个</p>
+<p>静态博客的技术有很多,现在最火的是Jekyll,为什么要用Pelican?<br />
+主要是还是因为喜欢Python.</p>
+<p>不过说实在的Pelican的模板比Jekyll的少多了,质量也比较差.<br />
+外貌党 + 不愿意(HUI)自己做网页的人(就像我T_T) 真心不推荐  </p>
+<p>除了我现在用的这个(Octopress模板改过来的)<br />
+还有几个我感觉也比较好:</p>
+<p><a href="http://oncrashreboot.com/elegant-best-pelican-theme-features">Elegant</a><br />
+<a href="http://purepelican.com">Pure Pelican Theme</a><br />
+<a href="https://github.com/wting/pelican-svbtle">SVBTLE</a><br />
+<a href="https://github.com/getpelican/pelican-themes/tree/master/zurb-F5-basic">zurb-F5-basic</a><br />
+<a href="https://github.com/getpelican/pelican-themes/tree/master/aboutwilson">aboutwilson</a><br />
+<a href="https://github.com/tbunnyman/pelican-chunk">Chunk for Pelican</a><br />
+<a href="https://github.com/getpelican/pelican-themes/tree/master/tuxlite_tbs">tuxlite_tbs</a><br />
+<a href="https://github.com/getpelican/pelican-themes/tree/master/gum">Gum</a><br />
+<a href="http://ptd.pronoiac.org/pelican-cait/">PELICAN-CAIT</a>  </p>
+<p>过一段时间,我打算从Jekyll改一部分模板过来<br />
+Pelican模板引擎用的<a href="http://jinja.pocoo.org">Jinja2</a><br />
+Jekyll 模板引擎用的<a href="http://docs.shopify.com/themes/liquid-documentation/basics">Liquid</a></p>
+<p>Pelican官方文档在<a href="http://docs.getpelican.com/en/3.5.0/index.html">这里</a></p>
+<h2>安装Pelican</h2>
+<div class="highlight"><pre><span class="nv">$sudo</span> pip install pelican markdown
+</pre></div>
+
+
+<h2>开设一个目录</h2>
+<div class="highlight"><pre><span class="nv">$mkdir</span> /path/to/your/blog
+<span class="nv">$cd</span> /path/to/your/blog
+<span class="nv">$pelican</span>-quickstart
+</pre></div>
+
+
+<h2>写一篇文章</h2>
+<p>在 content 目录新建一个 <code>test.md</code>文件, 填入一下内容:</p>
+<div class="highlight"><pre>Title: 第一篇Github博客
+Date: 2014-12-19 19:17
+Category: Python
+Tags: Pelican,静态博客
+Author: 阿七
+Summary: 搭建这个博客的方法
+
+这里是内容
+</pre></div>
+
+
+<p>放到生成的<code>content</code>文件夹里<br />
+然后执行:</p>
+<div class="highlight"><pre><span class="nv">$make</span> html
+<span class="nv">$make</span> serve
+</pre></div>
+
+
+<p>开启一个测试服务器, 这会在本地<code>8000</code>端口建立一个测试web服务器, <br />
+使用浏览器打开: <code>http://localhost:8000</code> 来访问这个测试服务器, 然后就可以欣赏到你的博客了</p>
+<h2>修改配置</h2>
+<p><a href="http://docs.getpelican.com/en/3.5.0/settings.html">这里</a>是官方教程<br />
+可以参考中文翻译中的<a href="http://pelican-zh.readthedocs.org/en/latest/zh-cn/settings/">这里</a></p>
+<p>在<code>pelicanconf.py</code>中修改如下</p>
+<div class="highlight"><pre><span class="n">AUTHOR</span> <span class="o">=</span> <span class="s">u&#39;默认作者&#39;</span>
+<span class="n">SITENAME</span> <span class="o">=</span> <span class="s">u&#39;博客的名字&#39;</span>
+<span class="c"># 修改时区</span>
+<span class="n">TIMEZONE</span> <span class="o">=</span> <span class="s">&#39;Asia/Shanghai&#39;</span>
+<span class="c"># 修改语言</span>
+<span class="n">DEFAULT_LANG</span> <span class="o">=</span> <span class="s">u&#39;cn&#39;</span>
+<span class="c"># 修改时间格式</span>
+<span class="n">DEFAULT_DATE_FORMAT</span> <span class="o">=</span> <span class="s">&#39;%Y %B </span><span class="si">%d</span><span class="s"> %a&#39;</span>
+</pre></div>
+
+
+<h2>评论系统</h2>
+<p>这里用了Disqus评论系统<br />
+也可以用多说的 但是要修改模板</p>
+<div class="highlight"><pre><span class="c"># 填写你的Disqus Shortname</span>
+<span class="n">DISQUS_SITENAME</span> <span class="o">=</span> <span class="s">u&quot;nobodiness&quot;</span>
+<span class="c"># 设置这个是为了Disqus评论能正确加载</span>
+<span class="n">SITEURL</span> <span class="o">=</span> <span class="s">&#39;nobodiness.github.io&#39;</span> <span class="c"># 网站地址</span>
+</pre></div>
+
+
+<h2>安装模板</h2>
+<p>我用的是<code>Octopress Theme for Pelican</code></p>
+<p>在<a href="https://github.com/duilio/pelican-octopress-theme">这里</a></p>
+<p>复制一份到本地:</p>
+<div class="highlight"><pre><span class="nv">$git</span> clone git://github.com/duilio/pelican-octopress-theme.git
+</pre></div>
+
+
+<p>在<code>pelicanconf.py</code>中修改如下</p>
+<div class="highlight"><pre><span class="n">THEME</span> <span class="o">=</span> <span class="s">&quot;pelican-octopress-theme&quot;</span>
+</pre></div>
+
+
+<p>也可以加入自己的Github账号:</p>
+<div class="highlight"><pre><span class="n">GITHUB_USER</span> <span class="o">=</span> <span class="s">&quot;nobodiness&quot;</span>
+<span class="n">GITHUB_REPO_COUNT</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">GITHUB_SKIP_FORK</span> <span class="o">=</span> <span class="bp">False</span>
+<span class="n">GITHUB_SHOW_USER_LINK</span> <span class="o">=</span> <span class="bp">False</span>
+</pre></div>
+
+
+<h2>Markdown扩展</h2>
+<p>可以给原生markdown加入扩展</p>
+<div class="highlight"><pre><span class="n">MD_EXTENSIONS</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;codehilite&#39;</span><span class="p">,</span><span class="s">&#39;extra&#39;</span><span class="p">,</span><span class="s">&#39;nl2br&#39;</span><span class="p">]</span>
+</pre></div>
+
+
+<p><code>codehilite</code>:代码高亮<br />
+<code>nl2br</code>:真换行</p>
+<h2>代码高亮</h2>
+<p>原生的Octopress模板没有带代码高亮的css<br />
+我们给他加上</p>
+<p>代码高亮的CSS<a href="http://richleland.github.io/pygments-css/">这里</a>有很多<br />
+我这里选择monokai这个<br />
+下载CSS文件加入<code>static/css/</code>文件中<br />
+在模板中的base.html文件<code>&lt;head&gt;</code>标签中加入</p>
+<div class="highlight"><pre><span class="nt">&lt;link</span> <span class="na">href=</span><span class="s">&quot;{{ SITEURL }}/theme/css/monokai.css&quot;</span> <span class="na">media=</span><span class="s">&quot;screen, projection&quot;</span>
+        <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">type=</span><span class="s">&quot;text/css&quot;</span><span class="nt">&gt;</span>
+</pre></div>
+
+
+<h4>以下是我参考的几篇教程:</h4>
+<p><a href="http://www.linuxzen.com/shi-yong-pelicanda-zao-jing-tai-bo-ke.html">使用Pelican打造静态博客</a></p>
+<p><a href="http://www.dongxf.com/3_Build_Personal_Blog_With_Pelican_And_GitHub_Pages.html">用 Pelican 和 GitHub Pages 搭建免费的个人博客</a></p>
+<p><a href="http://blog.csdn.net/poem_of_sunshine/article/details/12913325">一步一步打造Geek风格的技术博客</a></p></div>
+    <footer>
+<p class="meta">
+  <span class="byline author vcard">
+    Posted by <span class="fn">阿七</span>
+  </span>
+<time datetime="2014-12-19T19:17:00+08:00" pubdate>2014 十二月 19 五</time>  <span class="categories">
+    <a class="category" href="./tag/pelican.html">Pelican</a>
+    <a class="category" href="./tag/jing-tai-bo-ke.html">静态博客</a>
+  </span>
+</p><div class="sharing">
+</div>    </footer>
+  </article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript></div>
+  </section>
+</div>
+<aside class="sidebar">
+  <section>
+    <h1>Recent Posts</h1>
+    <ul id="recent_posts">
+      <li class="post">
+          <a href="./first-github-blog.html">first Github blog</a>
+      </li>
+    </ul>
+  </section>
+  <section>
+      
+    <h1>Categories</h1>
+    <ul id="recent_posts">
+        <li><a href="./category/python.html">Python</a></li>
+    </ul>
+  </section>
+ 
+
+  <section>
+  <h1>Tags</h1>
+    <a href="./tag/jing-tai-bo-ke.html">静态博客</a>,    <a href="./tag/pelican.html">Pelican</a>  </section>
+
+
+
+  <section>
+    <h1>GitHub Repos</h1>
+    <ul id="gh_repos">
+      <li class="loading">Status updating...</li>
+    </ul>
+      <a href="https://github.com/nobodiness">@nobodiness</a> on GitHub
+    <script type="text/javascript">
+      $.domReady(function(){
+          if (!window.jXHR){
+              var jxhr = document.createElement('script');
+              jxhr.type = 'text/javascript';
+              jxhr.src = './theme/js/jXHR.js';
+              var s = document.getElementsByTagName('script')[0];
+              s.parentNode.insertBefore(jxhr, s);
+          }
+
+          github.showRepos({
+              user: 'nobodiness',
+              count: 5,
+              skip_forks: false,
+              target: '#gh_repos'
+          });
+      });
+    </script>
+    <script src="./theme/js/github.js" type="text/javascript"> </script>
+  </section>
+
+
+</aside>    </div>
+  </div>
+  <footer role="contentinfo"><p>
+    Copyright &copy;  2014  - 阿七 -
+  <span class="credit">Powered by <a href="http://getpelican.com">Pelican</a></span>
+</p></footer>
+	<script type="text/javascript">
+	  var disqus_shortname = 'nobodiness';
+          var disqus_identifier = '/first-github-blog.html';
+          var disqus_url = './first-github-blog.html';
+          var disqus_title = 'first Github blog';
+	  (function() {
+	    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	    dsq.src = "//" + disqus_shortname + '.disqus.com/embed.js';
+	    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	   })();
+	</script>
+</body>
+</html>
