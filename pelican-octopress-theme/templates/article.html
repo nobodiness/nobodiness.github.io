@@ -9,17 +9,17 @@
         {% include '_includes/sharing.html' %}
       </footer>
     </article>
-      {% if DISQUS_SITENAME and SITEURL and article.status != "draft" %}
+      <!-- {% if DISQUS_SITENAME and SITEURL and article.status != "draft" %}
       <section>
         <h1>Comments</h1>
         <div id="disqus_thread" aria-live="polite">{% include '_includes/disqus_thread.html' %}</div>
       </section>
-    {% endif %}
+    {% endif %} -->
     <!-- 多说评论框 start -->
-    <!-- <div class="ds-thread" data-thread-key="{{ article.url }}" data-title="{{ article.title }}" data-url="{{ SITEURL }}/{{ article.url }}"></div> -->
+    <div class="ds-thread" data-thread-key="{{ article.url }}" data-title="{{ article.title }}" data-url="{{ SITEURL }}/{{ article.url }}"></div>
     <!-- 多说评论框 end -->
     <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-    <!-- <script type="text/javascript">
+    <script type="text/javascript">
     var duoshuoQuery = {short_name:"nobodiness"};
     (function() {
     var ds = document.createElement('script');
@@ -29,7 +29,7 @@
     (document.getElementsByTagName('head')[0]
     || document.getElementsByTagName('body')[0]).appendChild(ds);
     })();
-    </script>  -->
+    </script> 
     <!-- 多说公共JS代码 end --> 
   </div>
 {% endblock %}

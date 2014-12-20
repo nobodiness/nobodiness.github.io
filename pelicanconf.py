@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 AUTHOR = u'阿七'
 SITENAME = u'一个博客'
 SITEURL = 'nobodiness.github.io'
-# RELATIVE_URLS = True
+RELATIVE_URLS = True
 # PATH = 'content'
 
 TIMEZONE = 'Asia/Shanghai'
