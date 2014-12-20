@@ -108,31 +108,24 @@ Disqus的评论怎么也弄不好,真邪门
 然后就用的多说的,也不错
 再说一句,Disqus对中文的支持也不好
 文章题目是中文也不行 :-(
-```python
-# 填写你的Disqus Shortname
-DISQUS_SITENAME = u"nobodiness"
-# 设置这个是为了Disqus评论能正确加载
-SITEURL = 'nobodiness.github.io' # 网站地址
-RELATIVE_URLS = True # 相对地址
-```
 在`article.html`中加入以下代码
 ```html
 <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key="{{ article.url }}" data-title="{{ article.title }}" data-url="{{ SITEURL }}/{{ article.url }}"></div>
-    <!-- 多说评论框 end -->
-    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-    <script type="text/javascript">
-    var duoshuoQuery = {short_name:"nobodiness"};
-    (function() {
-    var ds = document.createElement('script');
-    ds.type = 'text/javascript';ds.async = true;
-    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-    ds.charset = 'UTF-8';
-    (document.getElementsByTagName('head')[0]
-    || document.getElementsByTagName('body')[0]).appendChild(ds);
-    })();
-    </script> 
-    <!-- 多说公共JS代码 end --> 
+<div class="ds-thread" data-thread-key="{{ article.url }}" data-title="{{ article.title }}" data-url="{{ SITEURL }}/{{ article.url }}"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"nobodiness"};
+(function() {
+var ds = document.createElement('script');
+ds.type = 'text/javascript';ds.async = true;
+ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+ds.charset = 'UTF-8';
+(document.getElementsByTagName('head')[0]
+|| document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script> 
+<!-- 多说公共JS代码 end --> 
 ``` 
 ## Markdown扩展
 可以给原生markdown加入扩展
@@ -150,8 +143,7 @@ MD_EXTENSIONS = ['codehilite','extra','nl2br']
 下载CSS文件加入`static/css/`文件中
 在模板中的base.html文件`<head>`标签中加入
 ```html
-<link href="{{ SITEURL }}/theme/css/monokai.css" media="screen, projection"
-        rel="stylesheet" type="text/css">
+<link href="{{ SITEURL }}/theme/css/monokai.css" media="screen, projection" rel="stylesheet" type="text/css">
 ```
 
 
@@ -160,8 +152,6 @@ MD_EXTENSIONS = ['codehilite','extra','nl2br']
 #### 以下是我参考的几篇教程:
 
 [使用Pelican打造静态博客](http://www.linuxzen.com/shi-yong-pelicanda-zao-jing-tai-bo-ke.html)
-
 [用 Pelican 和 GitHub Pages 搭建免费的个人博客](http://www.dongxf.com/3_Build_Personal_Blog_With_Pelican_And_GitHub_Pages.html)
-
 [一步一步打造Geek风格的技术博客](http://blog.csdn.net/poem_of_sunshine/article/details/12913325)
 

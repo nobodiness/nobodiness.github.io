@@ -37,7 +37,7 @@ DEFAULT_PAGINATION = 10
 #RELATIVE_URLS = True
 # OUTPUT_PATH ('nobodiness.github.io/')
 DEFAULT_DATE_FORMAT = '%Y %B %d %a'
-DISQUS_SITENAME = u"nobodiness"
+# DISQUS_SITENAME = u"nobodiness"
 
 THEME = "pelican-octopress-theme"
 
