@@ -1,4 +1,4 @@
-Title: first Github blog
+Title: 我的第一个Github博客
 Date: 2014-12-19 19:17
 Category: Python
 Tags: Pelican,静态博客
@@ -79,15 +79,6 @@ DEFAULT_LANG = u'cn'
 # 修改时间格式
 DEFAULT_DATE_FORMAT = '%Y %B %d %a'
 ```
-## 评论系统
-这里用了Disqus评论系统  
-也可以用多说的 但是要修改模板
-```python
-# 填写你的Disqus Shortname
-DISQUS_SITENAME = u"nobodiness"
-# 设置这个是为了Disqus评论能正确加载
-SITEURL = 'nobodiness.github.io' # 网站地址
-```
 ## 安装模板
 我用的是`Octopress Theme for Pelican`
 
@@ -111,6 +102,37 @@ GITHUB_USER = "nobodiness"
 GITHUB_REPO_COUNT = 5
 GITHUB_SKIP_FORK = False
 GITHUB_SHOW_USER_LINK = False
+```
+## 评论系统
+Disqus的评论怎么也弄不好,真邪门
+然后就用的多说的,也不错
+再说一句,Disqus对中文的支持也不好
+文章题目是中文也不行 :-(
+```python
+# 填写你的Disqus Shortname
+DISQUS_SITENAME = u"nobodiness"
+# 设置这个是为了Disqus评论能正确加载
+SITEURL = 'nobodiness.github.io' # 网站地址
+RELATIVE_URLS = True # 相对地址
+```
+在`article.html`中加入以下代码
+```html
+<!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="{{ article.url }}" data-title="{{ article.title }}" data-url="{{ SITEURL }}/{{ article.url }}"></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:"nobodiness"};
+    (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script> 
+    <!-- 多说公共JS代码 end --> 
 ```
 ## Markdown扩展
 可以给原生markdown加入扩展

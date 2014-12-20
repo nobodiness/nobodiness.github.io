@@ -28,8 +28,8 @@ MD_EXTENSIONS = ['codehilite(css_class=highlight)','extra','nl2br']
 #          ('You can modify those links in your config file', '#'),)
 
 # Social widget
-# SOCIAL = (('You can add links in your config file', '#'),
-#           ('Another social link', '#'),)
+SOCIAL = (('我的豆瓣', 'http://www.douban.com/people/53955651/'),)
+          # ('我的微博', '#'),)
 
 DEFAULT_PAGINATION = 10
 
