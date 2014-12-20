@@ -81,7 +81,11 @@ Jekyll 模板引擎用的<a href="http://docs.shopify.com/themes/liquid-document
 <h2>开设一个目录</h2>
 <div class="codehilite"><pre><span class="nv">$mkdir</span> /path/to/your/blog
 <span class="nv">$cd</span> /path/to/your/blog
-<span class="nv">$pelican</span>-quickstart
+</pre></div>
+
+
+<h2>快捷安装</h2>
+<div class="codehilite"><pre><span class="err">$</span><span class="n">pelican</span><span class="o">-</span><span class="n">quickstart</span>
 </pre></div>
 
 
@@ -169,7 +173,7 @@ Summary: 搭建这个博客的方法
 
 
 <h2>Markdown扩展</h2>
-<p>可以给原生markdown加入扩展</p>
+<p>可以给原生markdown加入扩展.可以看<a href="http://pythonhosted.org/Markdown/extensions/extra.html">这里</a></p>
 <div class="codehilite"><pre><span class="n">MD_EXTENSIONS</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;codehilite&#39;</span><span class="p">,</span><span class="s">&#39;extra&#39;</span><span class="p">,</span><span class="s">&#39;nl2br&#39;</span><span class="p">]</span>
 </pre></div>
 
@@ -177,8 +181,13 @@ Summary: 搭建这个博客的方法
 <p><code>codehilite</code>:代码高亮<br />
 <code>nl2br</code>:真换行</p>
 <h2>代码高亮</h2>
-<p>原生的Octopress模板没有带代码高亮的css<br />
-我们给他加上</p>
+<p>~~原生的Octopress模板没有带代码高亮的css~~<br />
+(其实是有的,上面加扩展的时候,像下面这样写就好了)</p>
+<div class="codehilite"><pre><span class="n">MD_EXTENSIONS</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;codehilite(css=highlight)&#39;</span><span class="p">,</span><span class="s">&#39;extra&#39;</span><span class="p">,</span><span class="s">&#39;nl2br&#39;</span><span class="p">]</span>
+</pre></div>
+
+
+<p>我们给他加上</p>
 <p>代码高亮的CSS<a href="http://richleland.github.io/pygments-css/">这里</a>有很多<br />
 我这里选择monokai这个<br />
 下载CSS文件加入<code>static/css/</code>文件中<br />
@@ -187,6 +196,7 @@ Summary: 搭建这个博客的方法
 </pre></div>
 
 
+<p>关于Pelican后面会有更详细的分析</p>
 <h4>以下是我参考的几篇教程:</h4>
 <p><a href="http://www.linuxzen.com/shi-yong-pelicanda-zao-jing-tai-bo-ke.html">使用Pelican打造静态博客</a><br />
 <a href="http://www.dongxf.com/3_Build_Personal_Blog_With_Pelican_And_GitHub_Pages.html">用 Pelican 和 GitHub Pages 搭建免费的个人博客</a><br />

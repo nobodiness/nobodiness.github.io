@@ -37,12 +37,17 @@ Pelican官方文档在[这里](http://docs.getpelican.com/en/3.5.0/index.html)
 ```bash
 $sudo pip install pelican markdown
 ```
+
 ## 开设一个目录
 ```bash
 $mkdir /path/to/your/blog
 $cd /path/to/your/blog
+```
+## 快捷安装
+```python
 $pelican-quickstart
 ```
+
 ## 写一篇文章
 在 content 目录新建一个 `test.md`文件, 填入一下内容:
 ```markdown
@@ -79,6 +84,7 @@ DEFAULT_LANG = u'cn'
 # 修改时间格式
 DEFAULT_DATE_FORMAT = '%Y %B %d %a'
 ```
+
 ## 安装模板
 我用的是`Octopress Theme for Pelican`
 
@@ -103,6 +109,7 @@ GITHUB_REPO_COUNT = 5
 GITHUB_SKIP_FORK = False
 GITHUB_SHOW_USER_LINK = False
 ```
+
 ## 评论系统
 Disqus的评论怎么也弄不好,真邪门
 然后就用的多说的,也不错
@@ -127,15 +134,22 @@ ds.charset = 'UTF-8';
 </script> 
 <!-- 多说公共JS代码 end --> 
 ``` 
+
 ## Markdown扩展
-可以给原生markdown加入扩展
+可以给原生markdown加入扩展.可以看[这里](http://pythonhosted.org/Markdown/extensions/extra.html)
 ```python
 MD_EXTENSIONS = ['codehilite','extra','nl2br']
 ```
 `codehilite`:代码高亮
 `nl2br`:真换行
+
 ## 代码高亮
-原生的Octopress模板没有带代码高亮的css
+~~原生的Octopress模板没有带代码高亮的css~~
+(其实是有的,上面加扩展的时候,像下面这样写就好了)
+```python
+MD_EXTENSIONS = ['codehilite(css=highlight)','extra','nl2br']
+```
+
 我们给他加上
 
 代码高亮的CSS[这里](http://richleland.github.io/pygments-css/)有很多
@@ -147,7 +161,7 @@ MD_EXTENSIONS = ['codehilite','extra','nl2br']
 ```
 
 
-
+关于Pelican后面会有更详细的分析
 
 #### 以下是我参考的几篇教程:
 
