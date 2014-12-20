@@ -19,8 +19,8 @@ TRANSLATION_FEED_ATOM = None
 AUTHOR_FEED_ATOM = None
 AUTHOR_FEED_RSS = None
 
-MD_EXTENSIONS = ['codehilite(css_class=highlight)','extra','nl2br']
-# OUTPUT_PATH = 'output2/'
+MD_EXTENSIONS = ['codehilite(css_class=codehilite)','extra','nl2br']
+
 # Blogroll
 # LINKS = (('Pelican', 'http://getpelican.com/'),
 #          ('Python.org', 'http://python.org/'),

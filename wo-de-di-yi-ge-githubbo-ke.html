@@ -74,12 +74,12 @@ Pelican模板引擎用的<a href="http://jinja.pocoo.org">Jinja2</a><br />
 Jekyll 模板引擎用的<a href="http://docs.shopify.com/themes/liquid-documentation/basics">Liquid</a></p>
 <p>Pelican官方文档在<a href="http://docs.getpelican.com/en/3.5.0/index.html">这里</a></p>
 <h2>安装Pelican</h2>
-<div class="highlight"><pre><span class="nv">$sudo</span> pip install pelican markdown
+<div class="codehilite"><pre><span class="nv">$sudo</span> pip install pelican markdown
 </pre></div>
 
 
 <h2>开设一个目录</h2>
-<div class="highlight"><pre><span class="nv">$mkdir</span> /path/to/your/blog
+<div class="codehilite"><pre><span class="nv">$mkdir</span> /path/to/your/blog
 <span class="nv">$cd</span> /path/to/your/blog
 <span class="nv">$pelican</span>-quickstart
 </pre></div>
@@ -87,7 +87,7 @@ Jekyll 模板引擎用的<a href="http://docs.shopify.com/themes/liquid-document
 
 <h2>写一篇文章</h2>
 <p>在 content 目录新建一个 <code>test.md</code>文件, 填入一下内容:</p>
-<div class="highlight"><pre>Title: 第一篇Github博客
+<div class="codehilite"><pre>Title: 第一篇Github博客
 Date: 2014-12-19 19:17
 Category: Python
 Tags: Pelican,静态博客
@@ -100,7 +100,7 @@ Summary: 搭建这个博客的方法
 
 <p>放到生成的<code>content</code>文件夹里<br />
 然后执行:</p>
-<div class="highlight"><pre><span class="nv">$make</span> html
+<div class="codehilite"><pre><span class="nv">$make</span> html
 <span class="nv">$make</span> serve
 </pre></div>
 
@@ -111,7 +111,7 @@ Summary: 搭建这个博客的方法
 <p><a href="http://docs.getpelican.com/en/3.5.0/settings.html">这里</a>是官方教程<br />
 可以参考中文翻译中的<a href="http://pelican-zh.readthedocs.org/en/latest/zh-cn/settings/">这里</a></p>
 <p>在<code>pelicanconf.py</code>中修改如下</p>
-<div class="highlight"><pre><span class="n">AUTHOR</span> <span class="o">=</span> <span class="s">u&#39;默认作者&#39;</span>
+<div class="codehilite"><pre><span class="n">AUTHOR</span> <span class="o">=</span> <span class="s">u&#39;默认作者&#39;</span>
 <span class="n">SITENAME</span> <span class="o">=</span> <span class="s">u&#39;博客的名字&#39;</span>
 <span class="c"># 修改时区</span>
 <span class="n">TIMEZONE</span> <span class="o">=</span> <span class="s">&#39;Asia/Shanghai&#39;</span>
@@ -126,17 +126,17 @@ Summary: 搭建这个博客的方法
 <p>我用的是<code>Octopress Theme for Pelican</code></p>
 <p>在<a href="https://github.com/duilio/pelican-octopress-theme">这里</a></p>
 <p>复制一份到本地:</p>
-<div class="highlight"><pre><span class="nv">$git</span> clone git://github.com/duilio/pelican-octopress-theme.git
+<div class="codehilite"><pre><span class="nv">$git</span> clone git://github.com/duilio/pelican-octopress-theme.git
 </pre></div>
 
 
 <p>在<code>pelicanconf.py</code>中修改如下</p>
-<div class="highlight"><pre><span class="n">THEME</span> <span class="o">=</span> <span class="s">&quot;pelican-octopress-theme&quot;</span>
+<div class="codehilite"><pre><span class="n">THEME</span> <span class="o">=</span> <span class="s">&quot;pelican-octopress-theme&quot;</span>
 </pre></div>
 
 
 <p>也可以加入自己的Github账号:</p>
-<div class="highlight"><pre><span class="n">GITHUB_USER</span> <span class="o">=</span> <span class="s">&quot;nobodiness&quot;</span>
+<div class="codehilite"><pre><span class="n">GITHUB_USER</span> <span class="o">=</span> <span class="s">&quot;nobodiness&quot;</span>
 <span class="n">GITHUB_REPO_COUNT</span> <span class="o">=</span> <span class="mi">5</span>
 <span class="n">GITHUB_SKIP_FORK</span> <span class="o">=</span> <span class="bp">False</span>
 <span class="n">GITHUB_SHOW_USER_LINK</span> <span class="o">=</span> <span class="bp">False</span>
@@ -148,7 +148,7 @@ Summary: 搭建这个博客的方法
 然后就用的多说的,也不错<br />
 再说一句,Disqus对中文的支持也不好<br />
 文章题目是中文也不行 :-(</p>
-<div class="highlight"><pre><span class="c"># 填写你的Disqus Shortname</span>
+<div class="codehilite"><pre><span class="c"># 填写你的Disqus Shortname</span>
 <span class="n">DISQUS_SITENAME</span> <span class="o">=</span> <span class="s">u&quot;nobodiness&quot;</span>
 <span class="c"># 设置这个是为了Disqus评论能正确加载</span>
 <span class="n">SITEURL</span> <span class="o">=</span> <span class="s">&#39;nobodiness.github.io&#39;</span> <span class="c"># 网站地址</span>
@@ -157,7 +157,7 @@ Summary: 搭建这个博客的方法
 
 
 <p>在<code>article.html</code>中加入以下代码</p>
-<div class="highlight"><pre><span class="c">&lt;!-- 多说评论框 start --&gt;</span>
+<div class="codehilite"><pre><span class="c">&lt;!-- 多说评论框 start --&gt;</span>
     <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;ds-thread&quot;</span> <span class="na">data-thread-key=</span><span class="s">&quot;{{ article.url }}&quot;</span> <span class="na">data-title=</span><span class="s">&quot;{{ article.title }}&quot;</span> <span class="na">data-url=</span><span class="s">&quot;{{ SITEURL }}/{{ article.url }}&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
     <span class="c">&lt;!-- 多说评论框 end --&gt;</span>
     <span class="c">&lt;!-- 多说公共JS代码 start (一个网页只需插入一次) --&gt;</span>
@@ -178,7 +178,7 @@ Summary: 搭建这个博客的方法
 
 <h2>Markdown扩展</h2>
 <p>可以给原生markdown加入扩展</p>
-<div class="highlight"><pre><span class="n">MD_EXTENSIONS</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;codehilite&#39;</span><span class="p">,</span><span class="s">&#39;extra&#39;</span><span class="p">,</span><span class="s">&#39;nl2br&#39;</span><span class="p">]</span>
+<div class="codehilite"><pre><span class="n">MD_EXTENSIONS</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;codehilite&#39;</span><span class="p">,</span><span class="s">&#39;extra&#39;</span><span class="p">,</span><span class="s">&#39;nl2br&#39;</span><span class="p">]</span>
 </pre></div>
 
 
@@ -191,7 +191,7 @@ Summary: 搭建这个博客的方法
 我这里选择monokai这个<br />
 下载CSS文件加入<code>static/css/</code>文件中<br />
 在模板中的base.html文件<code>&lt;head&gt;</code>标签中加入</p>
-<div class="highlight"><pre><span class="nt">&lt;link</span> <span class="na">href=</span><span class="s">&quot;{{ SITEURL }}/theme/css/monokai.css&quot;</span> <span class="na">media=</span><span class="s">&quot;screen, projection&quot;</span>
+<div class="codehilite"><pre><span class="nt">&lt;link</span> <span class="na">href=</span><span class="s">&quot;{{ SITEURL }}/theme/css/monokai.css&quot;</span> <span class="na">media=</span><span class="s">&quot;screen, projection&quot;</span>
         <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">type=</span><span class="s">&quot;text/css&quot;</span><span class="nt">&gt;</span>
 </pre></div>
 

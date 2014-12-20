@@ -11,7 +11,7 @@ Summary: 修改tracker方便上传百度云
 
 以下是一个批量转换整个目录中所有种子文件tracker的python代码
 留在这里做个备份
-
+ 
 ## 用到的库
 + [bencode](https://pypi.python.org/pypi/bencode/1.0)
 一个种子解析的第三方库(需要`pip install`,你懂得)
