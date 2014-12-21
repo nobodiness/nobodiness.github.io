@@ -71,7 +71,8 @@ Using new() with an algorithm provided by OpenSSL:
 ### 文件操作
 `.`目录下所有的torrent文件
 ```python
-[x for x in os.listdir('.') if os.path.isfile(x) and os.path.splitext(x)[1]=='.torrent']
+[x for x in os.listdir('.') if os.path.isfile(x) \
+and os.path.splitext(x)[1]=='.torrent']
 ```
 一句话体现python的简洁优美
 
@@ -92,7 +93,8 @@ def randmd5():
     rstring = ''.join(random.sample(str(range(1,100)),30))
     return hashlib.new("md5", rstring).hexdigest()
 
-filelist = [x for x in os.listdir('.') if os.path.isfile(x) and os.path.splitext(x)[1]=='.torrent']
+filelist = [x for x in os.listdir('.') if os.path.isfile(x) \
+and os.path.splitext(x)[1]=='.torrent']
 for filename in filelist:
     with open(filename,'r+b') as f:
         decode = bdecode(f.read())

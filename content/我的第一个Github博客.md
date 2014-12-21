@@ -44,7 +44,7 @@ $mkdir /path/to/your/blog
 $cd /path/to/your/blog
 ```
 ## 快捷安装
-```python
+```bash
 $pelican-quickstart
 ```
 
@@ -118,7 +118,8 @@ Disqus的评论怎么也弄不好,真邪门
 在`article.html`中加入以下代码
 ```html
 <!-- 多说评论框 start -->
-<div class="ds-thread" data-thread-key="{{ article.url }}" data-title="{{ article.title }}" data-url="{{ SITEURL }}/{{ article.url }}"></div>
+<div class="ds-thread" data-thread-key="{{ article.url }}" 
+data-title="{{ article.title }}" data-url="{{ SITEURL }}/{{ article.url }}"></div>
 <!-- 多说评论框 end -->
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">
@@ -126,7 +127,8 @@ var duoshuoQuery = {short_name:"nobodiness"};
 (function() {
 var ds = document.createElement('script');
 ds.type = 'text/javascript';ds.async = true;
-ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:')
+ + '//static.duoshuo.com/embed.js';
 ds.charset = 'UTF-8';
 (document.getElementsByTagName('head')[0]
 || document.getElementsByTagName('body')[0]).appendChild(ds);
@@ -157,7 +159,8 @@ MD_EXTENSIONS = ['codehilite(css=highlight)','extra','nl2br']
 下载CSS文件加入`static/css/`文件中
 在模板中的base.html文件`<head>`标签中加入
 ```html
-<link href="{{ SITEURL }}/theme/css/monokai.css" media="screen, projection" rel="stylesheet" type="text/css">
+<link href="{{ SITEURL }}/theme/css/monokai.css" media="screen, projection" 
+rel="stylesheet" type="text/css">
 ```
 
 
