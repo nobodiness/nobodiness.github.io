@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>PlantUML语言--类图</title>
+  <meta name="author" content="阿七">
+
+
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link href="./favicon.png" rel="icon">
+  <link href="./theme/css/main.css" media="screen, projection"
+        rel="stylesheet" type="text/css">
+  <link href="./theme/css/monokai.css" media="screen, projection"
+        rel="stylesheet" type="text/css">
+  <link href="./theme/css/ds.css" media="screen, projection"
+        rel="stylesheet" type="text/css">
+  <script src="./theme/js/modernizr-2.0.js"></script>
+  <script src="./theme/js/ender.js"></script>
+  <script src="./theme/js/octopress.js" type="text/javascript"></script>
+
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic"
+        rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic"
+        rel="stylesheet" type="text/css">
+</head>
+
+<body>
+  <header role="banner"><hgroup>
+  <h1><a href="./">Python大法好</a></h1>
+</hgroup></header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+</ul>
+
+
+
+<ul class="main-navigation">
+    <li >
+    <a href="./category/python.html">Python</a>
+    </li>
+    <li class="active">
+    <a href="./category/uml.html">Uml</a>
+    </li>
+</ul></nav>
+  <div id="main">
+    <div id="content">
+  <div>
+    <article class="hentry" role="article">
+<header>
+      <h1 class="entry-title">PlantUML语言--类图</h1>
+      <p class="meta"><time datetime="2014-12-19T19:17:00+08:00" pubdate>2014 十二月 19 五</time></p>
+</header>
+
+  <div class="entry-content"><p>PlantUML 是纯文本的 UML 绘图工具,可以绘制:时序图、用例图、类图、组件图、活动图</p>
+<p>纯文本的好处是可以用于版本控制,易修改,写的时候也不用考虑排版什么的.跟 Markdown 的哲学是一致的.</p>
+<h2>关系</h2>
+<p>类之间的关系通过下面的符号定义:<br />
+继承 (extension) <code>&lt;|--</code><br />
+合成 (composition) <code>*--</code><br />
+聚合 (aggregation) <code>o--</code><br />
+￼<br />
+使用”..” 来代替”--” 可以得到点线. </p>
+<p><img alt="" src="../images/plantumlyu-yan-lei-tu/relationship.svg" /></p>
+<div class="codehilite"><pre><span class="vi">@startuml</span>
+<span class="no">Class01</span> <span class="o">&lt;|..</span> <span class="ss">Class02</span><span class="p">:</span><span class="err">实现</span><span class="p">(</span><span class="no">Realization</span><span class="p">)</span>
+<span class="no">Class03</span> <span class="o">&lt;|--</span> <span class="ss">Class04</span><span class="p">:</span><span class="err">泛化</span><span class="p">(</span><span class="no">Generalization</span><span class="p">)</span>
+<span class="no">Class05</span> <span class="o">..&gt;</span>  <span class="ss">Class06</span><span class="p">:</span><span class="err">依赖</span><span class="p">(</span><span class="no">Dependency</span><span class="p">)</span>
+<span class="no">Class07</span> <span class="o">--&gt;</span>  <span class="ss">Class08</span><span class="p">:</span><span class="err">关联</span><span class="p">(</span><span class="no">Association</span><span class="p">)</span>
+<span class="no">Class09</span> <span class="n">o</span><span class="o">--&gt;</span> <span class="ss">Class10</span><span class="p">:</span><span class="err">聚合</span><span class="p">(</span><span class="no">Aggregation</span><span class="p">)</span>
+<span class="no">Class11</span> <span class="o">*--&gt;</span> <span class="ss">Class12</span><span class="p">:</span><span class="err">组合</span><span class="p">(</span><span class="no">Composition</span><span class="p">)</span>
+<span class="vi">@enduml</span>
+</pre></div>
+
+
+<p><strong>实现</strong>: 指的是对接口的实现<br />
+<strong>泛化</strong>: 指的是对基类的继承</p>
+<p>依赖 关联 聚合 组合 表达了类之间的相关关系依次增强<br />
+<strong>依赖</strong>: 通常是一个类使用了另一个类,作为:方法的属性 局部变量 调用另一个类的静态方法<br />
+<strong>关联</strong>: 指的是一个类持有另一个类的引用,表示一个类知道另一个类,通常表达一种平级的关系<br />
+<strong>聚合</strong>: 表达了一个类包含另一个类,实现上和关联相同,只是层级不同<br />
+<strong>组合</strong>: 也是一个类包含另一个类,但是是一种强包含,当主体死亡,个体会被析构掉</p>
+<h2>可访问性</h2>
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>可访问性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-</code></td>
+<td>private</td>
+</tr>
+<tr>
+<td><code>#</code></td>
+<td>protected</td>
+</tr>
+<tr>
+<td><code>̃</code></td>
+<td>package private</td>
+</tr>
+<tr>
+<td><code>+</code></td>
+<td>public</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="" src="../images/plantumlyu-yan-lei-tu/class.svg" /></p>
+<div class="codehilite"><pre><span class="vi">@startuml</span>
+<span class="k">class</span> <span class="nc">Dummy</span> <span class="p">{</span> 
+<span class="o">-</span> <span class="n">field1</span> 
+<span class="c1"># field2 </span>
+<span class="o">+</span> <span class="p">{</span><span class="n">static</span><span class="p">}</span> <span class="n">field3</span>
+<span class="o">~</span> <span class="n">method1</span><span class="p">()</span> 
+<span class="o">+</span> <span class="n">method2</span><span class="p">()</span>
+<span class="c1"># {abstract} method2()</span>
+<span class="p">}</span> 
+<span class="vi">@enduml</span>
+</pre></div>
+
+
+<p>可以看到plantuml使用图形替代了<code>+</code>,<code>-</code><br />
+<code>skinparam classAttributeIconSize 0</code>可以停用这种替换</p>
+<p>通过修饰符 <code>{static}</code> 或者 <code>{abstract}</code>,可以定义静态或者抽象的方法或者属性。</p>
+<h2>添加标题</h2>
+<p><img alt="" src="../images/plantumlyu-yan-lei-tu/title.svg" /></p>
+<div class="codehilite"><pre><span class="vi">@startuml</span>
+<span class="k">class</span> <span class="nc">User</span> <span class="p">{</span>
+<span class="o">..</span> <span class="no">Simple</span> <span class="no">Getter</span> <span class="o">..</span> 
+<span class="o">+</span> <span class="n">getName</span><span class="p">()</span>
+<span class="o">+</span> <span class="n">getAddress</span><span class="p">()</span>
+<span class="o">..</span> <span class="no">Some</span> <span class="n">setter</span> <span class="o">..</span>
+<span class="o">+</span> <span class="n">setName</span><span class="p">()</span>
+<span class="n">__</span> <span class="kp">private</span> <span class="n">data</span> <span class="n">__</span> 
+<span class="n">int</span> <span class="n">age</span>
+<span class="o">--</span> <span class="n">encrypted</span> <span class="o">--</span> 
+<span class="nb">String</span> <span class="n">password</span>
+<span class="p">}</span>
+<span class="vi">@enduml</span>
+</pre></div>
+
+
+<h2>抽象类和接口</h2>
+<p>用关键字<code>abstract</code> 或<code>abstract class</code> 来定义抽象类。抽象类用斜体显示。也可以使用 <code>interface</code>, <code>annotation</code> 和 <code>enum</code> 关键字。<br />
+<img alt="" src="../images/plantumlyu-yan-lei-tu/abstractclass.svg" /></p>
+<div class="codehilite"><pre><span class="vi">@startuml</span>
+<span class="n">abstract</span> <span class="k">class</span> <span class="nc">AbstractList</span> 
+<span class="n">abstract</span> <span class="no">AbstractCollection</span> 
+<span class="n">interface</span> <span class="no">List</span>
+<span class="n">interface</span> <span class="no">Collection</span>
+
+<span class="no">List</span> <span class="o">&lt;|--</span> <span class="no">AbstractList</span>
+<span class="no">Collection</span> <span class="o">&lt;|--</span> <span class="no">AbstractCollection</span>
+<span class="no">Collection</span> <span class="o">&lt;|-</span> <span class="no">List</span> 
+<span class="no">AbstractCollection</span> <span class="o">&lt;|-</span> <span class="no">AbstractList</span> 
+<span class="no">AbstractList</span> <span class="o">&lt;|--</span> <span class="no">ArrayList</span>
+
+<span class="k">class</span> <span class="nc">ArrayList</span> <span class="p">{</span> 
+<span class="no">Object</span><span class="o">[]</span> <span class="n">elementData</span> <span class="n">size</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="n">enum</span> <span class="no">TimeUnit</span> <span class="p">{</span> 
+<span class="no">DAYS</span>
+<span class="no">HOURS</span>
+<span class="no">MINUTES</span>
+<span class="p">}</span>
+
+<span class="n">annotation</span> <span class="no">SuppressWarnings</span> 
+
+<span class="vi">@enduml</span>
+</pre></div>
+
+
+<h2>包</h2>
+<p><img alt="" src="../images/plantumlyu-yan-lei-tu/package.svg" /></p>
+<div class="codehilite"><pre><span class="vi">@startuml</span>
+<span class="n">package</span> <span class="s2">&quot;Classic Collections&quot;</span> <span class="c1">#DDDDDD { </span>
+<span class="no">Object</span> <span class="o">&lt;|--</span> <span class="no">ArrayList</span>
+<span class="p">}</span>
+
+<span class="n">package</span> <span class="n">net</span><span class="o">.</span><span class="n">sourceforge</span><span class="o">.</span><span class="n">plantuml</span> <span class="p">{</span> 
+<span class="no">Object</span> <span class="o">&lt;|--</span> <span class="no">Demo1</span>
+<span class="no">Demo1</span> <span class="o">*-</span> <span class="no">Demo2</span>
+<span class="p">}</span>
+<span class="vi">@enduml</span>
+</pre></div>
+
+
+<h4>参考资料</h4>
+<p><a href="http://translate.plantuml.com/zh/PlantUML_Language_Reference_Guide_ZH.pdf">官方中文文档</a><br />
+<a href="http://www.ibm.com/developerworks/cn/opensource/os-cn-ecl-plantuml/">PlantUML —— 应用于 Eclipse 的简单快速的 UML 编辑软件</a><br />
+<a href="https://github.com/mikitex70/plantuml-markdown">PlantUML Extension for Python-Markdown</a></p>
+<h4>在线生成UML图</h4>
+<p><a href="http://www.planttext.com/planttext">http://www.planttext.com/planttext</a></p>
+<h2></h2>
+<p>记一下:</p>
+<div class="codehilite"><pre><span class="kn">import</span> <span class="nn">site</span><span class="p">;</span><span class="k">print</span> <span class="n">site</span><span class="o">.</span><span class="n">getsitepackages</span><span class="p">()</span>
+</pre></div>
+
+
+<p>可以看Python安装的库都装到哪去了<br />
+在我的机器上是</p>
+<div class="codehilite"><pre><span class="p">[</span><span class="s">&#39;/System/Library/Frameworks/Python.framework/Versions/2.7/Extras/lib/python&#39;</span>
+<span class="p">,</span> <span class="s">&#39;/Library/Python/2.7/site-packages&#39;</span><span class="p">]</span>
+</pre></div></div>
+      <footer>
+<p class="meta">
+  <span class="byline author vcard">
+    Posted by <span class="fn">阿七</span>
+  </span>
+<time datetime="2014-12-19T19:17:00+08:00" pubdate>2014 十二月 19 五</time>  <span class="categories">
+    <a class="category" href="./tag/plantuml.html">PlantUML</a>
+  </span>
+</p><div class="sharing">
+</div>      </footer>
+    </article>
+      <!--  -->
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="plantumlyu-yan-lei-tu.html" data-title="PlantUML语言--类图" data-url="./plantumlyu-yan-lei-tu.html" style=" margin-left: 30px; margin-right: 30px; "></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:"nobodiness"};
+    (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script> 
+    <!-- 多说公共JS代码 end --> 
+  </div>
+<aside class="sidebar">
+  <section>
+    <h1>Recent Posts</h1>
+    <ul id="recent_posts">
+      <li class="post">
+          <a href="./pi-liang-xiu-gai-trackerhao.html">批量修改tracker号</a>
+      </li>
+      <li class="post">
+          <a href="./plantumlyu-yan-lei-tu.html">PlantUML语言--类图</a>
+      </li>
+      <li class="post">
+          <a href="./wo-de-di-yi-ge-githubbo-ke.html">我的第一个Github博客</a>
+      </li>
+    </ul>
+  </section>
+  <section>
+      
+    <h1>Categories</h1>
+    <ul id="recent_posts">
+        <li><a href="./category/python.html">Python</a></li>
+        <li><a href="./category/uml.html">UML</a></li>
+    </ul>
+  </section>
+ 
+
+  <section>
+  <h1>Tags</h1>
+    <a href="./tag/pelican.html">Pelican</a>,    <a href="./tag/plantuml.html">PlantUML</a>,    <a href="./tag/bencode.html">bencode</a>,    <a href="./tag/xiao-cheng-xu.html">小程序</a>,    <a href="./tag/bt.html">bt</a>,    <a href="./tag/jing-tai-bo-ke.html">静态博客</a>,    <a href="./tag/md5.html">md5</a>  </section>
+
+
+
+  <section>
+    <h1>GitHub Repos</h1>
+    <ul id="gh_repos">
+      <li class="loading">Status updating...</li>
+    </ul>
+      <a href="https://github.com/nobodiness">@nobodiness</a> on GitHub
+    <script type="text/javascript">
+      $.domReady(function(){
+          if (!window.jXHR){
+              var jxhr = document.createElement('script');
+              jxhr.type = 'text/javascript';
+              jxhr.src = './theme/js/jXHR.js';
+              var s = document.getElementsByTagName('script')[0];
+              s.parentNode.insertBefore(jxhr, s);
+          }
+
+          github.showRepos({
+              user: 'nobodiness',
+              count: 5,
+              skip_forks: false,
+              target: '#gh_repos'
+          });
+      });
+    </script>
+    <script src="./theme/js/github.js" type="text/javascript"> </script>
+  </section>
+
+
+
+  <section>
+  <h1>Recommended</h1>
+  <br/>
+  <div><script type="text/javascript" src="http://www.douban.com/service/badge/53955651/?selection=random&amp;picsize=medium&amp;show=dolist&amp;n=2&amp;hidelogo=on&amp;cat=book&amp;columns=2"></script></div>
+  </section>
+
+  <!-- <section>
+  <h1>Favorite</h1>
+  <br/>
+  <div><script type="text/javascript" src="http://www.douban.com/service/badge/53955651/?selection=favorite&amp;picsize=small&amp;hideself=on&amp;show=collection&amp;n=3&amp;hidelogo=on&amp;cat=movie%7Cbook&amp;columns=3"></script></div>
+  </section> -->
+</aside>    </div>
+  </div>
+  <footer role="contentinfo"><p>
+    Copyright &copy;  2014  - 阿七 -
+  <span class="credit">Powered by <a href="http://getpelican.com">Pelican</a></span>
+</p></footer>
+</body>
+</html>
