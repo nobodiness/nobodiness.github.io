@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Python中的面向对象</title>
+  <meta name="author" content="阿七">
+
+
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link href="./favicon.png" rel="icon">
+  <link href="./theme/css/main.css" media="screen, projection"
+        rel="stylesheet" type="text/css">
+  <link href="./theme/css/monokai.css" media="screen, projection"
+        rel="stylesheet" type="text/css">
+  <link href="./theme/css/ds.css" media="screen, projection"
+        rel="stylesheet" type="text/css">
+  <script src="./theme/js/modernizr-2.0.js"></script>
+  <script src="./theme/js/ender.js"></script>
+  <script src="./theme/js/octopress.js" type="text/javascript"></script>
+
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic"
+        rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic"
+        rel="stylesheet" type="text/css">
+</head>
+
+<body>
+  <header role="banner"><hgroup>
+  <h1><a href="./">Python大法好</a></h1>
+</hgroup></header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+</ul>
+
+
+
+<ul class="main-navigation">
+    <li class="active">
+    <a href="./category/python.html">Python</a>
+    </li>
+    <li >
+    <a href="./category/uml.html">Uml</a>
+    </li>
+</ul></nav>
+  <div id="main">
+    <div id="content">
+  <div>
+    <article class="hentry" role="article">
+<header>
+      <h1 class="entry-title">Python中的面向对象</h1>
+      <p class="meta"><time datetime="2014-12-23T20:03:00+08:00" pubdate>2014 十二月 23 二</time></p>
+</header>
+
+  <div class="entry-content"><p>在开始设计模式的学习之前,我感到有必要先复习一下Python中的函数式编程和面向对象.</p>
+<h2>动态绑定</h2>
+<div class="codehilite"><pre><span class="k">class</span> <span class="nc">Student</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">score</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">score</span> <span class="o">=</span> <span class="n">score</span>
+</pre></div>
+
+
+<p>和静态语言不同，Python允许对实例变量绑定任何数据：</p>
+<div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">bart</span> <span class="o">=</span> <span class="n">Student</span><span class="p">(</span><span class="s">&#39;Bart Simpson&#39;</span><span class="p">,</span> <span class="mi">59</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">bart</span><span class="o">.</span><span class="n">age</span> <span class="o">=</span> <span class="mi">8</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">bart</span><span class="o">.</span><span class="n">age</span>
+<span class="mi">8</span>
+</pre></div>
+
+
+<h2>访问限制</h2>
+<p>如果要让内部属性不被外部访问，可以把属性的名称前加上两个下划线<code>__</code>，在Python中，实例的<strong>变量名如果以<code>__</code>开头</strong>，就变成了一个私有变量（private），只有内部可以访问，外部不能访问.</p>
+<p>在Python中，变量名类似<strong>xxx</strong>的，也就是 <strong>以双下划线开头</strong> ，并且以双下划线结尾的，是特殊变量，特殊变量是可以直接访问的，不是private变量，所以，不能用<code>__name__</code>、<code>__score__</code>这样的变量名。</p>
+<p>有些时候，你会看到 <strong>以一个下划线开头的实例变量名</strong> ，比如_name，这样的实例变量外部是可以访问的，但是，按照约定俗成的规定，当你看到这样的变量时，意思就是，“虽然我可以被访问，但是，请把我视为私有变量，不要随意访问”。</p>
+<p>双下划线开头的实例变量是不是一定不能从外部访问呢？其实也不是。不能直接访问<code>__name</code>是因为Python解释器对外把<code>__name</code>变量改成了<code>_Student__name</code>，所以，仍然可以通过<code>_Student__name</code>来访问<code>__name</code>变量</p>
+<h2>继承和多态</h2>
+<p>比如，我们已经编写了一个名为Animal的class，有一个run()方法可以直接打印：</p>
+<div class="codehilite"><pre><span class="k">class</span> <span class="nc">Animal</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span> <span class="s">&#39;Animal is running...&#39;</span>
+</pre></div>
+
+
+<h3>覆盖方法</h3>
+<div class="codehilite"><pre><span class="k">class</span> <span class="nc">Dog</span><span class="p">(</span><span class="n">Animal</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span> <span class="s">&#39;Dog is running...&#39;</span>
+
+<span class="k">class</span> <span class="nc">Cat</span><span class="p">(</span><span class="n">Animal</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span> <span class="s">&#39;Cat is running...&#39;</span>
+</pre></div>
+
+
+<h3>多态</h3>
+<div class="codehilite"><pre><span class="k">def</span> <span class="nf">run_twice</span><span class="p">(</span><span class="n">animal</span><span class="p">):</span>
+    <span class="n">animal</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+    <span class="n">animal</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">run_twice</span><span class="p">(</span><span class="n">Animal</span><span class="p">())</span>
+<span class="n">Animal</span> <span class="ow">is</span> <span class="n">running</span><span class="o">...</span>
+<span class="n">Animal</span> <span class="ow">is</span> <span class="n">running</span><span class="o">...</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">run_twice</span><span class="p">(</span><span class="n">Dog</span><span class="p">())</span>
+<span class="n">Dog</span> <span class="ow">is</span> <span class="n">running</span><span class="o">...</span>
+<span class="n">Dog</span> <span class="ow">is</span> <span class="n">running</span><span class="o">...</span>
+</pre></div>
+
+
+<h3>多态的好处</h3>
+<p>多态的好处就是，当我们需要传入Dog、Cat、Tortoise……时，我们只需要接收Animal类型就可以了，因为Dog、Cat、Tortoise……都是Animal类型，然后，按照Animal类型进行操作即可。由于Animal类型有run()方法，因此，传入的任意类型，只要是Animal类或者子类，就会自动调用实际类型的run()方法，这就是多态的意思：</p>
+<p>对于一个变量，我们只需要知道它是Animal类型，无需确切地知道它的子类型，就可以放心地调用run()方法，而具体调用的run()方法是作用在Animal、Dog、Cat还是Tortoise对象上，由运行时该对象的确切类型决定，这就是多态真正的威力：调用方只管调用，不管细节，而当我们新增一种Animal的子类时，只要确保run()方法编写正确，不用管原来的代码是如何调用的。这就是著名的<strong>“开闭”</strong>原则：</p>
+<p><strong>对扩展开放</strong>：允许新增Animal子类；</p>
+<p><strong>对修改封闭</strong>：不需要修改依赖Animal类型的run_twice()等函数。</p>
+<p>旧的方式定义Python类允许不从object类继承，但这种编程方式已经严重不推荐使用。任何时候，如果没有合适的类可以继承，就继承自object类。</p>
+<h2>获取对象信息</h2>
+<h3>使用type()</h3>
+<p>基本类型都可以用type()判断：</p>
+<div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="nb">type</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
+<span class="o">&lt;</span><span class="nb">type</span> <span class="s">&#39;int&#39;</span><span class="o">&gt;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">type</span><span class="p">(</span><span class="s">&#39;str&#39;</span><span class="p">)</span>
+<span class="o">&lt;</span><span class="nb">type</span> <span class="s">&#39;str&#39;</span><span class="o">&gt;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">type</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span>
+<span class="o">&lt;</span><span class="nb">type</span> <span class="s">&#39;NoneType&#39;</span><span class="o">&gt;</span>
+<span class="n">Try</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">type</span><span class="p">(</span><span class="nb">abs</span><span class="p">)</span>
+<span class="o">&lt;</span><span class="nb">type</span> <span class="s">&#39;builtin_function_or_method&#39;</span><span class="o">&gt;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">type</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="o">&lt;</span><span class="k">class</span> <span class="err">&#39;</span><span class="nc">__main__</span><span class="o">.</span><span class="n">Animal</span><span class="s">&#39;&gt;</span>
+</pre></div>
+
+
+<p>Python把每种type类型都定义好了常量，放在types模块里，使用之前，需要先导入：</p>
+<div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">types</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">type</span><span class="p">(</span><span class="s">&#39;abc&#39;</span><span class="p">)</span><span class="o">==</span><span class="n">types</span><span class="o">.</span><span class="n">StringType</span>
+<span class="bp">True</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">type</span><span class="p">(</span><span class="s">u&#39;abc&#39;</span><span class="p">)</span><span class="o">==</span><span class="n">types</span><span class="o">.</span><span class="n">UnicodeType</span>
+<span class="bp">True</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">type</span><span class="p">([])</span><span class="o">==</span><span class="n">types</span><span class="o">.</span><span class="n">ListType</span>
+<span class="bp">True</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">type</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">==</span><span class="n">types</span><span class="o">.</span><span class="n">TypeType</span>
+<span class="bp">True</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">type</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span><span class="o">==</span><span class="nb">type</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">==</span><span class="n">types</span><span class="o">.</span><span class="n">TypeType</span>
+<span class="bp">True</span>
+</pre></div>
+
+
+<h3>使用isinstance()</h3>
+<p>对于class的继承关系来说，使用type()就很不方便。我们要判断class的类型，可以使用isinstance()函数。</p>
+<div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">Dog</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">Animal</span><span class="p">)</span>
+<span class="bp">True</span>
+</pre></div>
+
+
+<p>能用type()判断的基本类型也可以用isinstance()判断：</p>
+<div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="nb">isinstance</span><span class="p">(</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
+<span class="bp">True</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">isinstance</span><span class="p">(</span><span class="s">u&#39;a&#39;</span><span class="p">,</span> <span class="nb">unicode</span><span class="p">)</span>
+<span class="bp">True</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">isinstance</span><span class="p">(</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="nb">unicode</span><span class="p">)</span>
+<span class="bp">False</span>
+</pre></div>
+
+
+<p>并且还可以判断一个变量是否是某些类型中的一种，比如下面的代码就可以判断是否是str或者unicode：</p>
+<div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="nb">isinstance</span><span class="p">(</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="nb">unicode</span><span class="p">))</span>
+<span class="bp">True</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">isinstance</span><span class="p">(</span><span class="s">u&#39;a&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="nb">unicode</span><span class="p">))</span>
+<span class="bp">True</span>
+</pre></div>
+
+
+<h3>使用dir()</h3>
+<p>如果要获得一个对象的所有属性和方法，可以使用dir()函数，它返回一个包含字符串的list，比如，获得一个str对象的所有属性和方法：</p>
+<div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="nb">dir</span><span class="p">(</span><span class="s">&#39;ABC&#39;</span><span class="p">)</span>
+<span class="p">[</span><span class="s">&#39;__add__&#39;</span><span class="p">,</span> <span class="s">&#39;__class__&#39;</span><span class="p">,</span> <span class="s">&#39;__contains__&#39;</span><span class="p">,</span> <span class="s">&#39;__delattr__&#39;</span><span class="p">,</span> <span class="s">&#39;__doc__&#39;</span><span class="p">,</span> <span class="s">&#39;__eq__&#39;</span><span class="p">,</span> <span class="s">&#39;__format__&#39;</span><span class="p">,</span> <span class="s">&#39;__ge__&#39;</span><span class="p">,</span>
+<span class="s">&#39;__getattribute__&#39;</span><span class="p">,</span> <span class="s">&#39;__getitem__&#39;</span><span class="p">,</span> <span class="s">&#39;__getnewargs__&#39;</span><span class="p">,</span> <span class="s">&#39;__getslice__&#39;</span><span class="p">,</span> <span class="s">&#39;__gt__&#39;</span><span class="p">,</span> <span class="s">&#39;__hash__&#39;</span><span class="p">,</span> <span class="s">&#39;__init__&#39;</span><span class="p">,</span>
+<span class="s">&#39;__le__&#39;</span><span class="p">,</span> <span class="s">&#39;__len__&#39;</span><span class="p">,</span> <span class="s">&#39;__lt__&#39;</span><span class="p">,</span> <span class="s">&#39;__mod__&#39;</span><span class="p">,</span> <span class="s">&#39;__mul__&#39;</span><span class="p">,</span> <span class="s">&#39;__ne__&#39;</span><span class="p">,</span> <span class="s">&#39;__new__&#39;</span><span class="p">,</span> <span class="s">&#39;__reduce__&#39;</span><span class="p">,</span> <span class="s">&#39;__reduce_ex__&#39;</span><span class="p">,</span>
+<span class="s">&#39;__repr__&#39;</span><span class="p">,</span> <span class="s">&#39;__rmod__&#39;</span><span class="p">,</span> <span class="s">&#39;__rmul__&#39;</span><span class="p">,</span> <span class="s">&#39;__setattr__&#39;</span><span class="p">,</span> <span class="s">&#39;__sizeof__&#39;</span><span class="p">,</span> <span class="s">&#39;__str__&#39;</span><span class="p">,</span> <span class="s">&#39;__subclasshook__&#39;</span><span class="p">,</span> <span class="s">&#39;_formatter_field_name_split&#39;</span><span class="p">,</span> <span class="s">&#39;_formatter_parser&#39;</span><span class="p">,</span> <span class="s">&#39;capitalize&#39;</span><span class="p">,</span> <span class="s">&#39;center&#39;</span><span class="p">,</span> <span class="s">&#39;count&#39;</span><span class="p">,</span> <span class="s">&#39;decode&#39;</span><span class="p">,</span>
+<span class="s">&#39;encode&#39;</span><span class="p">,</span> <span class="s">&#39;endswith&#39;</span><span class="p">,</span> <span class="s">&#39;expandtabs&#39;</span><span class="p">,</span> <span class="s">&#39;find&#39;</span><span class="p">,</span> <span class="s">&#39;format&#39;</span><span class="p">,</span> <span class="s">&#39;index&#39;</span><span class="p">,</span> <span class="s">&#39;isalnum&#39;</span><span class="p">,</span> <span class="s">&#39;isalpha&#39;</span><span class="p">,</span> <span class="s">&#39;isdigit&#39;</span><span class="p">,</span>
+<span class="s">&#39;islower&#39;</span><span class="p">,</span> <span class="s">&#39;isspace&#39;</span><span class="p">,</span> <span class="s">&#39;istitle&#39;</span><span class="p">,</span> <span class="s">&#39;isupper&#39;</span><span class="p">,</span> <span class="s">&#39;join&#39;</span><span class="p">,</span> <span class="s">&#39;ljust&#39;</span><span class="p">,</span> <span class="s">&#39;lower&#39;</span><span class="p">,</span> <span class="s">&#39;lstrip&#39;</span><span class="p">,</span> <span class="s">&#39;partition&#39;</span><span class="p">,</span>
+<span class="s">&#39;replace&#39;</span><span class="p">,</span> <span class="s">&#39;rfind&#39;</span><span class="p">,</span> <span class="s">&#39;rindex&#39;</span><span class="p">,</span> <span class="s">&#39;rjust&#39;</span><span class="p">,</span> <span class="s">&#39;rpartition&#39;</span><span class="p">,</span> <span class="s">&#39;rsplit&#39;</span><span class="p">,</span> <span class="s">&#39;rstrip&#39;</span><span class="p">,</span> <span class="s">&#39;split&#39;</span><span class="p">,</span> <span class="s">&#39;splitlines&#39;</span><span class="p">,</span>
+<span class="s">&#39;startswith&#39;</span><span class="p">,</span> <span class="s">&#39;strip&#39;</span><span class="p">,</span> <span class="s">&#39;swapcase&#39;</span><span class="p">,</span> <span class="s">&#39;title&#39;</span><span class="p">,</span> <span class="s">&#39;translate&#39;</span><span class="p">,</span> <span class="s">&#39;upper&#39;</span><span class="p">,</span> <span class="s">&#39;zfill&#39;</span><span class="p">]</span>
+</pre></div>
+
+
+<p>类似<strong>xxx</strong>的属性和方法在Python中都是有特殊用途的，比如<strong>len</strong>方法返回长度。在Python中，如果你调用len()函数试图获取一个对象的长度，实际上，在len()函数内部，它自动去调用该对象的<strong>len</strong>()方法:</p>
+<p><code>len('ABC')</code> &lt;=&gt; <code>'ABC'.__len__()</code> 仅仅把属性和方法列出来是不够的，配合<code>getattr()</code>、<code>setattr()</code>以及<code>hasattr()</code>，我们可以直接操作一个对象的状态：</p>
+<div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s">&#39;x&#39;</span><span class="p">)</span> <span class="c"># 有属性&#39;x&#39;吗？</span>
+<span class="bp">True</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">obj</span><span class="o">.</span><span class="n">x</span>
+<span class="mi">9</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s">&#39;y&#39;</span><span class="p">)</span> <span class="c"># 有属性&#39;y&#39;吗？</span>
+<span class="bp">False</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">setattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s">&#39;y&#39;</span><span class="p">,</span> <span class="mi">19</span><span class="p">)</span> <span class="c"># 设置一个属性&#39;y&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s">&#39;y&#39;</span><span class="p">)</span> <span class="c"># 有属性&#39;y&#39;吗？</span>
+<span class="bp">True</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s">&#39;y&#39;</span><span class="p">)</span> <span class="c"># 获取属性&#39;y&#39;</span>
+<span class="mi">19</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">obj</span><span class="o">.</span><span class="n">y</span> <span class="c"># 获取属性&#39;y&#39;</span>
+<span class="mi">19</span>
+</pre></div>
+
+
+<p>可以传入一个default参数，如果属性不存在，就返回默认值：</p>
+<div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s">&#39;z&#39;</span><span class="p">,</span> <span class="mi">404</span><span class="p">)</span> <span class="c"># 获取属性&#39;z&#39;，如果不存在，返回默认值404</span>
+<span class="mi">404</span>
+</pre></div>
+
+
+<p>也可以获得对象的方法：</p>
+<div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s">&#39;power&#39;</span><span class="p">)</span> <span class="c"># 有属性&#39;power&#39;吗？</span>
+<span class="bp">True</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s">&#39;power&#39;</span><span class="p">)</span> <span class="c"># 获取属性&#39;power&#39;</span>
+<span class="o">&lt;</span><span class="n">bound</span> <span class="n">method</span> <span class="n">MyObject</span><span class="o">.</span><span class="n">power</span> <span class="n">of</span> <span class="o">&lt;</span><span class="n">__main__</span><span class="o">.</span><span class="n">MyObject</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x108ca35d0</span><span class="o">&gt;&gt;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">fn</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s">&#39;power&#39;</span><span class="p">)</span> <span class="c"># 获取属性&#39;power&#39;并赋值到变量fn</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">fn</span> <span class="c"># fn指向obj.power</span>
+<span class="o">&lt;</span><span class="n">bound</span> <span class="n">method</span> <span class="n">MyObject</span><span class="o">.</span><span class="n">power</span> <span class="n">of</span> <span class="o">&lt;</span><span class="n">__main__</span><span class="o">.</span><span class="n">MyObject</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x108ca35d0</span><span class="o">&gt;&gt;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">fn</span><span class="p">()</span> <span class="c"># 调用fn()与调用obj.power()是一样的</span>
+<span class="mi">81</span>
+</pre></div>
+
+
+<h2>使用<code>__slots__</code></h2>
+<p>可以尝试给实例绑定一个方法：</p>
+<div class="codehilite"><pre><span class="kn">from</span> <span class="nn">types</span> <span class="kn">import</span> <span class="n">MethodType</span>
+<span class="n">s</span><span class="o">.</span><span class="n">set_age</span> <span class="o">=</span> <span class="n">MethodType</span><span class="p">(</span><span class="n">set_age</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">Student</span><span class="p">)</span> <span class="c"># 给实例绑定一个方法</span>
+</pre></div>
+
+
+<p>为了给所有实例都绑定方法，可以给class绑定方法：</p>
+<div class="codehilite"><pre><span class="n">Student</span><span class="o">.</span><span class="n">set_score</span> <span class="o">=</span> <span class="n">MethodType</span><span class="p">(</span><span class="n">set_score</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="n">Student</span><span class="p">)</span>
+</pre></div>
+
+
+<h3>使用<strong>slots</strong></h3>
+<p>但是，如果我们想要限制class的属性怎么办？比如，只允许对Student实例添加name和age属性。 为了达到限制的目的，Python允许在定义class的时候，定义一个特殊的<strong>slots</strong>变量，来限制该class能添加的属性：</p>
+<div class="codehilite"><pre><span class="k">class</span> <span class="nc">Student</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">__slots__</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;name&#39;</span><span class="p">,</span> <span class="s">&#39;age&#39;</span><span class="p">)</span> <span class="c"># 用tuple定义允许绑定的属性名称</span>
+</pre></div>
+
+
+<p>使用<strong>slots</strong>要注意，<strong>slots</strong>定义的属性仅对当前类起作用，对继承的子类是不起作用的： 除非在子类中也定义<strong>slots</strong>，这样，子类允许定义的属性就是自身的<strong>slots</strong>加上父类的<strong>slots</strong>。</p>
+<h3>使用@property</h3>
+<p>Python内置的@property装饰器就是负责把一个方法变成属性调用的：</p>
+<div class="codehilite"><pre><span class="k">class</span> <span class="nc">Student</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">score</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_score</span>
+
+    <span class="nd">@score.setter</span>
+    <span class="k">def</span> <span class="nf">score</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;score must be an integer!&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">value</span> <span class="o">&gt;</span> <span class="mi">100</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;score must between 0 ~ 100!&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_score</span> <span class="o">=</span> <span class="n">value</span>
+</pre></div>
+
+
+<p><code>@property</code>本身创建了另一个装饰器<code>@score.setter</code>，负责把一个setter方法变成属性赋值.</p>
+<div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">s</span> <span class="o">=</span> <span class="n">Student</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span><span class="o">.</span><span class="n">score</span> <span class="o">=</span> <span class="mi">60</span> <span class="c"># OK，实际转化为s.set_score(60)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span><span class="o">.</span><span class="n">score</span> <span class="c"># OK，实际转化为s.get_score()</span>
+<span class="mi">60</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span><span class="o">.</span><span class="n">score</span> <span class="o">=</span> <span class="mi">9999</span>
+<span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+  <span class="o">...</span>
+<span class="ne">ValueError</span><span class="p">:</span> <span class="n">score</span> <span class="n">must</span> <span class="n">between</span> <span class="mi">0</span> <span class="o">~</span> <span class="mi">100</span><span class="err">!</span>
+</pre></div>
+
+
+<p>还可以定义只读属性，只定义getter方法，不定义setter方法就是一个只读属性： birth是可读写属性，而age就是一个只读属性，因为age可以根据birth和当前时间计算出来。 ###多重继承(Mixin) 在设计类的继承关系时，通常，主线都是单一继承下来的，例如，Ostrich继承自Bird。但是，如果需要“混入”额外的功能，通过多重继承就可以实现，比如，让Ostrich除了继承自Bird外，再同时继承Runnable。这种设计通常称之为Mixin。</p>
+<p>为了更好地看出继承关系，我们把Runnable和Flyable改为RunnableMixin和FlyableMixin。类似的，你还可以定义出肉食动物CarnivorousMixin和植食动物HerbivoresMixin，让某个动物同时拥有好几个Mixin：</p>
+<div class="codehilite"><pre><span class="k">class</span> <span class="nc">Dog</span><span class="p">(</span><span class="n">Mammal</span><span class="p">,</span> <span class="n">RunnableMixin</span><span class="p">,</span> <span class="n">CarnivorousMixin</span><span class="p">):</span>
+</pre></div>
+
+
+<p>Mixin的目的就是给一个类增加多个功能，这样，在设计类的时候，我们优先考虑通过多重继承来组合多个Mixin的功能，而不是设计多层次的复杂的继承关系。</p>
+<p>Python自带的很多库也使用了Mixin。举个例子，Python自带了TCPServer和UDPServer这两类网络服务，而要同时服务多个用户就必须使用多进程或多线程模型，这两种模型由ForkingMixin和ThreadingMixin提供。通过组合，我们就可以创造出合适的服务来。</p>
+<p>比如，编写一个多进程模式的TCP服务，定义如下：</p>
+<div class="codehilite"><pre><span class="k">class</span> <span class="nc">MyTCPServer</span><span class="p">(</span><span class="n">TCPServer</span><span class="p">,</span> <span class="n">ForkingMixin</span><span class="p">):</span>
+</pre></div>
+
+
+<p>编写一个多线程模式的UDP服务，定义如下：</p>
+<div class="codehilite"><pre><span class="k">class</span> <span class="nc">MyUDPServer</span><span class="p">(</span><span class="n">UDPServer</span><span class="p">,</span> <span class="n">ThreadingMixin</span><span class="p">):</span>
+</pre></div>
+
+
+<p>如果你打算搞一个更先进的协程模型，可以编写一个CoroutineMixin：</p>
+<div class="codehilite"><pre><span class="k">class</span> <span class="nc">MyTCPServer</span><span class="p">(</span><span class="n">TCPServer</span><span class="p">,</span> <span class="n">CoroutineMixin</span><span class="p">):</span>
+</pre></div>
+
+
+<p>这样一来，我们不需要复杂而庞大的继承链，只要选择组合不同的类的功能，就可以快速构造出所需的子类。</p>
+<h2>定制类</h2>
+<h3><strong>str</strong></h3>
+<p>直接显示变量调用的不是<code>__str__()</code>，而是<code>__repr__()</code>，两者的区别是<code>__str__()</code>返回用户看到的字符串，而<code>__repr__()</code>返回程序开发者看到的字符串，也就是说，<code>__repr__()</code>是为调试服务的。<code>__repr__ = __str__</code></p>
+<h3><strong>iter</strong></h3>
+<p>如果一个类想被用于for ... in循环，类似list或tuple那样，就必须实现一个<code>__iter__()</code>方法，该方法返回一个迭代对象，然后，Python的for循环就会不断调用该迭代对象的<code>next()</code>方法拿到循环的下一个值，直到遇到<code>StopIteration</code>错误时退出循环。</p>
+<p>我们以斐波那契数列为例，写一个Fib类，可以作用于for循环：</p>
+<div class="codehilite"><pre><span class="k">class</span> <span class="nc">Fib</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span> <span class="c"># 初始化两个计数器a，b</span>
+
+    <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span> <span class="c"># 实例本身就是迭代对象，故返回自己</span>
+
+    <span class="k">def</span> <span class="nf">next</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="c"># 计算下一个值</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">&gt;</span> <span class="mi">100000</span><span class="p">:</span> <span class="c"># 退出循环的条件</span>
+            <span class="k">raise</span> <span class="ne">StopIteration</span><span class="p">();</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="c"># 返回下一个值</span>
+
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">Fib</span><span class="p">():</span>
+    <span class="k">print</span> <span class="n">n</span>
+</pre></div>
+
+
+<h3><strong>getitem</strong></h3>
+<p>Fib实例虽然能作用于for循环，看起来和list有点像，但是，把它当成list来使用还是不行</p>
+<div class="codehilite"><pre><span class="k">class</span> <span class="nc">Fib</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+        <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span>
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+            <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">b</span><span class="p">,</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+        <span class="k">return</span> <span class="n">a</span>
+</pre></div>
+
+
+<p>现在，就可以按下标访问数列的任意一项了：</p>
+<div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">f</span> <span class="o">=</span> <span class="n">Fib</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">f</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="mi">1</span>
+</pre></div>
+
+
+<hr />
+<p>但是list有个神奇的<strong>切片方法</strong>： 对于Fib却报错。原因是<code>__getitem__()</code>传入的参数可能是一个int，也可能是一个切片对象slice，所以要做判断： 现在，就可以按下标访问数列的任意一项了：</p>
+<div class="codehilite"><pre><span class="k">class</span> <span class="nc">Fib</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+            <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span>
+            <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+                <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">b</span><span class="p">,</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+            <span class="k">return</span> <span class="n">a</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="nb">slice</span><span class="p">):</span>
+            <span class="n">start</span> <span class="o">=</span> <span class="n">n</span><span class="o">.</span><span class="n">start</span>
+            <span class="n">stop</span> <span class="o">=</span> <span class="n">n</span><span class="o">.</span><span class="n">stop</span>
+            <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span>
+            <span class="n">L</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">stop</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="n">start</span><span class="p">:</span>
+                    <span class="n">L</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+                <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">b</span><span class="p">,</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+            <span class="k">return</span> <span class="n">L</span>
+</pre></div>
+
+
+<p>现在试试Fib的切片： 现在，就可以按下标访问数列的任意一项了：</p>
+<div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">f</span> <span class="o">=</span> <span class="n">Fib</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">f</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+</pre></div>
+
+
+<h3><strong>getattr</strong></h3>
+<p>写一个<code>__getattr__()</code>方法，动态返回一个属性。修改如下：</p>
+<div class="codehilite"><pre><span class="k">class</span> <span class="nc">Student</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s">&#39;Michael&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">attr</span><span class="o">==</span><span class="s">&#39;score&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">99</span>
+</pre></div>
+
+
+<p>当调用不存在的属性时，比如score，Python解释器会试图调用<code>__getattr__(self, 'score')</code>来尝试获得属性，这样，我们就有机会返回score的值：</p>
+<div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">s</span><span class="o">.</span><span class="n">score</span>
+<span class="mi">99</span>
+</pre></div>
+
+
+<p>返回函数也是完全可以的：</p>
+<div class="codehilite"><pre><span class="k">class</span> <span class="nc">Student</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">attr</span><span class="o">==</span><span class="s">&#39;age&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="k">lambda</span><span class="p">:</span> <span class="mi">25</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">s</span><span class="o">.</span><span class="n">age</span><span class="p">()</span>
+<span class="mi">25</span>
+</pre></div>
+
+
+<p>此外，注意到任意调用如s.abc都会返回None，这是因为我们定义的<strong>getattr</strong>默认返回就是None。要让class只响应特定的几个属性，我们就要按照约定，抛出AttributeError的错误：</p>
+<div class="codehilite"><pre><span class="k">class</span> <span class="nc">Student</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">attr</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">attr</span><span class="o">==</span><span class="s">&#39;age&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="k">lambda</span><span class="p">:</span> <span class="mi">25</span>
+        <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\&#39;</span><span class="s">Student</span><span class="se">\&#39;</span><span class="s"> object has no attribute </span><span class="se">\&#39;</span><span class="si">%s</span><span class="se">\&#39;</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">attr</span><span class="p">)</span>
+</pre></div>
+
+
+<p>这实际上可以把一个类的所有属性和方法调用全部动态化处理了，不需要任何特殊手段。</p>
+<p>这种完全动态调用的特性有什么实际作用呢？作用就是，可以针对完全动态的情况作调用。 举个例子： 现在很多网站都搞REST API，比如新浪微博、豆瓣啥的，调用API的URL类似：</p>
+<div class="codehilite"><pre>http://api.server/user/friends
+http://api.server/user/timeline/list
+</pre></div>
+
+
+<p>如果要写SDK，给每个URL对应的API都写一个方法，那得累死，而且，API一旦改动，SDK也要改。</p>
+<p>利用完全动态的<strong>getattr</strong>，我们可以写出一个链式调用：</p>
+<div class="codehilite"><pre><span class="k">class</span> <span class="nc">Chain</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_path</span> <span class="o">=</span> <span class="n">path</span>
+
+    <span class="k">def</span> <span class="nf">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">Chain</span><span class="p">(</span><span class="s">&#39;</span><span class="si">%s</span><span class="s">/</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_path</span><span class="p">,</span> <span class="n">path</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_path</span>
+</pre></div>
+
+
+<p>试试：</p>
+<div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">Chain</span><span class="p">()</span><span class="o">.</span><span class="n">status</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">timeline</span><span class="o">.</span><span class="n">list</span>
+<span class="s">&#39;/status/user/timeline/list&#39;</span>
+</pre></div>
+
+
+<p>这样，无论API怎么变，SDK都可以根据URL实现完全动态的调用，而且，不随API的增加而改变！</p>
+<p>还有些REST API会把参数放到URL中，比如GitHub的API：</p>
+<div class="codehilite"><pre><span class="err">GET /users/:user/repos</span>
+</pre></div>
+
+
+<p>调用时，需要把:user替换为实际用户名。如果我们能写出这样的链式调用：</p>
+<div class="codehilite"><pre><span class="n">Chain</span><span class="p">()</span><span class="o">.</span><span class="n">users</span><span class="p">(</span><span class="s">&#39;michael&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">repos</span>
+</pre></div>
+
+
+<p>就可以非常方便地调用API了。有兴趣的童鞋可以试试写出来。</p>
+<h3><strong>call</strong></h3>
+<p>一个对象实例可以有自己的属性和方法，当我们调用实例方法时，我们用<code>instance.method()</code>来调用。能不能直接在实例本身上调用呢？类似<code>instance()</code>？在Python中，答案是肯定的。</p>
+<p>任何类，只需要定义一个<code>__call__()</code>方法，就可以直接对实例进行调用。请看示例：</p>
+<div class="codehilite"><pre><span class="k">class</span> <span class="nc">Student</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+
+    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&#39;My name is </span><span class="si">%s</span><span class="s">.&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+</pre></div>
+
+
+<p>调用方式如下：</p>
+<div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">s</span> <span class="o">=</span> <span class="n">Student</span><span class="p">(</span><span class="s">&#39;Michael&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span><span class="p">()</span>
+<span class="n">My</span> <span class="n">name</span> <span class="ow">is</span> <span class="n">Michael</span><span class="o">.</span>
+</pre></div>
+
+
+<p><code>__call__()</code>还可以定义参数。对实例进行直接调用就好比对一个函数进行调用一样，所以你完全可以把对象看成函数，把函数看成对象，因为这两者之间本来就没啥根本的区别。</p>
+<p>如果你把对象看成函数，那么函数本身其实也可以在运行期动态创建出来，因为类的实例都是运行期创建出来的，这么一来，我们就模糊了对象和函数的界限。</p>
+<p>那么，怎么判断一个变量是对象还是函数呢？其实，更多的时候，我们需要判断一个对象是否能被调用，能被调用的对象就是一个<code>Callable</code>对象，比如函数和我们上面定义的带有<code>__call()__</code>的类实例：</p>
+<div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="nb">callable</span><span class="p">(</span><span class="n">Student</span><span class="p">())</span>
+<span class="bp">True</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">callable</span><span class="p">(</span><span class="nb">max</span><span class="p">)</span>
+<span class="bp">True</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">callable</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="bp">False</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">callable</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span>
+<span class="bp">False</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">callable</span><span class="p">(</span><span class="s">&#39;string&#39;</span><span class="p">)</span>
+<span class="bp">False</span>
+</pre></div>
+
+
+<p>通过<code>callable()</code>函数，我们就可以判断一个对象是否是“可调用”对象。</p>
+<p>本节介绍的是最常用的几个定制方法，还有很多可定制的方法，请参考<a href="http://docs.python.org/2/reference/datamodel.html#special-method-names">Python的官方文档</a>。</p>
+<h2>使用元类</h2>
+<h3>动态创建类 type()</h3>
+<p>type()函数既可以返回一个对象的类型，又可以创建出新的类型，比如，我们可以通过type()函数创建出Hello类，而无需通过class Hello(object)...的定义：</p>
+<div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">fn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;world&#39;</span><span class="p">):</span> <span class="c"># 先定义函数</span>
+<span class="o">...</span>     <span class="k">print</span><span class="p">(</span><span class="s">&#39;Hello, </span><span class="si">%s</span><span class="s">.&#39;</span> <span class="o">%</span> <span class="n">name</span><span class="p">)</span>
+<span class="o">...</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">Hello</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="s">&#39;Hello&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nb">object</span><span class="p">,),</span> <span class="nb">dict</span><span class="p">(</span><span class="n">hello</span><span class="o">=</span><span class="n">fn</span><span class="p">))</span> <span class="c"># 创建Hello class</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">h</span> <span class="o">=</span> <span class="n">Hello</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">h</span><span class="o">.</span><span class="n">hello</span><span class="p">()</span>
+<span class="n">Hello</span><span class="p">,</span> <span class="n">world</span><span class="o">.</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">Hello</span><span class="p">))</span>
+<span class="o">&lt;</span><span class="nb">type</span> <span class="s">&#39;type&#39;</span><span class="o">&gt;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">h</span><span class="p">))</span>
+<span class="o">&lt;</span><span class="k">class</span> <span class="err">&#39;</span><span class="nc">__main__</span><span class="o">.</span><span class="n">Hello</span><span class="s">&#39;&gt;</span>
+<span class="n">Try</span>
+</pre></div>
+
+
+<p>要创建一个class对象，type()函数依次传入3个参数：<strong>class的名称<strong><em>*继承的父类集合</em>*，注意Python支持多重继承，如果只有一个父类，别忘了tuple的单元素写法</strong>class的方法名称与函数绑定</strong>，这里我们把函数fn绑定到方法名hello上。</p>
+<p>通过type()函数创建的类和直接写class是完全一样的，因为Python解释器遇到class定义时，仅仅是扫描一下class定义的语法，然后调用type()函数创建出class。 ####元类 metaclass 见pdf ##错误、调试和测试</p></div>
+      <footer>
+<p class="meta">
+  <span class="byline author vcard">
+    Posted by <span class="fn">阿七</span>
+  </span>
+<time datetime="2014-12-23T20:03:00+08:00" pubdate>2014 十二月 23 二</time>  <span class="categories">
+    <a class="category" href="./tag/mian-xiang-dui-xiang.html">面向对象</a>
+  </span>
+</p><div class="sharing">
+</div>      </footer>
+    </article>
+      <!--  -->
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="pythonzhong-de-mian-xiang-dui-xiang.html" data-title="Python中的面向对象" data-url="./pythonzhong-de-mian-xiang-dui-xiang.html" style=" margin-left: 30px; margin-right: 30px; "></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:"nobodiness"};
+    (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script> 
+    <!-- 多说公共JS代码 end --> 
+  </div>
+<aside class="sidebar">
+  <section>
+    <h1>Recent Posts</h1>
+    <ul id="recent_posts">
+      <li class="post">
+          <a href="./pythonzhong-de-mian-xiang-dui-xiang.html">Python中的面向对象</a>
+      </li>
+      <li class="post">
+          <a href="./pythonzhong-de-han-shu-shi-bian-cheng.html">Python中的函数式编程</a>
+      </li>
+      <li class="post">
+          <a href="./plantumlyu-yan-lei-tu.html">PlantUML语言--类图</a>
+      </li>
+      <li class="post">
+          <a href="./pythonzhong-de-she-ji-mo-shi-yi.html">Python中的设计模式(一)</a>
+      </li>
+      <li class="post">
+          <a href="./pythonzhong-de-shu-ju-ku.html">Python中的数据库</a>
+      </li>
+    </ul>
+  </section>
+  <section>
+      
+    <h1>Categories</h1>
+    <ul id="recent_posts">
+        <li><a href="./category/python.html">Python</a></li>
+        <li><a href="./category/uml.html">UML</a></li>
+    </ul>
+  </section>
+ 
+
+  <section>
+  <h1>Tags</h1>
+    <a href="./tag/pelican.html">Pelican</a>,    <a href="./tag/sqlite.html">SQLite</a>,    <a href="./tag/plantuml.html">PlantUML</a>,    <a href="./tag/shu-ju-ku.html">数据库</a>,    <a href="./tag/bencode.html">bencode</a>,    <a href="./tag/xiao-cheng-xu.html">小程序</a>,    <a href="./tag/bt.html">bt</a>,    <a href="./tag/mian-xiang-dui-xiang.html">面向对象</a>,    <a href="./tag/jing-tai-bo-ke.html">静态博客</a>,    <a href="./tag/she-ji-mo-shi.html">设计模式</a>,    <a href="./tag/han-shu-shi-bian-cheng.html">函数式编程</a>,    <a href="./tag/md5.html">md5</a>  </section>
+
+
+
+  <section>
+    <h1>GitHub Repos</h1>
+    <ul id="gh_repos">
+      <li class="loading">Status updating...</li>
+    </ul>
+      <a href="https://github.com/nobodiness">@nobodiness</a> on GitHub
+    <script type="text/javascript">
+      $.domReady(function(){
+          if (!window.jXHR){
+              var jxhr = document.createElement('script');
+              jxhr.type = 'text/javascript';
+              jxhr.src = './theme/js/jXHR.js';
+              var s = document.getElementsByTagName('script')[0];
+              s.parentNode.insertBefore(jxhr, s);
+          }
+
+          github.showRepos({
+              user: 'nobodiness',
+              count: 5,
+              skip_forks: false,
+              target: '#gh_repos'
+          });
+      });
+    </script>
+    <script src="./theme/js/github.js" type="text/javascript"> </script>
+  </section>
+
+
+
+  <section>
+  <h1>Recommended</h1>
+  <br/>
+  <div><script type="text/javascript" src="http://www.douban.com/service/badge/53955651/?selection=random&amp;picsize=medium&amp;show=dolist&amp;n=2&amp;hidelogo=on&amp;cat=book&amp;columns=2"></script></div>
+  </section>
+
+  <!-- <section>
+  <h1>Favorite</h1>
+  <br/>
+  <div><script type="text/javascript" src="http://www.douban.com/service/badge/53955651/?selection=favorite&amp;picsize=small&amp;hideself=on&amp;show=collection&amp;n=3&amp;hidelogo=on&amp;cat=movie%7Cbook&amp;columns=3"></script></div>
+  </section> -->
+</aside>    </div>
+  </div>
+  <footer role="contentinfo"><p>
+    Copyright &copy;  2014  - 阿七 -
+  <span class="credit">Powered by <a href="http://getpelican.com">Pelican</a></span>
+</p></footer>
+</body>
+</html>

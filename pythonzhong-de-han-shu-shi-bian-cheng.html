@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Python中的函数式编程</title>
+  <meta name="author" content="阿七">
+
+
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link href="./favicon.png" rel="icon">
+  <link href="./theme/css/main.css" media="screen, projection"
+        rel="stylesheet" type="text/css">
+  <link href="./theme/css/monokai.css" media="screen, projection"
+        rel="stylesheet" type="text/css">
+  <link href="./theme/css/ds.css" media="screen, projection"
+        rel="stylesheet" type="text/css">
+  <script src="./theme/js/modernizr-2.0.js"></script>
+  <script src="./theme/js/ender.js"></script>
+  <script src="./theme/js/octopress.js" type="text/javascript"></script>
+
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic"
+        rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic"
+        rel="stylesheet" type="text/css">
+</head>
+
+<body>
+  <header role="banner"><hgroup>
+  <h1><a href="./">Python大法好</a></h1>
+</hgroup></header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+</ul>
+
+
+
+<ul class="main-navigation">
+    <li class="active">
+    <a href="./category/python.html">Python</a>
+    </li>
+    <li >
+    <a href="./category/uml.html">Uml</a>
+    </li>
+</ul></nav>
+  <div id="main">
+    <div id="content">
+  <div>
+    <article class="hentry" role="article">
+<header>
+      <h1 class="entry-title">Python中的函数式编程</h1>
+      <p class="meta"><time datetime="2014-12-23T17:25:00+08:00" pubdate>2014 十二月 23 二</time></p>
+</header>
+
+  <div class="entry-content"><p>在开始设计模式的学习之前,我感到有必要先复习一下Python中的函数式编程和面向对象.</p>
+<h2>高阶函数</h2>
+<p>以函数为参数的函数</p>
+<div class="codehilite"><pre><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">f</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="n">f</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">add</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="nb">abs</span><span class="p">)</span>
+<span class="mi">11</span>
+</pre></div>
+
+
+<h2>map filter</h2>
+<p><code>map</code> 和 <code>filter</code> 在 python 中都有列表推导的实现</p>
+<p>这个例子:</p>
+<div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="o">...</span>     <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span>
+<span class="o">...</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">map</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">])</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">36</span><span class="p">,</span> <span class="mi">49</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">81</span><span class="p">]</span>
+</pre></div>
+
+
+<p>等同于</p>
+<div class="codehilite"><pre><span class="p">[</span><span class="n">x</span> <span class="o">*</span> <span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">]]</span>
+</pre></div>
+
+
+<p>这个例子:</p>
+<div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">is_odd</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+<span class="o">...</span>     <span class="k">return</span> <span class="n">n</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">1</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">filter</span><span class="p">(</span><span class="n">is_odd</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">15</span><span class="p">])</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">15</span><span class="p">]</span>
+</pre></div>
+
+
+<p>等同于</p>
+<div class="codehilite"><pre><span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">15</span><span class="p">]</span> <span class="k">if</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span>
+</pre></div>
+
+
+<p>map reduce还是实现并行化的神器<br />
+可以看看这篇文<a href="http://segmentfault.com/a/1190000000382873">Python 并行任务技巧</a></p>
+<h2>Reduce与部分内建函数介绍</h2>
+<p><code>reduce</code> 在 python3 中被移除了,因为创始人觉得他太让人费解</p>
+<div class="codehilite"><pre><span class="nb">all</span><span class="p">(</span><span class="n">iterable</span><span class="p">)</span> <span class="o">==</span> <span class="nb">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">bool</span><span class="p">(</span><span class="n">x</span> <span class="ow">and</span> <span class="n">y</span><span class="p">),</span> <span class="n">iterable</span><span class="p">)</span>
+<span class="nb">any</span><span class="p">(</span><span class="n">iterable</span><span class="p">)</span> <span class="o">==</span> <span class="nb">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="nb">bool</span><span class="p">(</span><span class="n">x</span> <span class="ow">or</span> <span class="n">y</span><span class="p">),</span> <span class="n">iterable</span><span class="p">)</span>
+<span class="nb">max</span><span class="p">(</span><span class="n">iterable</span><span class="p">[,</span> <span class="n">args</span><span class="o">...</span><span class="p">][,</span> <span class="n">key</span><span class="p">])</span> \
+    <span class="o">==</span> <span class="nb">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span> <span class="k">if</span> <span class="n">key</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">key</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="k">else</span> <span class="n">y</span><span class="p">,</span> <span class="n">iterable_and_args</span><span class="p">)</span>
+<span class="nb">min</span><span class="p">(</span><span class="n">iterable</span><span class="p">[,</span> <span class="n">args</span><span class="o">...</span><span class="p">][,</span> <span class="n">key</span><span class="p">])</span> \
+    <span class="o">==</span> <span class="nb">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span> <span class="k">if</span> <span class="n">key</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">key</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="k">else</span> <span class="n">y</span><span class="p">,</span> <span class="n">iterable_and_args</span><span class="p">)</span>
+<span class="nb">sum</span><span class="p">(</span><span class="n">iterable</span><span class="p">[,</span> <span class="n">start</span><span class="p">])</span> <span class="o">==</span> <span class="nb">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">,</span> <span class="n">iterable</span><span class="p">,</span> <span class="n">start</span><span class="p">)</span>
+<span class="nb">map</span><span class="p">(</span><span class="n">function</span><span class="p">,</span> <span class="n">iterable</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+</pre></div>
+
+
+<p><code>zip(iterable1, iterable2, ...)</code> 这个函数返回一个列表，每个元素都是一个元组. <br />
+例如：<code>zip([1, 2], [3, 4])</code> --&gt; <code>[(1, 3), (2, 4)]</code> 如果参数的长度不一致，将在最短的序列结束时结束；如果不提供参数，将返回空列表。</p>
+<h2>排序</h2>
+<p>一个字符串排序的例子：</p>
+<div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="nb">sorted</span><span class="p">([</span><span class="s">&#39;bob&#39;</span><span class="p">,</span> <span class="s">&#39;about&#39;</span><span class="p">,</span> <span class="s">&#39;Zoo&#39;</span><span class="p">,</span> <span class="s">&#39;Credit&#39;</span><span class="p">])</span>
+<span class="p">[</span><span class="s">&#39;Credit&#39;</span><span class="p">,</span> <span class="s">&#39;Zoo&#39;</span><span class="p">,</span> <span class="s">&#39;about&#39;</span><span class="p">,</span> <span class="s">&#39;bob&#39;</span><span class="p">]</span>
+</pre></div>
+
+
+<p>默认情况下，对字符串排序，是按照ASCII的大小比较的，由于'Z' &lt; 'a'，结果，大写字母Z会排在小写字母a的前面。</p>
+<p>现在，我们提出排序应该忽略大小写，按照字母序排序。要实现这个算法，不必对现有代码大加改动，只要我们能定义出忽略大小写的比较算法就可以：</p>
+<div class="codehilite"><pre><span class="k">def</span> <span class="nf">cmp_ignore_case</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">):</span>
+    <span class="n">u1</span> <span class="o">=</span> <span class="n">s1</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+    <span class="n">u2</span> <span class="o">=</span> <span class="n">s2</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">u1</span> <span class="o">&lt;</span> <span class="n">u2</span><span class="p">:</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="k">if</span> <span class="n">u1</span> <span class="o">&gt;</span> <span class="n">u2</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="mi">0</span>
+</pre></div>
+
+
+<p>忽略大小写来比较两个字符串，实际上就是先把字符串都变成大写（或者都变成小写），再比较。</p>
+<p>这样，我们给sorted传入上述比较函数，即可实现忽略大小写的排序：</p>
+<div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="nb">sorted</span><span class="p">([</span><span class="s">&#39;bob&#39;</span><span class="p">,</span> <span class="s">&#39;about&#39;</span><span class="p">,</span> <span class="s">&#39;Zoo&#39;</span><span class="p">,</span> <span class="s">&#39;Credit&#39;</span><span class="p">],</span> <span class="n">cmp_ignore_case</span><span class="p">)</span>
+<span class="p">[</span><span class="s">&#39;about&#39;</span><span class="p">,</span> <span class="s">&#39;bob&#39;</span><span class="p">,</span> <span class="s">&#39;Credit&#39;</span><span class="p">,</span> <span class="s">&#39;Zoo&#39;</span><span class="p">]</span>
+</pre></div>
+
+
+<h2>匿名函数</h2>
+<div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">])</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">36</span><span class="p">,</span> <span class="mi">49</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">81</span><span class="p">]</span>
+</pre></div>
+
+
+<p>匿名函数还可以作为返回值</p>
+<div class="codehilite"><pre><span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">return</span> <span class="k">lambda</span><span class="p">:</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span> <span class="o">*</span> <span class="n">y</span>
+</pre></div>
+
+
+<h2>偏函数</h2>
+<p>偏函数的作用就是，把一个函数的某些参数（不管有没有默认值）给固定住（也就是设置默认值），返回一个新的函数，调用这个新函数会更简单。 </p>
+<div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">functools</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">int2</span> <span class="o">=</span> <span class="n">functools</span><span class="o">.</span><span class="n">partial</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">int2</span><span class="p">(</span><span class="s">&#39;1000000&#39;</span><span class="p">)</span>
+<span class="mi">64</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">int2</span><span class="p">(</span><span class="s">&#39;1010101&#39;</span><span class="p">)</span>
+<span class="mi">85</span>
+</pre></div>
+
+
+<p>注意到上面的新的int2函数，仅仅是把base参数重新设定默认值为2，但也可以在函数调用时传入其他值.</p>
+<h2>装饰器</h2>
+<h3>不含参装饰器</h3>
+<div class="codehilite"><pre><span class="kn">import</span> <span class="nn">functools</span>
+
+<span class="k">def</span> <span class="nf">log</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+    <span class="nd">@functools.wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+        <span class="k">print</span> <span class="s">&#39;call </span><span class="si">%s</span><span class="s">():&#39;</span> <span class="o">%</span> <span class="n">func</span><span class="o">.</span><span class="n">__name__</span>
+        <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">wrapper</span>
+<span class="nd">@log</span>
+<span class="k">def</span> <span class="nf">now</span><span class="p">():</span>
+    <span class="k">print</span> <span class="s">&#39;2013-12-25&#39;</span>
+</pre></div>
+
+
+<p>装饰器相当于<code>now = log(now)</code><br />
+<code>@functools.wraps(func)</code>相当于<code>wrapper.__name__ = func.__name__</code></p>
+<div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">now</span><span class="p">()</span>
+<span class="n">call</span> <span class="n">now</span><span class="p">():</span>
+<span class="mi">2013</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">25</span>
+</pre></div>
+
+
+<h3>含参装饰器</h3>
+<div class="codehilite"><pre><span class="kn">import</span> <span class="nn">functools</span>
+
+<span class="k">def</span> <span class="nf">log</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">decorator</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+        <span class="nd">@functools.wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+            <span class="k">print</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s"> </span><span class="si">%s</span><span class="s">():&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">func</span><span class="o">.</span><span class="n">__name__</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">wrapper</span>
+    <span class="k">return</span> <span class="n">decorator</span>
+
+<span class="nd">@log</span><span class="p">(</span><span class="s">&#39;execute&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">now</span><span class="p">():</span>
+    <span class="k">print</span> <span class="s">&#39;2013-12-25&#39;</span>
+</pre></div>
+
+
+<p>相当于<code>now = log('execute')(now)</code></p>
+<div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">now</span><span class="p">()</span>
+<span class="n">execute</span> <span class="n">now</span><span class="p">():</span>
+<span class="mi">2013</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">25</span>
+</pre></div>
+
+
+<h3>内置的装饰器</h3>
+<p>内置的装饰器有三个，分别是<code>staticmethod</code>、<code>classmethod</code>和<code>property</code>，作用分别是把类中定义的实例方法变成静态方法、类方法和类属性。由于模块里可以定义函数，所以静态方法和类方法的用处并不是太多，除非你想要完全的面向对象编程。而属性也不是不可或缺的，Java没有属性也一样活得很滋润。从我个人的Python经验来看，我没有使用过<code>property</code>，使用<code>staticmethod</code>和<code>classmethod</code>的频率也非常低。</p>
+<p>注: <strong>静态方法</strong>：无法访问类属性、实例属性，相当于一个相对独立的方法，跟类其实没什么关系，换个角度来讲，其实就是放在一个类的作用域里的函数而已。<br />
+<strong>类方法</strong>：可以访问类属性，无法访问实例属性。</p>
+<div class="codehilite"><pre><span class="k">class</span> <span class="nc">Rabbit</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="n">name</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">newRabbit</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">Rabbit</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">newRabbit2</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">Rabbit</span><span class="p">(</span><span class="s">&#39;&#39;</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span>
+</pre></div>
+
+
+<p>这里定义的属性是一个只读属性，如果需要可写，则需要再定义一个setter：</p>
+<div class="codehilite"><pre><span class="nd">@name.setter</span>
+<span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="n">name</span>
+</pre></div>
+
+
+<p>关于<code>@property</code>在下一篇Python中的面向对象中详细说明</p>
+<h3>装饰器用于程序分析</h3>
+<p>时间分析: <a href="http://packages.python.org/line_profiler/">line_profiler</a><br />
+内存分析: <a href="https://github.com/fabianp/memory_profiler">memory_profiler</a><br />
+使用方法见文章 <a href="http://blog.jobbole.com/47619/">Python程序的性能分析指南</a></p>
+<h4>学习文章</h4>
+<p><a href="http://www.liaoxuefeng.com/wiki/001374738125095c955c1e6d8bb493182103fac9270762a000/001386819866394c3f9efcd1a454b2a8c57933e976445c0000">廖雪峰-函数式编程</a><br />
+<a href="http://www.cnblogs.com/huxi/archive/2011/06/24/2089358.html">Python函数式编程指南（二）：函数</a><br />
+<a href="http://blog.jobbole.com/47619/">Python程序的性能分析指南</a></p></div>
+      <footer>
+<p class="meta">
+  <span class="byline author vcard">
+    Posted by <span class="fn">阿七</span>
+  </span>
+<time datetime="2014-12-23T17:25:00+08:00" pubdate>2014 十二月 23 二</time>  <span class="categories">
+    <a class="category" href="./tag/han-shu-shi-bian-cheng.html">函数式编程</a>
+  </span>
+</p><div class="sharing">
+</div>      </footer>
+    </article>
+      <!--  -->
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="pythonzhong-de-han-shu-shi-bian-cheng.html" data-title="Python中的函数式编程" data-url="./pythonzhong-de-han-shu-shi-bian-cheng.html" style=" margin-left: 30px; margin-right: 30px; "></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:"nobodiness"};
+    (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script> 
+    <!-- 多说公共JS代码 end --> 
+  </div>
+<aside class="sidebar">
+  <section>
+    <h1>Recent Posts</h1>
+    <ul id="recent_posts">
+      <li class="post">
+          <a href="./pythonzhong-de-mian-xiang-dui-xiang.html">Python中的面向对象</a>
+      </li>
+      <li class="post">
+          <a href="./pythonzhong-de-han-shu-shi-bian-cheng.html">Python中的函数式编程</a>
+      </li>
+      <li class="post">
+          <a href="./plantumlyu-yan-lei-tu.html">PlantUML语言--类图</a>
+      </li>
+      <li class="post">
+          <a href="./pythonzhong-de-she-ji-mo-shi-yi.html">Python中的设计模式(一)</a>
+      </li>
+      <li class="post">
+          <a href="./pythonzhong-de-shu-ju-ku.html">Python中的数据库</a>
+      </li>
+    </ul>
+  </section>
+  <section>
+      
+    <h1>Categories</h1>
+    <ul id="recent_posts">
+        <li><a href="./category/python.html">Python</a></li>
+        <li><a href="./category/uml.html">UML</a></li>
+    </ul>
+  </section>
+ 
+
+  <section>
+  <h1>Tags</h1>
+    <a href="./tag/pelican.html">Pelican</a>,    <a href="./tag/sqlite.html">SQLite</a>,    <a href="./tag/plantuml.html">PlantUML</a>,    <a href="./tag/shu-ju-ku.html">数据库</a>,    <a href="./tag/bencode.html">bencode</a>,    <a href="./tag/xiao-cheng-xu.html">小程序</a>,    <a href="./tag/bt.html">bt</a>,    <a href="./tag/mian-xiang-dui-xiang.html">面向对象</a>,    <a href="./tag/jing-tai-bo-ke.html">静态博客</a>,    <a href="./tag/she-ji-mo-shi.html">设计模式</a>,    <a href="./tag/han-shu-shi-bian-cheng.html">函数式编程</a>,    <a href="./tag/md5.html">md5</a>  </section>
+
+
+
+  <section>
+    <h1>GitHub Repos</h1>
+    <ul id="gh_repos">
+      <li class="loading">Status updating...</li>
+    </ul>
+      <a href="https://github.com/nobodiness">@nobodiness</a> on GitHub
+    <script type="text/javascript">
+      $.domReady(function(){
+          if (!window.jXHR){
+              var jxhr = document.createElement('script');
+              jxhr.type = 'text/javascript';
+              jxhr.src = './theme/js/jXHR.js';
+              var s = document.getElementsByTagName('script')[0];
+              s.parentNode.insertBefore(jxhr, s);
+          }
+
+          github.showRepos({
+              user: 'nobodiness',
+              count: 5,
+              skip_forks: false,
+              target: '#gh_repos'
+          });
+      });
+    </script>
+    <script src="./theme/js/github.js" type="text/javascript"> </script>
+  </section>
+
+
+
+  <section>
+  <h1>Recommended</h1>
+  <br/>
+  <div><script type="text/javascript" src="http://www.douban.com/service/badge/53955651/?selection=random&amp;picsize=medium&amp;show=dolist&amp;n=2&amp;hidelogo=on&amp;cat=book&amp;columns=2"></script></div>
+  </section>
+
+  <!-- <section>
+  <h1>Favorite</h1>
+  <br/>
+  <div><script type="text/javascript" src="http://www.douban.com/service/badge/53955651/?selection=favorite&amp;picsize=small&amp;hideself=on&amp;show=collection&amp;n=3&amp;hidelogo=on&amp;cat=movie%7Cbook&amp;columns=3"></script></div>
+  </section> -->
+</aside>    </div>
+  </div>
+  <footer role="contentinfo"><p>
+    Copyright &copy;  2014  - 阿七 -
+  <span class="credit">Powered by <a href="http://getpelican.com">Pelican</a></span>
+</p></footer>
+</body>
+</html>

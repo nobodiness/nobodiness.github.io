@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Python中的数据库</title>
+  <meta name="author" content="阿七">
+
+
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link href="./favicon.png" rel="icon">
+  <link href="./theme/css/main.css" media="screen, projection"
+        rel="stylesheet" type="text/css">
+  <link href="./theme/css/monokai.css" media="screen, projection"
+        rel="stylesheet" type="text/css">
+  <link href="./theme/css/ds.css" media="screen, projection"
+        rel="stylesheet" type="text/css">
+  <script src="./theme/js/modernizr-2.0.js"></script>
+  <script src="./theme/js/ender.js"></script>
+  <script src="./theme/js/octopress.js" type="text/javascript"></script>
+
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic"
+        rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic"
+        rel="stylesheet" type="text/css">
+</head>
+
+<body>
+  <header role="banner"><hgroup>
+  <h1><a href="./">Python大法好</a></h1>
+</hgroup></header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+</ul>
+
+
+
+<ul class="main-navigation">
+    <li class="active">
+    <a href="./category/python.html">Python</a>
+    </li>
+    <li >
+    <a href="./category/uml.html">Uml</a>
+    </li>
+</ul></nav>
+  <div id="main">
+    <div id="content">
+  <div>
+    <article class="hentry" role="article">
+<header>
+      <h1 class="entry-title">Python中的数据库</h1>
+      <p class="meta"><time datetime="2014-12-23T15:25:00+08:00" pubdate>2014 十二月 23 二</time></p>
+</header>
+
+  <div class="entry-content"><h2>导入Python SQLITE数据库模块</h2>
+<div class="codehilite"><pre><span class="kn">import</span> <span class="nn">sqlite3</span>
+<span class="n">cx</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s">&quot;E:/test.db&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<h2>创建/打开数据库</h2>
+<p>也可以创建数据库在内存中。</p>
+<div class="codehilite"><pre><span class="n">con</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s">&quot;:memory:&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<h2>数据库连接对象</h2>
+<p>打开数据库时返回的对象<code>cx</code>就是一个数据库连接对象，它可以有以下操作：</p>
+<div class="codehilite"><pre><span class="n">commit</span><span class="p">()</span>   <span class="c"># 事务提交</span>
+<span class="n">rollback</span><span class="p">()</span> <span class="c"># 事务回滚</span>
+<span class="n">close</span><span class="p">()</span>    <span class="c"># 关闭一个数据库连接</span>
+<span class="n">cursor</span><span class="p">()</span>   <span class="c"># 创建一个游标</span>
+</pre></div>
+
+
+<p>关于<code>commit()</code>，如果<code>isolation_level</code>隔离级别默认，那么每次对数据库的操作，都需要使用该命令，你也可以设置<code>isolation_level = None</code>，这样就变为自动提交模式。 conn.isolation_level = None #这个就是事务隔离级别，默认是需要自己commit才能修改数据库，置为None则自动每次修改都提交,否则为""</p>
+<h2>使用游标查询数据库</h2>
+<p>我们需要使用游标对象SQL语句查询数据库，获得查询对象。 通过以下方法来定义一个游标。 游标把作为面向集合的数据库管理系统和面向行的程序设计两者联系起来，使两个数据处理方式能够进行沟通。</p>
+<div class="codehilite"><pre><span class="n">cu</span> <span class="o">=</span> <span class="n">cx</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+</pre></div>
+
+
+<p>游标对象有以下的操作：</p>
+<div class="codehilite"><pre><span class="n">execute</span><span class="p">()</span>    <span class="c">#执行sql语句</span>
+<span class="n">executemany</span><span class="p">()</span><span class="c">#执行多条sql语句</span>
+<span class="n">close</span><span class="p">()</span>      <span class="c">#关闭游标</span>
+<span class="n">fetchone</span><span class="p">()</span>   <span class="c">#从结果中取一条记录，并将游标指向下一条记录</span>
+<span class="n">fetchmany</span><span class="p">()</span>  <span class="c">#从结果中取多条记录</span>
+<span class="n">fetchall</span><span class="p">()</span>   <span class="c">#从结果中取出所有记录</span>
+<span class="n">scroll</span><span class="p">()</span>     <span class="c">#游标滚动</span>
+</pre></div>
+
+
+<h3>1.建表</h3>
+<div class="codehilite"><pre><span class="n">cu</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&quot;create table catalog </span><span class="se">\</span>
+<span class="s">(id integer primary key,pid integer,name varchar(10) UNIQUE,nickname text NULL)&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>上面语句创建了一个叫catalog的表，它有一个主键id，一个pid，和一个name，name是不可以重复的，以及一个nickname默认为NULL。</p>
+<h3>2.插入数据</h3>
+<p>请注意避免以下写法：</p>
+<div class="codehilite"><pre><span class="c"># Never do this -- insecure 会导致注入攻击</span>
+
+<span class="n">pid</span><span class="o">=</span><span class="mi">200</span>
+<span class="n">c</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&quot;... where pid = &#39;</span><span class="si">%s</span><span class="s">&#39;&quot;</span> <span class="o">%</span> <span class="n">pid</span><span class="p">)</span>
+</pre></div>
+
+
+<p>正确的做法如下，如果t只是单个数值，也要采用t=(n,)的形式，因为元组是不可变的。</p>
+<div class="codehilite"><pre><span class="k">for</span> <span class="n">t</span> <span class="ow">in</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="s">&#39;abc&#39;</span><span class="p">,</span><span class="s">&#39;Yu&#39;</span><span class="p">),(</span><span class="mi">1</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="s">&#39;cba&#39;</span><span class="p">,</span><span class="s">&#39;Xu&#39;</span><span class="p">)]:</span>
+    <span class="n">cx</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&quot;insert into catalog values (?,?,?,?)&quot;</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+</pre></div>
+
+
+<p>简单的插入两行数据,不过需要提醒的是,只有提交了之后,才能生效.我们使用数据库连接对象cx来进行提交commit和回滚rollback操作.</p>
+<div class="codehilite"><pre><span class="n">cx</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+</pre></div>
+
+
+<h3>3.查询</h3>
+<div class="codehilite"><pre><span class="n">cu</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&quot;select * from catalog&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>要提取查询到的数据,使用游标的fetch函数,如:</p>
+<div class="codehilite"><pre>In [10]: cu.fetchall()
+Out[10]: [(0, 10, u&#39;abc&#39;, u&#39;Yu&#39;), (1, 20, u&#39;cba&#39;, u&#39;Xu&#39;)]
+</pre></div>
+
+
+<p>如果我们使用<code>cu.fetchone()</code>,则首先返回列表中的第一项,再次使用,则返回第二项,依次下去.</p>
+<h3>4.修改</h3>
+<div class="codehilite"><pre>In [12]: cu.execute(&quot;update catalog set name=&#39;Boy&#39; where id = 0&quot;)
+In [13]: cx.commit()
+</pre></div>
+
+
+<p>注意,修改数据以后提交</p>
+<h3>5.删除</h3>
+<div class="codehilite"><pre><span class="n">cu</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&quot;delete from catalog where id = 1&quot;</span><span class="p">)</span>
+<span class="n">cx</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+</pre></div>
+
+
+<h3>6.使用中文</h3>
+<p>请先确定你的IDE或者系统默认编码是utf-8,并且在中文前加上u</p>
+<div class="codehilite"><pre><span class="n">x</span><span class="o">=</span><span class="s">u&#39;鱼&#39;</span>
+<span class="n">cu</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&quot;update catalog set name=? where id = 0&quot;</span><span class="p">,</span><span class="n">x</span><span class="p">)</span>
+<span class="n">cu</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&quot;select * from catalog&quot;</span><span class="p">)</span>
+<span class="n">cu</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+<span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="s">u&#39;</span><span class="se">\u9c7c</span><span class="s">&#39;</span><span class="p">,</span> <span class="s">u&#39;Yu&#39;</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="s">u&#39;cba&#39;</span><span class="p">,</span> <span class="s">u&#39;Xu&#39;</span><span class="p">)]</span>
+</pre></div>
+
+
+<p>如果要显示出中文字体，那需要依次打印出每个字符串</p>
+<div class="codehilite"><pre>In [26]: for item in cu.fetchall():
+   ....:     for element in item:
+   ....:         print element,
+   ....:     print
+   ....:
+0 10 鱼 Yu
+1 20 cba Xu
+</pre></div>
+
+
+<h2>API列表</h2>
+<p><code>sqlite3.connect(database [,timeout ,other optional arguments])</code> 该 API 打开一个到 SQLite 数据库文件 database 的链接。您可以使用 <code>:memory:</code> 来在 RAM 中打开一个到 database 的数据库连接，而不是在磁盘上打开。如果数据库成功打开，则返回一个连接对象。</p>
+<p>当一个数据库被多个连接访问，且其中一个修改了数据库，此时 SQLite 数据库被锁定，直到事务提交。timeout 参数表示连接等待锁定的持续时间，直到发生异常断开连接。<code>timeout</code> 参数默认是 5.0（5 秒）。</p>
+<p>如果给定的数据库名称 filename 不存在，则该调用将创建一个数据库。如果您不想在当前目录中创建数据库，那么您可以指定带有路径的文件名，这样您就能在任意地方创建数据库。</p>
+<p><code>connection.cursor([cursorClass])</code> 该例程创建一个 cursor，将在 Python 数据库编程中用到。该方法接受一个单一的可选的参数 <code>cursorClass</code>。如果提供了该参数，则它必须是一个扩展自 <code>sqlite3.Cursor</code> 的自定义的 <code>cursor 类</code>。</p>
+<p><code>cursor.execute(sql [, optional parameters])</code> 该例程执行一个 SQL 语句。该 SQL 语句可以被参数化（即使用占位符代替 SQL 文本）。sqlite3 模块支持两种类型的占位符：问好和命名占位符（命名样式）。 例如：<code>cursor.execute("insert into people values (?, ?)", (who, age))</code></p>
+<p><code>connection.execute(sql [, optional parameters])</code> 该例程是上面执行的由光标（cursor）对象提供的方法的快捷方式，它通过调用光标（cursor）方法创建了一个中间的光标对象，然后通过给定的参数调用光标的 <code>execute</code> 方法。</p>
+<p><code>connection.total_changes()</code> 该例程返回自数据库连接打开以来被修改、插入或删除的数据库总行数。</p>
+<p><code>cursor.fetchone()</code> 该方法获取查询结果集中的下一行，返回一个单一的序列，当没有更多可用的数据时，则返回 <code>None</code>。</p>
+<p><code>cursor.fetchmany([size=cursor.arraysize])</code> 该方法获取查询结果集中的下一行组，返回一个列表。当没有更多的可用的行时，则返回一个空的列表。该方法尝试获取由 <code>size</code> 参数指定的尽可能多的行。</p>
+<p><code>cursor.fetchall()</code> 该例程获取查询结果集中所有（剩余）的行，返回一个列表。当没有可用的行时，则返回一个空的列表。</p>
+<h2>with con:</h2>
+<div class="codehilite"><pre><span class="kn">import</span> <span class="nn">sqlite3</span> <span class="kn">as</span> <span class="nn">lite</span>
+<span class="n">con</span> <span class="o">=</span> <span class="n">lite</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s">&#39;test.db&#39;</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="n">con</span><span class="p">:</span>
+    <span class="n">cur</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+    <span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;SELECT SQLITE_VERSION()&#39;</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+    <span class="k">print</span> <span class="s">&quot;SQLite version: </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">data</span>
+</pre></div>
+
+
+<h2>executemany()</h2>
+<p><code>cursor.executemany(sql, seq_of_parameters)</code> 该例程对 seq_of_parameters 中的所有参数或映射执行一个 SQL 命令。<code>connection.executemany(sql[, parameters])</code> 该例程是一个由调用光标（cursor）方法创建的中间的光标对象的快捷方式，然后通过给定的参数调用光标的 <code>executemany 方法</code>。</p>
+<div class="codehilite"><pre><span class="n">cur</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+<span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&quot;CREATE TABLE Cars(Id INT, Name TEXT, Price INT)&quot;</span><span class="p">)</span>
+<span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&quot;INSERT INTO Cars VALUES(1,&#39;Audi&#39;,52642)&quot;</span><span class="p">)</span>
+<span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&quot;INSERT INTO Cars VALUES(2,&#39;Mercedes&#39;,57127)&quot;</span><span class="p">)</span>
+<span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&quot;INSERT INTO Cars VALUES(3,&#39;Skoda&#39;,9000)&quot;</span><span class="p">)</span>
+<span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&quot;INSERT INTO Cars VALUES(4,&#39;Volvo&#39;,29000)&quot;</span><span class="p">)</span>
+<span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&quot;INSERT INTO Cars VALUES(5,&#39;Bentley&#39;,350000)&quot;</span><span class="p">)</span>
+<span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&quot;INSERT INTO Cars VALUES(6,&#39;Citroen&#39;,21000)&quot;</span><span class="p">)</span>
+<span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&quot;INSERT INTO Cars VALUES(7,&#39;Hummer&#39;,41400)&quot;</span><span class="p">)</span>
+<span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&quot;INSERT INTO Cars VALUES(8,&#39;Volkswagen&#39;,21600)&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span class="n">cars</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s">&#39;Audi&#39;</span><span class="p">,</span> <span class="mi">52642</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s">&#39;Mercedes&#39;</span><span class="p">,</span> <span class="mi">57127</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s">&#39;Skoda&#39;</span><span class="p">,</span> <span class="mi">9000</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="s">&#39;Volvo&#39;</span><span class="p">,</span> <span class="mi">29000</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="s">&#39;Bentley&#39;</span><span class="p">,</span> <span class="mi">350000</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="s">&#39;Hummer&#39;</span><span class="p">,</span> <span class="mi">41400</span><span class="p">),</span>
+    <span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="s">&#39;Volkswagen&#39;</span><span class="p">,</span> <span class="mi">21600</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&quot;CREATE TABLE Cars(Id INT, Name TEXT, Price INT)&quot;</span><span class="p">)</span>
+<span class="n">cur</span><span class="o">.</span><span class="n">executemany</span><span class="p">(</span><span class="s">&quot;INSERT INTO Cars VALUES(?, ?, ?)&quot;</span><span class="p">,</span> <span class="n">cars</span><span class="p">)</span>
+</pre></div>
+
+
+<h3>executescript()</h3>
+<p><code>cursor.executescript(sql_script)</code> 该例程一旦接收到脚本，会执行多个 SQL 语句。它首先执行 COMMIT 语句，然后执行作为参数传入的 SQL 脚本。所有的 SQL 语句应该用分号（;）分隔。<code>connection.executescript(sql_script)</code> 该例程是一个由调用光标（cursor）方法创建的中间的光标对象的快捷方式，然后通过给定的参数调用光标的 <code>executescript 方法</code>。</p>
+<div class="codehilite"><pre><span class="n">cur</span><span class="o">.</span><span class="n">executescript</span><span class="p">(</span><span class="s">&#39;&#39;&#39;</span>
+<span class="s">  DROP TABLE IF EXISTS Cars;</span>
+<span class="s">  CREATE TABLE Cars(Id INT, Name TEXT, Price INT);</span>
+<span class="s">  INSERT INTO Cars VALUES(1,&#39;Audi&#39;,52642);</span>
+<span class="s">  INSERT INTO Cars VALUES(2,&#39;Mercedes&#39;,57127);</span>
+<span class="s">  &#39;&#39;&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<h2>con.rollback()</h2>
+<p><code>connection.rollback()</code> 该方法回滚自上一次调用 <code>commit()</code> 以来对数据库所做的更改。</p>
+<div class="codehilite"><pre><span class="k">try</span><span class="p">:</span>
+<span class="k">except</span> <span class="n">lite</span><span class="o">.</span><span class="n">Error</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+
+    <span class="k">if</span> <span class="n">con</span><span class="p">:</span>
+        <span class="n">con</span><span class="o">.</span><span class="n">rollback</span><span class="p">()</span>
+
+    <span class="k">print</span> <span class="s">&quot;Error </span><span class="si">%s</span><span class="s">:&quot;</span> <span class="o">%</span> <span class="n">e</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">con</span><span class="p">:</span>
+        <span class="n">con</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+
+
+<h3>cur.lastrowid</h3>
+<p><code>lid = cur.lastrowid</code></p>
+<h3>Row(dictionary cursor)</h3>
+<div class="codehilite"><pre><span class="k">with</span> <span class="n">con</span><span class="p">:</span>
+    <span class="n">con</span><span class="o">.</span><span class="n">row_factory</span> <span class="o">=</span> <span class="n">lite</span><span class="o">.</span><span class="n">Row</span>
+    <span class="n">cur</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+    <span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&quot;SELECT * FROM Cars&quot;</span><span class="p">)</span>
+    <span class="n">rows</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s">&quot;</span><span class="si">%s</span><span class="s"> </span><span class="si">%s</span><span class="s"> </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s">&quot;Id&quot;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s">&quot;Name&quot;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s">&quot;Price&quot;</span><span class="p">])</span>
+</pre></div>
+
+
+<h3>Parameterized queries</h3>
+<div class="codehilite"><pre><span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&quot;UPDATE Cars SET Price=? WHERE Id=?&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">uPrice</span><span class="p">,</span> <span class="n">uId</span><span class="p">))</span>
+</pre></div>
+
+
+<p>The second example uses parameterized statements with named placeholders.</p>
+<div class="codehilite"><pre><span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&quot;SELECT Name, Price FROM Cars WHERE Id=:Id&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s">&quot;Id&quot;</span><span class="p">:</span> <span class="n">uId</span><span class="p">})</span>
+</pre></div>
+
+
+<h3>Inserting images</h3>
+<p>For this example, we create a new table called Images. For the images, we use the BLOB data type, which stands for Binary Large Objects.</p>
+<div class="codehilite"><pre><span class="n">fin</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&quot;woman.jpg&quot;</span><span class="p">,</span> <span class="s">&quot;rb&quot;</span><span class="p">)</span>
+<span class="n">img</span> <span class="o">=</span> <span class="n">fin</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="n">binary</span> <span class="o">=</span> <span class="n">lite</span><span class="o">.</span><span class="n">Binary</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+<span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&quot;INSERT INTO Images(Data) VALUES (?)&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">binary</span><span class="p">,)</span> <span class="p">)</span>
+</pre></div>
+
+
+<h3>Reading images</h3>
+<div class="codehilite"><pre><span class="n">fout</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;woman2.jpg&#39;</span><span class="p">,</span><span class="s">&#39;wb&#39;</span><span class="p">)</span>
+<span class="n">fout</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&quot;SELECT Data FROM Images LIMIT 1&quot;</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+
+
+<h3>Metadata</h3>
+<p>Metadata in SQLite can be obtained using the <code>PRAGMA</code> command. SQLite objects may have attributes, which are metadata. Finally, we can also obtain specific metatada from querying the SQLite system <code>sqlite_master</code> table.</p>
+<h4>PRAGMA table_info(Cars)</h4>
+<div class="codehilite"><pre><span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;PRAGMA table_info(Cars)&#39;</span><span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+    <span class="k">print</span> <span class="n">d</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">d</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">d</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+</pre></div>
+
+
+<p>The <code>PRAGMA table_info(tableName)</code> command returns one row for each column in the Cars table. Columns in the result set include the <strong>column order number</strong>, <strong>column name</strong>, <strong>data type</strong>, <strong>whether or not the column can be NULL</strong>, and the <strong>default value</strong> for the column.</p>
+<div class="codehilite"><pre><span class="mi">0</span> <span class="n">Id</span> <span class="n">INT</span>
+<span class="mi">1</span> <span class="n">Name</span> <span class="n">TEXT</span>
+<span class="mi">2</span> <span class="n">Price</span> <span class="n">INT</span>
+</pre></div>
+
+
+<h4>cur.description</h4>
+<div class="codehilite"><pre><span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;SELECT * FROM Cars&#39;</span><span class="p">)</span>
+<span class="n">col_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">cn</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">cn</span> <span class="ow">in</span> <span class="n">cur</span><span class="o">.</span><span class="n">description</span><span class="p">]</span>
+<span class="n">rows</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+<span class="k">print</span> <span class="s">&quot;</span><span class="si">%s</span><span class="s"> </span><span class="si">%-10s</span><span class="s"> </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">col_names</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">col_names</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">col_names</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+<span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s">&quot;</span><span class="si">%2s</span><span class="s"> </span><span class="si">%-10s</span><span class="s"> </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">row</span>
+</pre></div>
+
+
+<h4>sqlite_master</h4>
+<div class="codehilite"><pre><span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&quot;SELECT name FROM sqlite_master WHERE type=&#39;table&#39;&quot;</span><span class="p">)</span>
+    <span class="n">rows</span> <span class="o">=</span> <span class="n">cur</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">:</span>
+        <span class="k">print</span> <span class="n">row</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span class="n">Images</span>
+<span class="n">sqlite_sequence</span>
+<span class="n">Salaries</span>
+<span class="n">Cars</span>
+</pre></div>
+
+
+<p>SQLite数据库中一个特殊的名叫 SQLITE_MASTER 上执行一个SELECT查询以获得所有表的索引。 每一个 SQLite 数据库都有一个叫 SQLITE_MASTER 的表，它定义数据库的模式。 <code>SQLITE_MASTER</code> 表看起来如下：</p>
+<div class="codehilite"><pre><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">sqlite_master</span> <span class="p">(</span>
+<span class="k">type</span> <span class="nb">TEXT</span><span class="p">,</span>
+<span class="n">name</span> <span class="nb">TEXT</span><span class="p">,</span>
+<span class="n">tbl_name</span> <span class="nb">TEXT</span><span class="p">,</span>
+<span class="n">rootpage</span> <span class="nb">INTEGER</span><span class="p">,</span>
+<span class="k">sql</span> <span class="nb">TEXT</span>
+<span class="p">);</span>
+</pre></div>
+
+
+<p><strong>对于表</strong> 来说，type 字段永远是 ‘table’，name 字段永远是表的名字。所以，要获得数据库中所有表的列表， 使用下列SELECT语句：</p>
+<div class="codehilite"><pre><span class="k">SELECT</span> <span class="n">name</span> <span class="k">FROM</span> <span class="n">sqlite_master</span>
+<span class="k">WHERE</span> <span class="k">type</span><span class="o">=</span><span class="s1">&#39;table&#39;</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="n">name</span><span class="p">;</span>
+</pre></div>
+
+
+<p><strong>对于索引</strong>，<code>type</code> 等于 <code>‘index’</code>, <code>name</code> 则是索引的名字，<code>tbl_name</code> 是该索引所属的表的名字。 不管是表还是索引，sql 字段是原先用 <code>CREATE TABLE</code> 或 <code>CREATE INDEX</code> 语句创建它们时的命令文本。对于自动创建的索引（用来实现 <code>PRIMARY KEY</code> 或 <code>UNIQUE</code> 约束），sql字段为NULL。</p>
+<p><code>SQLITE_MASTER</code> 表是只读的。不能对它使用 <code>UPDATE</code>、<code>INSERT</code> 或 <code>DELETE</code>。 它会被 <code>CREATE TABLE</code>、<code>CREATE INDEX</code>、<code>DROP TABLE</code> 和 <code>DROP INDEX</code> 命令自动更新。</p>
+<p>临时表不会出现在 <code>SQLITE_MASTER</code> 表中。临时表及其索引和触发器存放在另外一个叫 <code>SQLITE_TEMP_MASTER</code> 的表中。<code>SQLITE_TEMP_MASTER</code> 跟 <code>SQLITE_MASTER</code> 差不多， 但它只是对于创建那些临时表的应用可见。如果要获得所有表的列表， 不管是永久的还是临时的，可以使用类似下面的命令：</p>
+<div class="codehilite"><pre><span class="k">SELECT</span> <span class="n">name</span> <span class="k">FROM</span>
+<span class="p">(</span><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">sqlite_master</span> <span class="k">UNION</span> <span class="k">ALL</span>
+<span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">sqlite_temp_master</span><span class="p">)</span>
+<span class="k">WHERE</span> <span class="k">type</span><span class="o">=</span><span class="s1">&#39;table&#39;</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="n">name</span>
+</pre></div>
+
+
+<h2>Export Data</h2>
+<div class="codehilite"><pre><span class="k">def</span> <span class="nf">writeData</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;cars.sql&#39;</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">con</span> <span class="o">=</span> <span class="n">lite</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s">&#39;:memory:&#39;</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">con</span><span class="p">:</span>
+    <span class="n">cur</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+    <span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">con</span><span class="o">.</span><span class="n">iterdump</span><span class="p">())</span>
+    <span class="n">writeData</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span class="n">data</span> <span class="o">=</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">con</span><span class="o">.</span><span class="n">iterdump</span><span class="p">())</span>
+</pre></div>
+
+
+<p>The <code>con.iterdump()</code> returns an iterator to dump the database in an SQL text format. The built-in <code>join()</code> function takes the iterator and joins all the strings in the iterator separated by a new line. This data is written to the <code>cars.sql</code> file in the <code>writeData()</code> function.</p>
+<div class="codehilite"><pre><span class="k">BEGIN</span> <span class="n">TRANSACTION</span><span class="p">;</span>
+<span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">Cars</span><span class="p">(</span><span class="n">Id</span> <span class="nb">INT</span><span class="p">,</span> <span class="n">Name</span> <span class="nb">TEXT</span><span class="p">,</span> <span class="n">Price</span> <span class="nb">INT</span><span class="p">);</span>
+<span class="p">...</span>
+<span class="k">COMMIT</span><span class="p">;</span>
+</pre></div>
+
+
+<h2>Import Data</h2>
+<div class="codehilite"><pre><span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;cars.sql&#39;</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">data</span>
+<span class="n">con</span> <span class="o">=</span> <span class="n">lite</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s">&#39;:memory:&#39;</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">con</span><span class="p">:</span>
+    <span class="n">cur</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+    <span class="n">sql</span> <span class="o">=</span> <span class="n">readData</span><span class="p">()</span>
+    <span class="n">cur</span><span class="o">.</span><span class="n">executescript</span><span class="p">(</span><span class="n">sql</span><span class="p">)</span>
+</pre></div>
+
+
+<h2>Transactions</h2>
+<p>In SQLite, any command other than the <code>SELECT</code> will start an implicit transaction.</p>
+<p>SQLite supports three non-standard transaction levels: <code>DEFERRED</code>, <code>IMMEDIATE</code> and <code>EXCLUSIVE</code>. SQLite Python module also supports an autocommit mode, where all changes to the tables are immediately effective. we do not call the <code>commit()</code> command explicitly. But this time, the data is written to the Friends table.</p>
+<div class="codehilite"><pre><span class="n">cur</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&quot;CREATE TABLE IF NOT EXISTS Temporary(Id INT)&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>This SQL statement will create a new table. It also commits the previous changes.</p>
+<p>In the autocommit mode, an SQL statement is executed immediately.</p>
+<div class="codehilite"><pre><span class="n">con</span> <span class="o">=</span> <span class="n">lite</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s">&#39;test.db&#39;</span><span class="p">,</span> <span class="n">isolation_level</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+</pre></div>
+
+
+<h2>SQLite类型</h2>
+<p>大多数的数据库引擎（到现在据我们所知的除了SQLite的每个sql数据库引擎）都使用静态的、刚性的类型，使用静态类型，数据的类型就由它的容器决定，这个容器是这个指被存放的特定列。 SQLite使用一个更一般的动态类型系统，sqlite中，值的数据类型跟值本身相关，而不是与它的容器相关。Sqlite的动态类型系统和其他数据库的更为一般的静态类型系统相兼容，但同时，sqlite中的动态类型允许它能做到一些传统刚性类型数据库所不可能做到的事。</p>
+<h3>存储类和数据类型</h3>
+<p>每个存放在sqlite数据库中（或者由这个数据库引擎操作）的值<strong>都有下面中的一个存储类</strong>：</p>
+<ul>
+<li>NULL，值是NULL</li>
+<li>INTEGER，值是有符号整形，根据值的大小以1,2,3,4,6或8字节存放</li>
+<li>REAL，值是浮点型值，以8字节IEEE浮点数存放</li>
+<li>TEXT，值是文本字符串，使用数据库编码（UTF-8，UTF-16BE或者UTF-16LE）存放</li>
+<li>BLOB，只是一个数据块，完全按照输入存放（即没有准换）</li>
+</ul>
+<p>从上可以看出存储类比数据类型更一般化。比如INTEGER存储类，包括6中不同长度的不同整形数据类型，这在磁盘上造成了差异。但是只要INTEGER值被从磁盘读出进入到内存进行处理，它们被转换成最一般的数据类型（8-字节有符号整形）。 Sqlite v3数据库中的任何列，除了整形主键列，可以用于存储任何一个存储列的值。sql语句中的中所有值，不管它们是嵌入在sql文本中或者是作为参数绑定到一个预编译的sql语句，它们的存储类型都是未定的。在下面描述的情况中，数据库引擎会在查询执行过程中在数值（numeric）存储类型（INTEGER和REAL）和TEXT之间转换值。</p>
+<h4>布尔类型</h4>
+<p>Sqlite没有单独的布尔存储类型，它使用INTEGER作为存储类型，0为false，1为true</p>
+<h4>Date和Time Datatype</h4>
+<p>Sqlite没有另外为存储日期和时间设定一个存储类集，内置的sqlite日期和时间函数能够将日期和时间以TEXT，REAL或INTEGER形式存放</p>
+<ul>
+<li>TEXT 作为IS08601字符串（"YYYY-MM-DD HH:MM:SS.SSS"）</li>
+<li>REAL 从格林威治时间11月24日，4174 B.C中午以来的天数</li>
+<li>INTEGER 从 1970-01-01 00:00:00 UTC以来的秒数</li>
+</ul>
+<p>程序可以任意选择这几个存储类型去存储日期和时间，并且能够使用内置的日期和时间函数在这些格式间自由转换</p>
+<h3>类型近似(SQLite Type Affinity)</h3>
+<p>近似的规则:</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>INTEGER</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>INT</td>
+<td>INT8</td>
+</tr>
+<tr>
+<td>TINYINT</td>
+<td>SMALLINT</td>
+</tr>
+<tr>
+<td>MEDIUMINT</td>
+<td>BIGINT</td>
+</tr>
+<tr>
+<td>UNSIGNED BIG INT</td>
+<td>INT2</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>TEXT</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CHARACTER(20)</td>
+<td>VARCHAR(255)</td>
+</tr>
+<tr>
+<td>VARYING CHARACTER(255)</td>
+<td>NCHAR(55)</td>
+</tr>
+<tr>
+<td>NATIVE CHARACTER(70)</td>
+<td>NVARCHAR(100)</td>
+</tr>
+<tr>
+<td>TEXT</td>
+<td>CLOB</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>NONE</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BLOB</td>
+<td>no datatype specified</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>REAL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>REAL</td>
+<td>DOUBLE</td>
+</tr>
+<tr>
+<td>DOUBLE PRECISION</td>
+<td>FLOAT</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>NUMERIC</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DATETIME</td>
+<td>DECIMAL(10,5)</td>
+</tr>
+<tr>
+<td>BOOLEAN</td>
+<td>DATE</td>
+</tr>
+</tbody>
+</table>
+<p>NCHAR、NVARCHAR、NTEXT。这三种从名字上看比前面三种多了个“N”。它表示存储的是Unicode数据类型的字符。</p>
+<p>In SQLite, <code>INTEGER PRIMARY KEY</code> column is auto incremented. There is also an <code>AUTOINCREMENT</code> keyword. When used in <code>INTEGER PRIMARY KEY AUTOINCREMENT</code> a slightly different algorithm for Id creation is used.</p>
+<h2>使用SQLAlchemy</h2>
+<h3>参考文献</h3>
+<p><a href="http://zetcode.com/db/sqlitepythontutorial/">SQLite Python tutorial</a><br />
+<a href="http://www.liaoxuefeng.com/wiki/001374738125095c955c1e6d8bb493182103fac9270762a000/001388320596292f925f46d56ef4c80a1c9d8e47e2d5711000">使用SQLite</a></p></div>
+      <footer>
+<p class="meta">
+  <span class="byline author vcard">
+    Posted by <span class="fn">阿七</span>
+  </span>
+<time datetime="2014-12-23T15:25:00+08:00" pubdate>2014 十二月 23 二</time>  <span class="categories">
+    <a class="category" href="./tag/shu-ju-ku.html">数据库</a>
+    <a class="category" href="./tag/sqlite.html">SQLite</a>
+  </span>
+</p><div class="sharing">
+</div>      </footer>
+    </article>
+      <!--  -->
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="pythonzhong-de-shu-ju-ku.html" data-title="Python中的数据库" data-url="./pythonzhong-de-shu-ju-ku.html" style=" margin-left: 30px; margin-right: 30px; "></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:"nobodiness"};
+    (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script> 
+    <!-- 多说公共JS代码 end --> 
+  </div>
+<aside class="sidebar">
+  <section>
+    <h1>Recent Posts</h1>
+    <ul id="recent_posts">
+      <li class="post">
+          <a href="./pythonzhong-de-mian-xiang-dui-xiang.html">Python中的面向对象</a>
+      </li>
+      <li class="post">
+          <a href="./pythonzhong-de-han-shu-shi-bian-cheng.html">Python中的函数式编程</a>
+      </li>
+      <li class="post">
+          <a href="./plantumlyu-yan-lei-tu.html">PlantUML语言--类图</a>
+      </li>
+      <li class="post">
+          <a href="./pythonzhong-de-she-ji-mo-shi-yi.html">Python中的设计模式(一)</a>
+      </li>
+      <li class="post">
+          <a href="./pythonzhong-de-shu-ju-ku.html">Python中的数据库</a>
+      </li>
+    </ul>
+  </section>
+  <section>
+      
+    <h1>Categories</h1>
+    <ul id="recent_posts">
+        <li><a href="./category/python.html">Python</a></li>
+        <li><a href="./category/uml.html">UML</a></li>
+    </ul>
+  </section>
+ 
+
+  <section>
+  <h1>Tags</h1>
+    <a href="./tag/pelican.html">Pelican</a>,    <a href="./tag/sqlite.html">SQLite</a>,    <a href="./tag/plantuml.html">PlantUML</a>,    <a href="./tag/shu-ju-ku.html">数据库</a>,    <a href="./tag/bencode.html">bencode</a>,    <a href="./tag/xiao-cheng-xu.html">小程序</a>,    <a href="./tag/bt.html">bt</a>,    <a href="./tag/mian-xiang-dui-xiang.html">面向对象</a>,    <a href="./tag/jing-tai-bo-ke.html">静态博客</a>,    <a href="./tag/she-ji-mo-shi.html">设计模式</a>,    <a href="./tag/han-shu-shi-bian-cheng.html">函数式编程</a>,    <a href="./tag/md5.html">md5</a>  </section>
+
+
+
+  <section>
+    <h1>GitHub Repos</h1>
+    <ul id="gh_repos">
+      <li class="loading">Status updating...</li>
+    </ul>
+      <a href="https://github.com/nobodiness">@nobodiness</a> on GitHub
+    <script type="text/javascript">
+      $.domReady(function(){
+          if (!window.jXHR){
+              var jxhr = document.createElement('script');
+              jxhr.type = 'text/javascript';
+              jxhr.src = './theme/js/jXHR.js';
+              var s = document.getElementsByTagName('script')[0];
+              s.parentNode.insertBefore(jxhr, s);
+          }
+
+          github.showRepos({
+              user: 'nobodiness',
+              count: 5,
+              skip_forks: false,
+              target: '#gh_repos'
+          });
+      });
+    </script>
+    <script src="./theme/js/github.js" type="text/javascript"> </script>
+  </section>
+
+
+
+  <section>
+  <h1>Recommended</h1>
+  <br/>
+  <div><script type="text/javascript" src="http://www.douban.com/service/badge/53955651/?selection=random&amp;picsize=medium&amp;show=dolist&amp;n=2&amp;hidelogo=on&amp;cat=book&amp;columns=2"></script></div>
+  </section>
+
+  <!-- <section>
+  <h1>Favorite</h1>
+  <br/>
+  <div><script type="text/javascript" src="http://www.douban.com/service/badge/53955651/?selection=favorite&amp;picsize=small&amp;hideself=on&amp;show=collection&amp;n=3&amp;hidelogo=on&amp;cat=movie%7Cbook&amp;columns=3"></script></div>
+  </section> -->
+</aside>    </div>
+  </div>
+  <footer role="contentinfo"><p>
+    Copyright &copy;  2014  - 阿七 -
+  <span class="credit">Powered by <a href="http://getpelican.com">Pelican</a></span>
+</p></footer>
+</body>
+</html>
