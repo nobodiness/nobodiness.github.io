@@ -31,3 +31,9 @@ Try
 通过type()函数创建的类和直接写class是完全一样的，因为Python解释器遇到class定义时，仅仅是扫描一下class定义的语法，然后调用type()函数创建出class。 
 
 ## 元类 metaclass
+
+#### 学习文献
+[Python 中的元类编程](https://www.ibm.com/developerworks/cn/linux/l-pymeta/)
+[五分钟理解元类（Metaclasses）](http://blog.csdn.net/gzlaiyonghao/article/details/3048947)
+[廖雪峰-使用元类](http://www.liaoxuefeng.com/wiki/001374738125095c955c1e6d8bb493182103fac9270762a000/001386820064557c69858840b4c48d2b8411bc2ea9099ba000)
+[深刻理解Python中的元类(metaclass)](http://blog.jobbole.com/21351/)

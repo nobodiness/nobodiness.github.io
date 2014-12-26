@@ -3,7 +3,7 @@
 from __future__ import unicode_literals
 
 AUTHOR = u'阿七'
-SITENAME = u'Python大法好'
+SITENAME = u'笔记'
 SITEURL = 'nobodiness.github.io'
 RELATIVE_URLS = True
 # PATH = 'content'
@@ -19,7 +19,7 @@ TRANSLATION_FEED_ATOM = None
 AUTHOR_FEED_ATOM = None
 AUTHOR_FEED_RSS = None
 
-MD_EXTENSIONS = ['codehilite(css_class=codehilite)','extra','nl2br','plantuml']
+MD_EXTENSIONS = ['codehilite(css_class=codehilite)','extra','nl2br']
 
 # Blogroll
 # LINKS = (('Pelican', 'http://getpelican.com/'),
