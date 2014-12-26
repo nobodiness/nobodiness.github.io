@@ -64,7 +64,7 @@ In [14]: person
 Out[14]: <__main__.Human at 0x8e13bec>
 ```
 我们看到`get_weight`被绑定在了 person 这个实例对象上。
-总结下
+#### 总结下
 `instance method` 就是实例对象与函数的结合。
 使用类调用，第一个参数明确的传递过去一个实例。
 使用实例调用，调用的实例被作为第一个参数被隐含的传递过去。
@@ -104,7 +104,7 @@ In [3]: Human().get_weight()
 <class '__main__.Human'>
 ```
 我们看到传递过去的都是 Human 类,不是 Human 的实例，两种方式调用的结果没有任何区别。`cls` 只是一个普通的函数参数，调用时被隐含的传递过去。
-总结起来
+#### 总结下
 `classmethod` 是类对象与函数的结合。
 可以使用和类的实例调用，但是都是将类作为隐含参数传递过去。
 使用类来调用 `classmethod` 可以避免将类实例化的开销。
@@ -140,7 +140,7 @@ In [7]: Human().get_weight is Human().get_weight
 Out[7]: False
 ```
 add 在两个实例上也是同一个对象。`instancemethod` 就不一样了，每次都会创建一个新的 `get_weight` 对象。
-总结下
+#### 总结下
 当一个函数逻辑上属于一个类又不依赖与类的属性的时候，可以使用staticmethod。
 使用 `staticmethod` 可以避免每次使用的时都会创建一个对象的开销。
 `staticmethod` 可以使用类和类的实例调用。但是不依赖于类和类的实例的状态。

@@ -80,10 +80,10 @@
 
 
 <p>将在内存中创建一个对象，名字就是ObjectCreator。这个对象（类）自身拥有创建对象（类实例）的能力，而这就是为什么它是一个类的原因。但是，它的本质仍然是一个对象，于是乎你可以对它做如下的操作：</p>
-<p>1)   你可以将它赋值给一个变量</p>
-<p>2)   你可以拷贝它</p>
-<p>3)   你可以为它增加属性</p>
-<p>4)   你可以将它作为函数参数进行传递</p>
+<p>1)   你可以将它赋值给一个变量<br />
+2)   你可以拷贝它<br />
+3)   你可以为它增加属性<br />
+4)   你可以将它作为函数参数进行传递</p>
 <p>下面是示例：</p>
 <div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="k">print</span> <span class="n">ObjectCreator</span>     <span class="c"># 你可以打印一个类，因为它其实也是一个对象</span>
 <span class="o">&lt;</span><span class="k">class</span> <span class="err">&#39;</span><span class="nc">__main__</span><span class="o">.</span><span class="n">ObjectCreator</span><span class="s">&#39;&gt;</span>
@@ -139,8 +139,8 @@
 
 <p>这里，type有一种完全不同的能力，它也能动态的创建类。type可以接受一个类的描述作为参数，然后返回一个类。（我知道，根据传入参数的不同，同一个函数拥有两种完全不同的用法是一件很傻的事情，但这在Python中是为了保持向后兼容性）</p>
 <p>type可以像这样工作：</p>
-<p>type(类名, 父类的元组（针对继承的情况，可以为空），包含属性的字典（名称和值）)<br />
-比如下面的代码：</p>
+<p><code>type(类名, 父类的元组)针对继承的情况，可以为空)，包含属性的字典)名称和值))</code></p>
+<p>比如下面的代码：</p>
 <div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">MyShinyClass</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
          <span class="k">pass</span>
 </pre></div>
@@ -352,16 +352,16 @@
 
 
 <p>就是这样，除此之外，关于元类真的没有别的可说的了。使用到元类的代码比较复杂，这背后的原因倒并不是因为元类本身，而是因为你通常会使用元类去做一些晦涩的事情，依赖于自省，控制继承等等。确实，用元类来搞些“黑暗魔法”是特别有用的，因而会搞出些复杂的东西来。但就元类本身而言，它们其实是很简单的：</p>
-<p>1)   拦截类的创建</p>
-<p>2)   修改类</p>
-<p>3)   返回修改之后的类</p>
+<p>1)   拦截类的创建<br />
+2)   修改类<br />
+3)   返回修改之后的类</p>
 <h2>为什么要用metaclass类而不是函数?</h2>
 <p>由于<code>__metaclass__</code>可以接受任何可调用的对象，那为何还要使用类呢，因为很显然使用类会更加复杂啊？这里有好几个原因：</p>
-<p>1）  意图会更加清晰。当你读到UpperAttrMetaclass(type)时，你知道接下来要发生什么。</p>
-<p>2） 你可以使用OOP编程。元类可以从元类中继承而来，改写父类的方法。元类甚至还可以使用元类。</p>
-<p>3）  你可以把代码组织的更好。当你使用元类的时候肯定不会是像我上面举的这种简单场景，通常都是针对比较复杂的问题。将多个方法归总到一个类中会很有帮助，也会使得代码更容易阅读。</p>
-<p>4） 你可以使用__new__, __init__以及__call__这样的特殊方法。它们能帮你处理不同的任务。就算通常你可以把所有的东西都在__new__里处理掉，有些人还是觉得用__init__更舒服些。</p>
-<p>5） 哇哦，这东西的名字是metaclass，肯定非善类，我要小心！</p>
+<p>1) 意图会更加清晰。当你读到UpperAttrMetaclass(type)时，你知道接下来要发生什么。<br />
+2) 你可以使用OOP编程。元类可以从元类中继承而来，改写父类的方法。元类甚至还可以使用元类。<br />
+3）  你可以把代码组织的更好。当你使用元类的时候肯定不会是像我上面举的这种简单场景，通常都是针对比较复杂的问题。将多个方法归总到一个类中会很有帮助，也会使得代码更容易阅读。<br />
+4) 你可以使用<code>__new__</code>, <code>__init__</code>以及<code>__call__</code>这样的特殊方法。它们能帮你处理不同的任务。就算通常你可以把所有的东西都在<code>__new__</code>里处理掉，有些人还是觉得用<code>__init__</code>更舒服些。<br />
+5) 哇哦，这东西的名字是metaclass，肯定非善类，我要小心！</p>
 <h2>究竟为什么要使用元类？</h2>
 <p>现在回到我们的大主题上来，究竟是为什么你会去使用这样一种容易出错且晦涩的特性？好吧，一般来说，你根本就用不上它：</p>
 <p>“元类就是深度的魔法，99%的用户应该根本不必为此操心。如果你想搞清楚究竟是否需要用到元类，那么你就不需要它。那些实际用到元类的人都非常清楚地知道他们需要做什么，而且根本不需要解释为什么要用元类。”  —— Python界的领袖 Tim Peters</p>
@@ -388,8 +388,8 @@
 
 
 <p>Python中的一切都是对象，它们要么是类的实例，要么是元类的实例，除了type。type实际上是它自己的元类，在纯Python环境中这可不是你能够做到的，这是通过在实现层面耍一些小手段做到的。其次，元类是很复杂的。对于非常简单的类，你可能不希望通过使用元类来对类做修改。你可以通过其他两种技术来修改类：</p>
-<p>1) Monkey patching</p>
-<p>2) class decorators</p>
+<p>1) Monkey patching<br />
+2) class decorators</p>
 <p>当你需要动态修改类时，99%的时间里你最好使用上面这两种技术。当然了，其实在99%的时间里你根本就不需要动态修改类 :D</p></div>
       <footer>
 <p class="meta">
@@ -426,6 +426,9 @@
     <h1>Recent Posts</h1>
     <ul id="recent_posts">
       <li class="post">
+          <a href="./pythonjie-shi-qi-jian-jie.html">Python解释器简介</a>
+      </li>
+      <li class="post">
           <a href="./zhuan-shi-yao-shi-method.html">[转]什么是method？</a>
       </li>
       <li class="post">
@@ -436,9 +439,6 @@
       </li>
       <li class="post">
           <a href="./pythonzhong-de-shu-ju-ku.html">Python中的数据库</a>
-      </li>
-      <li class="post">
-          <a href="./pythonzhong-de-mian-xiang-dui-xiang.html">Python中的面向对象</a>
       </li>
     </ul>
   </section>
@@ -455,7 +455,7 @@
 
   <section>
   <h1>Tags</h1>
-    <a href="./tag/yuan-lei.html">元类</a>,    <a href="./tag/pelican.html">Pelican</a>,    <a href="./tag/sqlite.html">SQLite</a>,    <a href="./tag/plantuml.html">PlantUML</a>,    <a href="./tag/zhong-yi.html">中医</a>,    <a href="./tag/shu-ju-ku.html">数据库</a>,    <a href="./tag/bencode.html">bencode</a>,    <a href="./tag/gu-dai-de-zhong-yi.html">古代的中医</a>,    <a href="./tag/xiao-cheng-xu.html">小程序</a>,    <a href="./tag/yi-bing-shi.html">议病式</a>,    <a href="./tag/bt.html">bt</a>,    <a href="./tag/mian-xiang-dui-xiang.html">面向对象</a>,    <a href="./tag/jing-tai-bo-ke.html">静态博客</a>,    <a href="./tag/uml.html">UML</a>,    <a href="./tag/han-shu-shi-bian-cheng.html">函数式编程</a>,    <a href="./tag/md5.html">md5</a>  </section>
+    <a href="./tag/yuan-lei.html">元类</a>,    <a href="./tag/pelican.html">Pelican</a>,    <a href="./tag/sqlite.html">SQLite</a>,    <a href="./tag/plantuml.html">PlantUML</a>,    <a href="./tag/zhong-yi.html">中医</a>,    <a href="./tag/shu-ju-ku.html">数据库</a>,    <a href="./tag/bencode.html">bencode</a>,    <a href="./tag/gu-dai-de-zhong-yi.html">古代的中医</a>,    <a href="./tag/xiao-cheng-xu.html">小程序</a>,    <a href="./tag/yi-bing-shi.html">议病式</a>,    <a href="./tag/bt.html">bt</a>,    <a href="./tag/mian-xiang-dui-xiang.html">面向对象</a>,    <a href="./tag/jie-shi-qi.html">解释器</a>,    <a href="./tag/jing-tai-bo-ke.html">静态博客</a>,    <a href="./tag/uml.html">UML</a>,    <a href="./tag/han-shu-shi-bian-cheng.html">函数式编程</a>,    <a href="./tag/md5.html">md5</a>  </section>
 
 
 

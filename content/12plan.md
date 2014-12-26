@@ -22,7 +22,7 @@ Status: draft
 + [ ] 红宝书List01[01-80] - 红宝书List08[01-80] 15 
 
 ## 27号
-+ [ ] pyYAML
++ [ ] pyYAML RSS
 + [ ] 红宝书List08[81-160] - 红宝书List15[81-160] 15
 
 ## 28号
