@@ -73,18 +73,69 @@
 <span class="o">&lt;</span><span class="nb">type</span> <span class="s">&#39;type&#39;</span><span class="o">&gt;</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">h</span><span class="p">))</span>
 <span class="o">&lt;</span><span class="k">class</span> <span class="err">&#39;</span><span class="nc">__main__</span><span class="o">.</span><span class="n">Hello</span><span class="s">&#39;&gt;</span>
-<span class="n">Try</span>
 </pre></div>
 
 
-<p>要创建一个class对象，type()函数依次传入3个参数：<strong>class的名称<strong><em>*继承的父类集合</em>*，注意Python支持多重继承，如果只有一个父类，别忘了tuple的单元素写法</strong>class的方法名称与函数绑定</strong>，这里我们把函数fn绑定到方法名hello上。</p>
+<p>要创建一个class对象，type()函数依次传入3个参数：<strong>class的名称</strong> <strong>继承的父类集合</strong>，注意Python支持多重继承，如果只有一个父类，别忘了tuple的单元素写法<strong>class的方法名称与函数绑定</strong>，这里我们把函数fn绑定到方法名hello上。</p>
 <p>通过type()函数创建的类和直接写class是完全一样的，因为Python解释器遇到class定义时，仅仅是扫描一下class定义的语法，然后调用type()函数创建出class。 </p>
+<h2>new 模块中的类工厂</h2>
+<p>new 模块与上面相同</p>
+<div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">new</span> <span class="kn">import</span> <span class="n">classobj</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">Foo2</span> <span class="o">=</span> <span class="n">classobj</span><span class="p">(</span><span class="s">&#39;Foo2&#39;</span><span class="p">,(</span><span class="n">Foo</span><span class="p">,),{</span><span class="s">&#39;bar&#39;</span><span class="p">:</span><span class="k">lambda</span> <span class="bp">self</span><span class="p">:</span><span class="s">&#39;bar&#39;</span><span class="p">})</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">Foo2</span><span class="p">()</span><span class="o">.</span><span class="n">bar</span><span class="p">()</span>
+<span class="s">&#39;bar&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">Foo2</span><span class="p">()</span><span class="o">.</span><span class="n">say_foo</span><span class="p">()</span>
+<span class="n">foo</span>
+</pre></div>
+
+
 <h2>元类 metaclass</h2>
+<p>元类就是用来创建类的“东西”。你创建类就是为了创建类的实例对象，不是吗？但是我们已经学习到了Python中的类也是对象。好吧，元类就是用来创建这些类（对象）的，元类就是类的类，你可以这样理解为：</p>
+<div class="codehilite"><pre><span class="n">MyClass</span> <span class="o">=</span> <span class="n">MetaClass</span><span class="p">()</span>
+<span class="n">MyObject</span> <span class="o">=</span> <span class="n">MyClass</span><span class="p">()</span>
+</pre></div>
+
+
+<p>你已经看到了type可以让你像这样做：</p>
+<div class="codehilite"><pre><span class="n">MyClass</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="s">&#39;MyClass&#39;</span><span class="p">,</span> <span class="p">(),</span> <span class="p">{})</span>
+</pre></div>
+
+
+<p>这是因为函数<code>type</code>实际上是一个元类。<code>type</code>就是Python在背后用来创建所有类的元类。现在你想知道那为什么<code>type</code>会全部采用小写形式而不是<code>Type</code>呢？好吧，我猜这是为了和<code>str</code>保持一致性，<code>str</code>是用来创建字符串对象的类，而<code>int</code>是用来创建整数对象的类。<code>type</code>就是创建类对象的类。你可以通过检查<code>__class__</code>属性来看到这一点。Python中所有的东西，注意，我是指所有的东西——都是对象。这包括整数、字符串、函数以及类。它们全部都是对象，而且它们都是从一个类创建而来。</p>
+<div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">age</span> <span class="o">=</span> <span class="mi">35</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">age</span><span class="o">.</span><span class="n">__class__</span>
+<span class="o">&lt;</span><span class="nb">type</span> <span class="s">&#39;int&#39;</span><span class="o">&gt;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">name</span> <span class="o">=</span> <span class="s">&#39;bob&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">name</span><span class="o">.</span><span class="n">__class__</span>
+<span class="o">&lt;</span><span class="nb">type</span> <span class="s">&#39;str&#39;</span><span class="o">&gt;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">foo</span><span class="p">():</span> <span class="k">pass</span>
+<span class="o">&gt;&gt;&gt;</span><span class="n">foo</span><span class="o">.</span><span class="n">__class__</span>
+<span class="o">&lt;</span><span class="nb">type</span> <span class="s">&#39;function&#39;</span><span class="o">&gt;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">Bar</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span> <span class="k">pass</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">b</span> <span class="o">=</span> <span class="n">Bar</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">b</span><span class="o">.</span><span class="n">__class__</span>
+<span class="o">&lt;</span><span class="k">class</span> <span class="err">&#39;</span><span class="nc">__main__</span><span class="o">.</span><span class="n">Bar</span><span class="s">&#39;&gt;</span>
+</pre></div>
+
+
+<p>现在，对于任何一个<code>__class__</code>的<code>__class__</code>属性又是什么呢？</p>
+<div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__class__</span>
+<span class="o">&lt;</span><span class="nb">type</span> <span class="s">&#39;type&#39;</span><span class="o">&gt;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">age</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__class__</span>
+<span class="o">&lt;</span><span class="nb">type</span> <span class="s">&#39;type&#39;</span><span class="o">&gt;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">foo</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__class__</span>
+<span class="o">&lt;</span><span class="nb">type</span> <span class="s">&#39;type&#39;</span><span class="o">&gt;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">b</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__class__</span>
+<span class="o">&lt;</span><span class="nb">type</span> <span class="s">&#39;type&#39;</span><span class="o">&gt;</span>
+</pre></div>
+
+
+<p>因此，元类就是创建类这种对象的东西。如果你喜欢的话，可以把元类称为“类工厂”（不要和工厂类搞混了:D） type就是Python的内建元类，当然了，你也可以创建自己的元类。</p>
 <h4>学习文献</h4>
+<p>推荐:<a href="http://blog.jobbole.com/21351/">深刻理解Python中的元类(metaclass)</a></p>
 <p><a href="https://www.ibm.com/developerworks/cn/linux/l-pymeta/">Python 中的元类编程</a><br />
 <a href="http://blog.csdn.net/gzlaiyonghao/article/details/3048947">五分钟理解元类（Metaclasses）</a><br />
-<a href="http://www.liaoxuefeng.com/wiki/001374738125095c955c1e6d8bb493182103fac9270762a000/001386820064557c69858840b4c48d2b8411bc2ea9099ba000">廖雪峰-使用元类</a><br />
-<a href="http://blog.jobbole.com/21351/">深刻理解Python中的元类(metaclass)</a></p></div>
+<a href="http://www.liaoxuefeng.com/wiki/001374738125095c955c1e6d8bb493182103fac9270762a000/001386820064557c69858840b4c48d2b8411bc2ea9099ba000">廖雪峰-使用元类</a></p></div>
       <footer>
 <p class="meta">
   <span class="byline author vcard">
@@ -120,6 +171,9 @@
     <h1>Recent Posts</h1>
     <ul id="recent_posts">
       <li class="post">
+          <a href="../zhuan-shi-yao-shi-method.html">[转]什么是method？</a>
+      </li>
+      <li class="post">
           <a href="../zhong-yi-de-da-shu-ju-yi-bing-shi.html">中医的大数据--议病式</a>
       </li>
       <li class="post">
@@ -130,9 +184,6 @@
       </li>
       <li class="post">
           <a href="../pythonzhong-de-han-shu-shi-bian-cheng.html">Python中的函数式编程</a>
-      </li>
-      <li class="post">
-          <a href="../plantumlyu-yan-lei-tu.html">PlantUML语言--类图</a>
       </li>
     </ul>
   </section>
