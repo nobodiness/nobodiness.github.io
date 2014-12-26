@@ -73,6 +73,7 @@
 
 <p>Python中的函数是一个对象</p>
 <h2>代码对象</h2>
+<p>函数的func_code属性就是代码对象</p>
 <div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
 <span class="o">...</span>     <span class="n">x</span> <span class="o">=</span> <span class="mi">3</span>
 <span class="o">...</span>     <span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">a</span>
@@ -94,7 +95,7 @@
 </pre></div>
 
 
-<p>通过调用它们，我们能依次得到：变量名、函数中已知的常量和函数参数的数量。但是目前为止，我们还是不知道生成代码对象的指令到底是什么。事实上，这个指令叫做字节码。字节码也是代码对象的一个属性：</p>
+<p>通过调用它们，我们能依次得到：<strong>变量名</strong>、<strong>函数中已知的常量</strong>和<strong>函数参数的数量</strong>。但是目前为止，我们还是不知道生成代码对象的指令到底是什么。事实上，这个指令叫做字节码。字节码也是代码对象的一个属性：</p>
 <div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">foo</span><span class="o">.</span><span class="n">func_code</span><span class="o">.</span><span class="n">co_code</span>
 <span class="s">&#39;d</span><span class="se">\x01\x00</span><span class="s">}</span><span class="se">\x01\x00</span><span class="s">|</span><span class="se">\x01\x00</span><span class="s">|</span><span class="se">\x00\x00\x17</span><span class="s">S&#39;</span>
 </pre></div>
@@ -108,9 +109,9 @@
 
 
 <p>这就是那些组成python字节码的字节。解释器会循环接收各个字节，查找每个字节的指令然后执行这个指令。需要注意的是，字节码本身并不包括任何python对象,或引用任何对象。</p>
-<p>如果你想知道python字节码的意思，可以去找到CPython解释器文件(ceval.c)，然后查阅100的意思、1的意思、0的意思，等等。在后续内容中，我们会这么做的！但暂时可以用更简单的方法： dis 模块。</p>
+<p>如果你想知道python字节码的意思，可以去找到CPython解释器文件(ceval.c)，然后查阅100的意思、1的意思、0的意思，等等。在后续内容中，我们会这么做的！但暂时可以用更简单的方法： <code>dis 模块</code>。</p>
 <h2>反汇编字节码</h2>
-<p>反汇编字节码的意思就是接收这一系列的字节，然后打印出我们能够理解的字符。这并不是python的工作; dis 模块只是帮助我们了解python内部工作的中间状态。我不支持在产品代码中使用 dis ——它是面向程序员的，不是电脑。</p>
+<p>反汇编字节码的意思就是接收这一系列的字节，然后打印出我们能够理解的字符。这并不是python的工作; <code>dis</code>模块只是帮助我们了解python内部工作的中间状态。我不支持在产品代码中使用 <code>dis</code> ——它是面向程序员的，不是电脑。</p>
 <p>但是，现在我们需要做的正是让一些字节码变得更通俗易懂，所以 <code>dis</code> 是一个非常理想的工具。我们将使用 <code>dis.dis</code> 函数去分析 <code>foo</code> 函数的代码对象。</p>
 <div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
 <span class="o">...</span>     <span class="n">x</span> <span class="o">=</span> <span class="mi">3</span>
@@ -128,9 +129,9 @@
 </pre></div>
 
 
-<p>（你通常会看到这种写法：dis.dis(foo),直接分析它的函数对象。这其实是一种简便写法： dis 真正分析的还是代码对象。如果要传递一个函数，那么只能接收到它的代码对象。）</p>
-<p>左边那一列数字是原始源代码的行号。第二列是字节码的偏移量：LOAD_CONST在第0行，STORE_FAST在第3行，以此类推。中间那列是字节的名字。它们是为程序员所准备的——解释器是完全不需要的。</p>
-<p>最后两列告诉我们一些关于指令参数（如果有的话）的细节。第四列是参数本身。它表示一个指向代码对象其它属性的索引。在这个例子中，LOAD_CONST的参数指向列表co_consts，STORE_FAST的参数指向co_varnames。dis在第四列所指向的的地方查找常数或者名称, 最后在第五列返回给我们它找到的数据。这很容易就能得到证实了：</p>
+<p>（你通常会看到这种写法：<code>dis.dis(foo)</code>,直接分析它的函数对象。这其实是一种简便写法： <code>dis</code> 真正分析的还是代码对象。如果要传递一个函数，那么只能接收到它的代码对象。）</p>
+<p>左边那一列数字是原始源代码的行号。第二列是字节码的偏移量：<code>LOAD_CONST</code>在第0行，<code>STORE_FAST</code>在第3行，以此类推。中间那列是字节的名字。它们是为程序员所准备的——解释器是完全不需要的。</p>
+<p>最后两列告诉我们一些关于指令参数（如果有的话）的细节。第四列是参数本身。它表示一个指向代码对象其它属性的索引。在这个例子中，<code>LOAD_CONST</code>的参数指向列表<code>co_consts</code>，<code>STORE_FAST</code>的参数指向<code>co_varnames</code>。<code>dis</code>在第四列所指向的的地方查找常数或者名称, 最后在第五列返回给我们它找到的数据。这很容易就能得到证实了：</p>
 <div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">foo</span><span class="o">.</span><span class="n">func_code</span><span class="o">.</span><span class="n">co_consts</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
 <span class="mi">3</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">foo</span><span class="o">.</span><span class="n">func_code</span><span class="o">.</span><span class="n">co_varnames</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
@@ -138,7 +139,7 @@
 </pre></div>
 
 
-<p>这也能解释为什么第二个指令STORE_FAST位于字节码的第三行。如果一个字节码有参数的话，那么它相邻的两个字节的参数和它相同。当然，正确的处理这些数据是解释器的工作。</p>
+<p>这也能解释为什么第二个指令<code>STORE_FAST</code>位于字节码的第三行。如果一个字节码有参数的话，那么它相邻的两个字节的参数和它相同。当然，正确的处理这些数据是解释器的工作。</p>
 <h4>未完</h4>
 <p><a href="http://blog.jobbole.com/57381/">第四节</a></p>
 <h4>学习资料</h4>
