@@ -45,6 +45,9 @@
     <a href="./category/python.html">Python</a>
     </li>
     <li >
+    <a href="./category/she-ji-mo-shi.html">设计模式</a>
+    </li>
+    <li >
     <a href="./category/uml.html">Uml</a>
     </li>
 </ul></nav>
@@ -494,25 +497,7 @@ http://api.server/user/timeline/list
 <p>通过<code>callable()</code>函数，我们就可以判断一个对象是否是“可调用”对象。</p>
 <p>本节介绍的是最常用的几个定制方法，还有很多可定制的方法，请参考<a href="http://docs.python.org/2/reference/datamodel.html#special-method-names">Python的官方文档</a>。</p>
 <h2>使用元类</h2>
-<h3>动态创建类 type()</h3>
-<p>type()函数既可以返回一个对象的类型，又可以创建出新的类型，比如，我们可以通过type()函数创建出Hello类，而无需通过class Hello(object)...的定义：</p>
-<div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">fn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;world&#39;</span><span class="p">):</span> <span class="c"># 先定义函数</span>
-<span class="o">...</span>     <span class="k">print</span><span class="p">(</span><span class="s">&#39;Hello, </span><span class="si">%s</span><span class="s">.&#39;</span> <span class="o">%</span> <span class="n">name</span><span class="p">)</span>
-<span class="o">...</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">Hello</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="s">&#39;Hello&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nb">object</span><span class="p">,),</span> <span class="nb">dict</span><span class="p">(</span><span class="n">hello</span><span class="o">=</span><span class="n">fn</span><span class="p">))</span> <span class="c"># 创建Hello class</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">h</span> <span class="o">=</span> <span class="n">Hello</span><span class="p">()</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">h</span><span class="o">.</span><span class="n">hello</span><span class="p">()</span>
-<span class="n">Hello</span><span class="p">,</span> <span class="n">world</span><span class="o">.</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">Hello</span><span class="p">))</span>
-<span class="o">&lt;</span><span class="nb">type</span> <span class="s">&#39;type&#39;</span><span class="o">&gt;</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">h</span><span class="p">))</span>
-<span class="o">&lt;</span><span class="k">class</span> <span class="err">&#39;</span><span class="nc">__main__</span><span class="o">.</span><span class="n">Hello</span><span class="s">&#39;&gt;</span>
-<span class="n">Try</span>
-</pre></div>
-
-
-<p>要创建一个class对象，type()函数依次传入3个参数：<strong>class的名称<strong><em>*继承的父类集合</em>*，注意Python支持多重继承，如果只有一个父类，别忘了tuple的单元素写法</strong>class的方法名称与函数绑定</strong>，这里我们把函数fn绑定到方法名hello上。</p>
-<p>通过type()函数创建的类和直接写class是完全一样的，因为Python解释器遇到class定义时，仅仅是扫描一下class定义的语法，然后调用type()函数创建出class。 ####元类 metaclass 见pdf ##错误、调试和测试</p></div>
+<p>单开一章</p></div>
       <footer>
 <p class="meta">
   <span class="byline author vcard">
@@ -547,6 +532,12 @@ http://api.server/user/timeline/list
     <h1>Recent Posts</h1>
     <ul id="recent_posts">
       <li class="post">
+          <a href="./pythonzhong-de-yuan-lei.html">Python中的元类</a>
+      </li>
+      <li class="post">
+          <a href="./pythonzhong-de-shu-ju-ku.html">Python中的数据库</a>
+      </li>
+      <li class="post">
           <a href="./pythonzhong-de-mian-xiang-dui-xiang.html">Python中的面向对象</a>
       </li>
       <li class="post">
@@ -555,12 +546,6 @@ http://api.server/user/timeline/list
       <li class="post">
           <a href="./plantumlyu-yan-lei-tu.html">PlantUML语言--类图</a>
       </li>
-      <li class="post">
-          <a href="./pythonzhong-de-she-ji-mo-shi-yi.html">Python中的设计模式(一)</a>
-      </li>
-      <li class="post">
-          <a href="./pythonzhong-de-shu-ju-ku.html">Python中的数据库</a>
-      </li>
     </ul>
   </section>
   <section>
@@ -568,6 +553,7 @@ http://api.server/user/timeline/list
     <h1>Categories</h1>
     <ul id="recent_posts">
         <li><a href="./category/python.html">Python</a></li>
+        <li><a href="./category/she-ji-mo-shi.html">设计模式</a></li>
         <li><a href="./category/uml.html">UML</a></li>
     </ul>
   </section>
@@ -575,7 +561,7 @@ http://api.server/user/timeline/list
 
   <section>
   <h1>Tags</h1>
-    <a href="./tag/pelican.html">Pelican</a>,    <a href="./tag/sqlite.html">SQLite</a>,    <a href="./tag/plantuml.html">PlantUML</a>,    <a href="./tag/shu-ju-ku.html">数据库</a>,    <a href="./tag/bencode.html">bencode</a>,    <a href="./tag/xiao-cheng-xu.html">小程序</a>,    <a href="./tag/bt.html">bt</a>,    <a href="./tag/mian-xiang-dui-xiang.html">面向对象</a>,    <a href="./tag/jing-tai-bo-ke.html">静态博客</a>,    <a href="./tag/she-ji-mo-shi.html">设计模式</a>,    <a href="./tag/han-shu-shi-bian-cheng.html">函数式编程</a>,    <a href="./tag/md5.html">md5</a>  </section>
+    <a href="./tag/pelican.html">Pelican</a>,    <a href="./tag/sqlite.html">SQLite</a>,    <a href="./tag/plantuml.html">PlantUML</a>,    <a href="./tag/shu-ju-ku.html">数据库</a>,    <a href="./tag/bencode.html">bencode</a>,    <a href="./tag/yuan-lei.html">元类</a>,    <a href="./tag/xiao-cheng-xu.html">小程序</a>,    <a href="./tag/bt.html">bt</a>,    <a href="./tag/mian-xiang-dui-xiang.html">面向对象</a>,    <a href="./tag/jing-tai-bo-ke.html">静态博客</a>,    <a href="./tag/uml.html">UML</a>,    <a href="./tag/han-shu-shi-bian-cheng.html">函数式编程</a>,    <a href="./tag/md5.html">md5</a>  </section>
 
 
 

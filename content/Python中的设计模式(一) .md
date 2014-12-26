@@ -1,7 +1,7 @@
 Title: Python中的设计模式(一)
 Date: 2014-12-23 15:25
-Category: UML
-Tags: 设计模式
+Category: 设计模式
+Tags: UML
 Author: 阿七
 Summary: 策略模式(Strategy)
 
