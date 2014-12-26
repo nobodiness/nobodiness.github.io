@@ -1,4 +1,4 @@
-Title: 深刻理解Python中的元类
+Title: [转]深刻理解Python中的元类
 Date: 2014-12-26 13:56
 Category: Python
 Tags: 面向对象,元类
