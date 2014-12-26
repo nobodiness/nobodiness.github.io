@@ -4,6 +4,7 @@ Category: Python
 Tags: 面向对象,元类
 Author: 阿七
 Summary: Python元类笔记
+Status: draft
 
 
 ## 动态创建类 type()

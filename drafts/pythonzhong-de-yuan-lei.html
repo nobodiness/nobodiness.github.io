@@ -4,7 +4,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Python大法好 - Articles by 阿七</title>
+  <title>Python中的元类</title>
   <meta name="author" content="阿七">
 
 
@@ -41,7 +41,7 @@
 
 
 <ul class="main-navigation">
-    <li >
+    <li class="active">
     <a href="../category/python.html">Python</a>
     </li>
     <li >
@@ -50,89 +50,63 @@
 </ul></nav>
   <div id="main">
     <div id="content">
-<div class="blog-index">
-  		<article>
+  <div>
+    <article class="hentry" role="article">
 <header>
-      <h1 class="entry-title">
-        <a href="../pythonzhong-de-shu-ju-ku.html">Python中的数据库</a>
-      </h1>
-      <p class="meta"><time datetime="2014-12-23T21:25:00+08:00" pubdate>2014 十二月 23 二</time></p>
+      <h1 class="entry-title">Python中的元类</h1>
+      <p class="meta"><time datetime="2014-12-26T13:56:00+08:00" pubdate>2014 十二月 26 五</time></p>
 </header>
 
-  <div class="entry-content"><p>关于数据库的笔记,数据库以SQLite为例</p></div>
-  <footer>
-    <a rel="full-article" href="../pythonzhong-de-shu-ju-ku.html">Read On &crarr;</a>
-  </footer>
-  		</article>
-  		<article>
-<header>
-      <h1 class="entry-title">
-        <a href="../pythonzhong-de-mian-xiang-dui-xiang.html">Python中的面向对象</a>
-      </h1>
-      <p class="meta"><time datetime="2014-12-23T20:03:00+08:00" pubdate>2014 十二月 23 二</time></p>
-</header>
+  <div class="entry-content"><h2>动态创建类 type()</h2>
+<p>type()函数既可以返回一个对象的类型，又可以创建出新的类型，比如，我们可以通过type()函数创建出Hello类，而无需通过class Hello(object)...的定义：</p>
+<div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">fn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">&#39;world&#39;</span><span class="p">):</span> <span class="c"># 先定义函数</span>
+<span class="o">...</span>     <span class="k">print</span><span class="p">(</span><span class="s">&#39;Hello, </span><span class="si">%s</span><span class="s">.&#39;</span> <span class="o">%</span> <span class="n">name</span><span class="p">)</span>
+<span class="o">...</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">Hello</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="s">&#39;Hello&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nb">object</span><span class="p">,),</span> <span class="nb">dict</span><span class="p">(</span><span class="n">hello</span><span class="o">=</span><span class="n">fn</span><span class="p">))</span> <span class="c"># 创建Hello class</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">h</span> <span class="o">=</span> <span class="n">Hello</span><span class="p">()</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">h</span><span class="o">.</span><span class="n">hello</span><span class="p">()</span>
+<span class="n">Hello</span><span class="p">,</span> <span class="n">world</span><span class="o">.</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">Hello</span><span class="p">))</span>
+<span class="o">&lt;</span><span class="nb">type</span> <span class="s">&#39;type&#39;</span><span class="o">&gt;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">h</span><span class="p">))</span>
+<span class="o">&lt;</span><span class="k">class</span> <span class="err">&#39;</span><span class="nc">__main__</span><span class="o">.</span><span class="n">Hello</span><span class="s">&#39;&gt;</span>
+<span class="n">Try</span>
+</pre></div>
 
-  <div class="entry-content"><p>Python面向对象编程笔记</p></div>
-  <footer>
-    <a rel="full-article" href="../pythonzhong-de-mian-xiang-dui-xiang.html">Read On &crarr;</a>
-  </footer>
-  		</article>
-  		<article>
-<header>
-      <h1 class="entry-title">
-        <a href="../pythonzhong-de-han-shu-shi-bian-cheng.html">Python中的函数式编程</a>
-      </h1>
-      <p class="meta"><time datetime="2014-12-23T17:25:00+08:00" pubdate>2014 十二月 23 二</time></p>
-</header>
 
-  <div class="entry-content"><p>Python函数式编程笔记</p></div>
-  <footer>
-    <a rel="full-article" href="../pythonzhong-de-han-shu-shi-bian-cheng.html">Read On &crarr;</a>
-  </footer>
-  		</article>
-  		<article>
-<header>
-      <h1 class="entry-title">
-        <a href="../plantumlyu-yan-lei-tu.html">PlantUML语言--类图</a>
-      </h1>
-      <p class="meta"><time datetime="2014-12-23T15:25:00+08:00" pubdate>2014 十二月 23 二</time></p>
-</header>
-
-  <div class="entry-content"><p>文本的UML语言PlantUML类图介绍</p></div>
-  <footer>
-    <a rel="full-article" href="../plantumlyu-yan-lei-tu.html">Read On &crarr;</a>
-  </footer>
-  		</article>
-  		<article>
-<header>
-      <h1 class="entry-title">
-        <a href="../pi-liang-xiu-gai-trackerhao.html">批量修改tracker号</a>
-      </h1>
-      <p class="meta"><time datetime="2014-12-20T12:47:00+08:00" pubdate>2014 十二月 20 六</time></p>
-</header>
-
-  <div class="entry-content"><p>修改tracker方便上传百度云</p></div>
-  <footer>
-    <a rel="full-article" href="../pi-liang-xiu-gai-trackerhao.html">Read On &crarr;</a>
-  </footer>
-  		</article>
-  		<article>
-<header>
-      <h1 class="entry-title">
-        <a href="../wo-de-di-yi-ge-githubbo-ke.html">我的第一个Github博客</a>
-      </h1>
-      <p class="meta"><time datetime="2014-12-19T19:17:00+08:00" pubdate>2014 十二月 19 五</time></p>
-</header>
-
-  <div class="entry-content"><p>搭建这个博客的方法</p></div>
-  <footer>
-    <a rel="full-article" href="../wo-de-di-yi-ge-githubbo-ke.html">Read On &crarr;</a>
-  </footer>
-  		</article>
-<div class="pagination">
-
-  <br />
-</div></div>
+<p>要创建一个class对象，type()函数依次传入3个参数：<strong>class的名称<strong><em>*继承的父类集合</em>*，注意Python支持多重继承，如果只有一个父类，别忘了tuple的单元素写法</strong>class的方法名称与函数绑定</strong>，这里我们把函数fn绑定到方法名hello上。</p>
+<p>通过type()函数创建的类和直接写class是完全一样的，因为Python解释器遇到class定义时，仅仅是扫描一下class定义的语法，然后调用type()函数创建出class。 </p>
+<h2>元类 metaclass</h2></div>
+      <footer>
+<p class="meta">
+  <span class="byline author vcard">
+    Posted by <span class="fn">阿七</span>
+  </span>
+<time datetime="2014-12-26T13:56:00+08:00" pubdate>2014 十二月 26 五</time>  <span class="categories">
+    <a class="category" href="../tag/mian-xiang-dui-xiang.html">面向对象</a>
+    <a class="category" href="../tag/yuan-lei.html">元类</a>
+  </span>
+</p><div class="sharing">
+</div>      </footer>
+    </article>
+      <!--  -->
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="drafts/pythonzhong-de-yuan-lei.html" data-title="Python中的元类" data-url="../drafts/pythonzhong-de-yuan-lei.html" style=" margin-left: 30px; margin-right: 30px; "></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:"nobodiness"};
+    (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script> 
+    <!-- 多说公共JS代码 end --> 
+  </div>
 <aside class="sidebar">
   <section>
     <h1>Recent Posts</h1>

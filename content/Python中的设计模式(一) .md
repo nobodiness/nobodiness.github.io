@@ -4,6 +4,7 @@ Category: 设计模式
 Tags: 策略模式
 Author: 阿七
 Summary: 策略模式(Strategy)
+Status: draft
 
 
 
