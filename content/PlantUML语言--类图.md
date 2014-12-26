@@ -1,7 +1,7 @@
 Title: PlantUML语言--类图
 Date: 2014-12-23 15:25
-Category: UML
-Tags: PlantUML
+Category: 设计模式
+Tags: PlantUML,UML
 Author: 阿七
 Summary: 文本的UML语言PlantUML类图介绍
 
