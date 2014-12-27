@@ -3,7 +3,7 @@ Date: 2014-12-27 13:23
 Category: Python
 Tags: YAML,pyYAML
 Author: 阿七
-Summary: YAML
+Summary: pyYAML的使用方法
 
 ## Import
 ```python
@@ -231,7 +231,7 @@ YAML tag  |  Python type
 !!python/object/new:module.cls | module.cls instance
 !!python/object/apply:module.f | value of f(...)
 
-## [API] (http://pyyaml.org/wiki/PyYAMLDocumentation#Reference)
+## [API](http://pyyaml.org/wiki/PyYAMLDocumentation#Reference)
 
 #### 学习资料:
 [官方文档](http://pyyaml.org/wiki/PyYAMLDocumentation)
