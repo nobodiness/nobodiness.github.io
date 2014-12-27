@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Python与pyYAML</title>
+  <meta name="author" content="阿七">
+
+
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link href="./favicon.png" rel="icon">
+  <link href="./theme/css/main.css" media="screen, projection"
+        rel="stylesheet" type="text/css">
+  <link href="./theme/css/monokai.css" media="screen, projection"
+        rel="stylesheet" type="text/css">
+  <link href="./theme/css/ds.css" media="screen, projection"
+        rel="stylesheet" type="text/css">
+  <script src="./theme/js/modernizr-2.0.js"></script>
+  <script src="./theme/js/ender.js"></script>
+  <script src="./theme/js/octopress.js" type="text/javascript"></script>
+
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic"
+        rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic"
+        rel="stylesheet" type="text/css">
+</head>
+
+<body>
+  <header role="banner"><hgroup>
+  <h1><a href="./">笔记</a></h1>
+</hgroup></header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+</ul>
+
+
+
+<ul class="main-navigation">
+    <li >
+    <a href="./category/du-shu-jie-xuan.html">读书节选</a>
+    </li>
+    <li class="active">
+    <a href="./category/python.html">Python</a>
+    </li>
+    <li >
+    <a href="./category/she-ji-mo-shi.html">设计模式</a>
+    </li>
+</ul></nav>
+  <div id="main">
+    <div id="content">
+  <div>
+    <article class="hentry" role="article">
+<header>
+      <h1 class="entry-title">Python与pyYAML</h1>
+      <p class="meta"><time datetime="2014-12-27T13:23:00+08:00" pubdate>2014 十二月 27 六</time></p>
+</header>
+
+  <div class="entry-content"><h2>Import</h2>
+<div class="codehilite"><pre><span class="kn">from</span> <span class="nn">yaml</span> <span class="kn">import</span> <span class="n">load</span><span class="p">,</span> <span class="n">dump</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">yaml</span> <span class="kn">import</span> <span class="n">CLoader</span> <span class="k">as</span> <span class="n">Loader</span><span class="p">,</span> <span class="n">CDumper</span> <span class="k">as</span> <span class="n">Dumper</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">yaml</span> <span class="kn">import</span> <span class="n">Loader</span><span class="p">,</span> <span class="n">Dumper</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span class="kn">import</span> <span class="nn">yaml</span>
+</pre></div>
+
+
+<h2>Loading YAML</h2>
+<div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s">&quot;&quot;&quot;</span>
+<span class="s">... - Hesperiidae</span>
+<span class="s">... - Papilionidae</span>
+<span class="s">... - Apatelodidae</span>
+<span class="s">... - Epiplemidae</span>
+<span class="s">... &quot;&quot;&quot;</span><span class="p">)</span>
+
+<span class="p">[</span><span class="s">&#39;Hesperiidae&#39;</span><span class="p">,</span> <span class="s">&#39;Papilionidae&#39;</span><span class="p">,</span> <span class="s">&#39;Apatelodidae&#39;</span><span class="p">,</span> <span class="s">&#39;Epiplemidae&#39;</span><span class="p">]</span>
+</pre></div>
+
+
+<h3>utf-8</h3>
+<div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s">u&quot;&quot;&quot;</span>
+<span class="s">... hello: Привет!</span>
+<span class="s">... &quot;&quot;&quot;</span><span class="p">)</span>    <span class="c"># In Python 3, do not use the &#39;u&#39; prefix</span>
+
+<span class="p">{</span><span class="s">&#39;hello&#39;</span><span class="p">:</span> <span class="s">u&#39;</span><span class="se">\u041f\u0440\u0438\u0432\u0435\u0442</span><span class="s">!&#39;</span><span class="p">}</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">stream</span> <span class="o">=</span> <span class="nb">file</span><span class="p">(</span><span class="s">&#39;document.yaml&#39;</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span>    <span class="c"># &#39;document.yaml&#39; contains a single YAML document.</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">stream</span><span class="p">)</span>
+<span class="p">[</span><span class="o">...</span><span class="p">]</span>    <span class="c"># A Python object corresponding to the document.</span>
+</pre></div>
+
+
+<p>If a string or a file contains several documents, you may load them all with the yaml.load_all function.</p>
+<div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">yaml</span><span class="o">.</span><span class="n">load_all</span><span class="p">(</span><span class="n">documents</span><span class="p">):</span>
+<span class="o">...</span>     <span class="k">print</span> <span class="n">data</span>
+</pre></div>
+
+
+<h3>Object</h3>
+<p>Even instances of Python classes can be constructed using the !!python/object tag.</p>
+<div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">Hero</span><span class="p">:</span>
+<span class="o">...</span>     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">hp</span><span class="p">,</span> <span class="n">sp</span><span class="p">):</span>
+<span class="o">...</span>         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+<span class="o">...</span>         <span class="bp">self</span><span class="o">.</span><span class="n">hp</span> <span class="o">=</span> <span class="n">hp</span>
+<span class="o">...</span>         <span class="bp">self</span><span class="o">.</span><span class="n">sp</span> <span class="o">=</span> <span class="n">sp</span>
+<span class="o">...</span>     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="o">...</span>         <span class="k">return</span> <span class="s">&quot;</span><span class="si">%s</span><span class="s">(name=</span><span class="si">%r</span><span class="s">, hp=</span><span class="si">%r</span><span class="s">, sp=</span><span class="si">%r</span><span class="s">)&quot;</span> <span class="o">%</span> <span class="p">(</span>
+<span class="o">...</span>             <span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">hp</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sp</span><span class="p">)</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s">&quot;&quot;&quot;</span>
+<span class="s">... !!python/object:__main__.Hero</span>
+<span class="s">... name: Welthyr Syxgon</span>
+<span class="s">... hp: 1200</span>
+<span class="s">... sp: 0</span>
+<span class="s">... &quot;&quot;&quot;</span><span class="p">)</span>
+
+<span class="n">Hero</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">&#39;Welthyr Syxgon&#39;</span><span class="p">,</span> <span class="n">hp</span><span class="o">=</span><span class="mi">1200</span><span class="p">,</span> <span class="n">sp</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Note that the ability to construct an arbitrary Python object may be dangerous if you receive a YAML document from an untrusted source such as the Internet. The function <code>yaml.safe_load</code> limits this ability to simple Python objects like integers or lists.</p>
+<h2>Dumping YAML</h2>
+<div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="k">print</span> <span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">({</span><span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">&#39;Silenthand Olleander&#39;</span><span class="p">,</span> <span class="s">&#39;race&#39;</span><span class="p">:</span> <span class="s">&#39;Human&#39;</span><span class="p">,</span>
+<span class="o">...</span> <span class="s">&#39;traits&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">&#39;ONE_HAND&#39;</span><span class="p">,</span> <span class="s">&#39;ONE_EYE&#39;</span><span class="p">]})</span>
+
+<span class="n">name</span><span class="p">:</span> <span class="n">Silenthand</span> <span class="n">Olleander</span>
+<span class="n">race</span><span class="p">:</span> <span class="n">Human</span>
+<span class="n">traits</span><span class="p">:</span> <span class="p">[</span><span class="n">ONE_HAND</span><span class="p">,</span> <span class="n">ONE_EYE</span><span class="p">]</span>
+</pre></div>
+
+
+<h3>File</h3>
+<div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">stream</span> <span class="o">=</span> <span class="nb">file</span><span class="p">(</span><span class="s">&#39;document.yaml&#39;</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">stream</span><span class="p">)</span>    <span class="c"># Write a YAML representation of data to &#39;document.yaml&#39;.</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">print</span> <span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>      <span class="c"># Output the document to the screen.</span>
+</pre></div>
+
+
+<h2>Constructors, representers, resolvers</h2>
+<h3>uses metaclass</h3>
+<p>You may define your own application-specific tags. The easiest way to do it is to define a subclass of yaml.YAMLObject:</p>
+<div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">Monster</span><span class="p">(</span><span class="n">yaml</span><span class="o">.</span><span class="n">YAMLObject</span><span class="p">):</span>
+<span class="o">...</span>     <span class="n">yaml_tag</span> <span class="o">=</span> <span class="s">u&#39;!Monster&#39;</span>
+<span class="o">...</span>     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">hp</span><span class="p">,</span> <span class="n">ac</span><span class="p">,</span> <span class="n">attacks</span><span class="p">):</span>
+<span class="o">...</span>         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+<span class="o">...</span>         <span class="bp">self</span><span class="o">.</span><span class="n">hp</span> <span class="o">=</span> <span class="n">hp</span>
+<span class="o">...</span>         <span class="bp">self</span><span class="o">.</span><span class="n">ac</span> <span class="o">=</span> <span class="n">ac</span>
+<span class="o">...</span>         <span class="bp">self</span><span class="o">.</span><span class="n">attacks</span> <span class="o">=</span> <span class="n">attacks</span>
+<span class="o">...</span>     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="o">...</span>         <span class="k">return</span> <span class="s">&quot;</span><span class="si">%s</span><span class="s">(name=</span><span class="si">%r</span><span class="s">, hp=</span><span class="si">%r</span><span class="s">, ac=</span><span class="si">%r</span><span class="s">, attacks=</span><span class="si">%r</span><span class="s">)&quot;</span> <span class="o">%</span> <span class="p">(</span>
+<span class="o">...</span>             <span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">hp</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ac</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">attacks</span><span class="p">)</span>
+</pre></div>
+
+
+<p>The above definition is enough to automatically load and dump Monster objects:</p>
+<div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s">&quot;&quot;&quot;</span>
+<span class="s">... --- !Monster</span>
+<span class="s">... name: Cave spider</span>
+<span class="s">... hp: [2,6]    # 2d6</span>
+<span class="s">... ac: 16</span>
+<span class="s">... attacks: [BITE, HURT]</span>
+<span class="s">... &quot;&quot;&quot;</span><span class="p">)</span>
+
+<span class="n">Monster</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">&#39;Cave spider&#39;</span><span class="p">,</span> <span class="n">hp</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="n">ac</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">attacks</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;BITE&#39;</span><span class="p">,</span> <span class="s">&#39;HURT&#39;</span><span class="p">])</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="k">print</span> <span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">Monster</span><span class="p">(</span>
+<span class="o">...</span>     <span class="n">name</span><span class="o">=</span><span class="s">&#39;Cave lizard&#39;</span><span class="p">,</span> <span class="n">hp</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">6</span><span class="p">],</span> <span class="n">ac</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">attacks</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;BITE&#39;</span><span class="p">,</span><span class="s">&#39;HURT&#39;</span><span class="p">]))</span>
+
+<span class="err">!</span><span class="n">Monster</span>
+<span class="n">ac</span><span class="p">:</span> <span class="mi">16</span>
+<span class="n">attacks</span><span class="p">:</span> <span class="p">[</span><span class="n">BITE</span><span class="p">,</span> <span class="n">HURT</span><span class="p">]</span>
+<span class="n">hp</span><span class="p">:</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+<span class="n">name</span><span class="p">:</span> <span class="n">Cave</span> <span class="n">lizard</span>
+</pre></div>
+
+
+<p>yaml.YAMLObject uses metaclass magic to register a constructor, which transforms a YAML node to a class instance, and a representer, which serializes a class instance to a YAML node.</p>
+<h3>Dice</h3>
+<div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">Dice</span><span class="p">(</span><span class="nb">tuple</span><span class="p">):</span>
+<span class="o">...</span>     <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+<span class="o">...</span>         <span class="k">return</span> <span class="nb">tuple</span><span class="o">.</span><span class="n">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="p">[</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">])</span>
+<span class="o">...</span>     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="o">...</span>         <span class="k">return</span> <span class="s">&quot;Dice(</span><span class="si">%s</span><span class="s">,</span><span class="si">%s</span><span class="s">)&quot;</span> <span class="o">%</span> <span class="bp">self</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="k">print</span> <span class="n">Dice</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">6</span><span class="p">)</span>
+<span class="n">Dice</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">6</span><span class="p">)</span>
+</pre></div>
+
+
+<p>The default representation for Dice objects is not pretty:</p>
+<div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="k">print</span> <span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">Dice</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+
+<span class="err">!!</span><span class="n">python</span><span class="o">/</span><span class="nb">object</span><span class="o">/</span><span class="n">new</span><span class="p">:</span><span class="n">__main__</span><span class="o">.</span><span class="n">Dice</span>
+<span class="o">-</span> <span class="err">!!</span><span class="n">python</span><span class="o">/</span><span class="nb">tuple</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+</pre></div>
+
+
+<p>Suppose you want a Dice object to represented as AdB in YAML:</p>
+<div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="k">print</span> <span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">Dice</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+
+<span class="mi">3</span><span class="n">d6</span>
+</pre></div>
+
+
+<h3>representer</h3>
+<p>First we define a representer that converts a dice object to a scalar node with the tag !dice, then we register it.</p>
+<div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">dice_representer</span><span class="p">(</span><span class="n">dumper</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+<span class="o">...</span>     <span class="k">return</span> <span class="n">dumper</span><span class="o">.</span><span class="n">represent_scalar</span><span class="p">(</span><span class="s">u&#39;!dice&#39;</span><span class="p">,</span> <span class="s">u&#39;</span><span class="si">%s</span><span class="s">d</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">data</span><span class="p">)</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">yaml</span><span class="o">.</span><span class="n">add_representer</span><span class="p">(</span><span class="n">Dice</span><span class="p">,</span> <span class="n">dice_representer</span><span class="p">)</span>
+<span class="n">Now</span> <span class="n">you</span> <span class="n">may</span> <span class="n">dump</span> <span class="n">an</span> <span class="n">instance</span> <span class="n">of</span> <span class="n">the</span> <span class="n">Dice</span> <span class="nb">object</span><span class="p">:</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="k">print</span> <span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">({</span><span class="s">&#39;gold&#39;</span><span class="p">:</span> <span class="n">Dice</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">6</span><span class="p">)})</span>
+<span class="p">{</span><span class="n">gold</span><span class="p">:</span> <span class="err">!</span><span class="n">dice</span> <span class="s">&#39;10d6&#39;</span><span class="p">}</span>
+</pre></div>
+
+
+<h3>constructor</h3>
+<p>Let us add the code to construct a Dice object:</p>
+<div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">dice_constructor</span><span class="p">(</span><span class="n">loader</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
+<span class="o">...</span>     <span class="n">value</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="n">construct_scalar</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+<span class="o">...</span>     <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">value</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;d&#39;</span><span class="p">))</span>
+<span class="o">...</span>     <span class="k">return</span> <span class="n">Dice</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">yaml</span><span class="o">.</span><span class="n">add_constructor</span><span class="p">(</span><span class="s">u&#39;!dice&#39;</span><span class="p">,</span> <span class="n">dice_constructor</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Then you may load a Dice object as well:</p>
+<div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="k">print</span> <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s">&quot;&quot;&quot;</span>
+<span class="s">... initial hit points: !dice 8d4</span>
+<span class="s">... &quot;&quot;&quot;</span><span class="p">)</span>
+
+<span class="p">{</span><span class="s">&#39;initial hit points&#39;</span><span class="p">:</span> <span class="n">Dice</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">4</span><span class="p">)}</span>
+</pre></div>
+
+
+<h3>without <code>!dice</code></h3>
+<p>You might not want to specify the tag !dice everywhere. There is a way to teach PyYAML that any untagged plain scalar which looks like XdY has the implicit tag !dice. Use add_implicit_resolver:</p>
+<div class="codehilite"><pre><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">re</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">r&#39;^\d+d\d+$&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">yaml</span><span class="o">.</span><span class="n">add_implicit_resolver</span><span class="p">(</span><span class="s">u&#39;!dice&#39;</span><span class="p">,</span> <span class="n">pattern</span><span class="p">)</span>
+<span class="n">Now</span> <span class="n">you</span> <span class="n">don</span><span class="s">&#39;t have to specify the tag to define a Dice object:</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="k">print</span> <span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">({</span><span class="s">&#39;treasure&#39;</span><span class="p">:</span> <span class="n">Dice</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">)})</span>
+
+<span class="p">{</span><span class="n">treasure</span><span class="p">:</span> <span class="mi">10</span><span class="n">d20</span><span class="p">}</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="k">print</span> <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s">&quot;&quot;&quot;</span>
+<span class="s">... damage: 5d10</span>
+<span class="s">... &quot;&quot;&quot;</span><span class="p">)</span>
+
+<span class="p">{</span><span class="s">&#39;damage&#39;</span><span class="p">:</span> <span class="n">Dice</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">10</span><span class="p">)}</span>
+</pre></div>
+
+
+<h2><a href="http://pyyaml.org/wiki/PyYAMLDocumentation#YAMLtagsandPythontypes">数据类型(Tags)</a></h2>
+<p>YAML tags and Python types</p>
+<p>The following table describes how nodes with different tags are converted to Python objects.</p>
+<table>
+<thead>
+<tr>
+<th>YAML tag</th>
+<th>Python type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Standard YAML tags</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>!!null</td>
+<td>None</td>
+</tr>
+<tr>
+<td>!!bool</td>
+<td>bool</td>
+</tr>
+<tr>
+<td>!!int</td>
+<td>int or long (int in Python 3)</td>
+</tr>
+<tr>
+<td>!!float</td>
+<td>float</td>
+</tr>
+<tr>
+<td>!!binary</td>
+<td>str (bytes in Python 3)</td>
+</tr>
+<tr>
+<td>!!timestamp</td>
+<td>datetime.datetime</td>
+</tr>
+<tr>
+<td>!!omap, !!pairs</td>
+<td>list of pairs</td>
+</tr>
+<tr>
+<td>!!set</td>
+<td>set</td>
+</tr>
+<tr>
+<td>!!str</td>
+<td>str or unicode (str in Python 3)</td>
+</tr>
+<tr>
+<td>!!seq</td>
+<td>list</td>
+</tr>
+<tr>
+<td>!!map</td>
+<td>dict</td>
+</tr>
+<tr>
+<td><strong>Python-specific tags</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>!!python/none</td>
+<td>None</td>
+</tr>
+<tr>
+<td>!!python/bool</td>
+<td>bool</td>
+</tr>
+<tr>
+<td>!!python/bytes</td>
+<td>(bytes in Python 3)</td>
+</tr>
+<tr>
+<td>!!python/str</td>
+<td>str (str in Python 3)</td>
+</tr>
+<tr>
+<td>!!python/unicode</td>
+<td>unicode (str in Python 3)</td>
+</tr>
+<tr>
+<td>!!python/int</td>
+<td>int</td>
+</tr>
+<tr>
+<td>!!python/long</td>
+<td>long (int in Python 3)</td>
+</tr>
+<tr>
+<td>!!python/float</td>
+<td>float</td>
+</tr>
+<tr>
+<td>!!python/complex</td>
+<td>complex</td>
+</tr>
+<tr>
+<td>!!python/list</td>
+<td>list</td>
+</tr>
+<tr>
+<td>!!python/tuple</td>
+<td>tuple</td>
+</tr>
+<tr>
+<td>!!python/dict</td>
+<td>dict</td>
+</tr>
+<tr>
+<td><strong>Complex Python tags</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>!!python/name:module.name</td>
+<td>module.name</td>
+</tr>
+<tr>
+<td>!!python/module:package.module</td>
+<td>package.module</td>
+</tr>
+<tr>
+<td>!!python/object:module.cls</td>
+<td>module.cls instance</td>
+</tr>
+<tr>
+<td>!!python/object/new:module.cls</td>
+<td>module.cls instance</td>
+</tr>
+<tr>
+<td>!!python/object/apply:module.f</td>
+<td>value of f(...)</td>
+</tr>
+</tbody>
+</table>
+<h2>[API] (http://pyyaml.org/wiki/PyYAMLDocumentation#Reference)</h2>
+<h4>学习资料:</h4>
+<p><a href="http://pyyaml.org/wiki/PyYAMLDocumentation">官方文档</a></p></div>
+      <footer>
+<p class="meta">
+  <span class="byline author vcard">
+    Posted by <span class="fn">阿七</span>
+  </span>
+<time datetime="2014-12-27T13:23:00+08:00" pubdate>2014 十二月 27 六</time>  <span class="categories">
+    <a class="category" href="./tag/yaml.html">YAML</a>
+    <a class="category" href="./tag/pyyaml.html">pyYAML</a>
+  </span>
+</p><div class="sharing">
+</div>      </footer>
+    </article>
+      <!--  -->
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="pythonyu-pyyaml.html" data-title="Python与pyYAML" data-url="./pythonyu-pyyaml.html" style=" margin-left: 30px; margin-right: 30px; "></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:"nobodiness"};
+    (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script> 
+    <!-- 多说公共JS代码 end --> 
+  </div>
+<aside class="sidebar">
+  <section>
+    <h1>Recent Posts</h1>
+    <ul id="recent_posts">
+      <li class="post">
+          <a href="./pythonyu-pyyaml.html">Python与pyYAML</a>
+      </li>
+      <li class="post">
+          <a href="./yaml.html">YAML</a>
+      </li>
+      <li class="post">
+          <a href="./pipe-python-de-zhong-zhui-yu-fa-ku.html">Pipe——Python 的中缀语法库</a>
+      </li>
+      <li class="post">
+          <a href="./pythonjie-shi-qi-jian-jie.html">Python解释器简介</a>
+      </li>
+      <li class="post">
+          <a href="./zhuan-shi-yao-shi-method.html">[转]什么是method？</a>
+      </li>
+    </ul>
+  </section>
+  <section>
+      
+    <h1>Categories</h1>
+    <ul id="recent_posts">
+        <li><a href="./category/du-shu-jie-xuan.html">读书节选</a></li>
+        <li><a href="./category/python.html">Python</a></li>
+        <li><a href="./category/she-ji-mo-shi.html">设计模式</a></li>
+    </ul>
+  </section>
+ 
+
+  <section>
+  <h1>Tags</h1>
+    <a href="./tag/yuan-lei.html">元类</a>,    <a href="./tag/pipe.html">Pipe</a>,    <a href="./tag/pyyaml.html">pyYAML</a>,    <a href="./tag/plantuml.html">PlantUML</a>,    <a href="./tag/pelican.html">Pelican</a>,    <a href="./tag/shu-ju-ku.html">数据库</a>,    <a href="./tag/bencode.html">bencode</a>,    <a href="./tag/sqlite.html">SQLite</a>,    <a href="./tag/xiao-cheng-xu.html">小程序</a>,    <a href="./tag/gu-dai-de-zhong-yi.html">古代的中医</a>,    <a href="./tag/bt.html">bt</a>,    <a href="./tag/yaml.html">YAML</a>,    <a href="./tag/mian-xiang-dui-xiang.html">面向对象</a>,    <a href="./tag/jie-shi-qi.html">解释器</a>,    <a href="./tag/jing-tai-bo-ke.html">静态博客</a>,    <a href="./tag/uml.html">UML</a>,    <a href="./tag/han-shu-shi-bian-cheng.html">函数式编程</a>,    <a href="./tag/yi-bing-shi.html">议病式</a>,    <a href="./tag/zhong-yi.html">中医</a>,    <a href="./tag/md5.html">md5</a>  </section>
+
+
+
+  <section>
+    <h1>GitHub Repos</h1>
+    <ul id="gh_repos">
+      <li class="loading">Status updating...</li>
+    </ul>
+      <a href="https://github.com/nobodiness">@nobodiness</a> on GitHub
+    <script type="text/javascript">
+      $.domReady(function(){
+          if (!window.jXHR){
+              var jxhr = document.createElement('script');
+              jxhr.type = 'text/javascript';
+              jxhr.src = './theme/js/jXHR.js';
+              var s = document.getElementsByTagName('script')[0];
+              s.parentNode.insertBefore(jxhr, s);
+          }
+
+          github.showRepos({
+              user: 'nobodiness',
+              count: 5,
+              skip_forks: false,
+              target: '#gh_repos'
+          });
+      });
+    </script>
+    <script src="./theme/js/github.js" type="text/javascript"> </script>
+  </section>
+
+
+
+  <section>
+  <h1>Recommended</h1>
+  <br/>
+  <div><script type="text/javascript" src="http://www.douban.com/service/badge/53955651/?selection=random&amp;picsize=medium&amp;show=dolist&amp;n=2&amp;hidelogo=on&amp;cat=book&amp;columns=2"></script></div>
+  </section>
+
+  <!-- <section>
+  <h1>Favorite</h1>
+  <br/>
+  <div><script type="text/javascript" src="http://www.douban.com/service/badge/53955651/?selection=favorite&amp;picsize=small&amp;hideself=on&amp;show=collection&amp;n=3&amp;hidelogo=on&amp;cat=movie%7Cbook&amp;columns=3"></script></div>
+  </section> -->
+</aside>    </div>
+  </div>
+  <footer role="contentinfo"><p>
+    Copyright &copy;  2014  - 阿七 -
+  <span class="credit">Powered by <a href="http://getpelican.com">Pelican</a></span>
+</p></footer>
+</body>
+</html>

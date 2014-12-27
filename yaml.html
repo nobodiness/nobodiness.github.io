@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>YAML</title>
+  <meta name="author" content="阿七">
+
+
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link href="./favicon.png" rel="icon">
+  <link href="./theme/css/main.css" media="screen, projection"
+        rel="stylesheet" type="text/css">
+  <link href="./theme/css/monokai.css" media="screen, projection"
+        rel="stylesheet" type="text/css">
+  <link href="./theme/css/ds.css" media="screen, projection"
+        rel="stylesheet" type="text/css">
+  <script src="./theme/js/modernizr-2.0.js"></script>
+  <script src="./theme/js/ender.js"></script>
+  <script src="./theme/js/octopress.js" type="text/javascript"></script>
+
+  <link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic"
+        rel="stylesheet" type="text/css">
+  <link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic"
+        rel="stylesheet" type="text/css">
+</head>
+
+<body>
+  <header role="banner"><hgroup>
+  <h1><a href="./">笔记</a></h1>
+</hgroup></header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+</ul>
+
+
+
+<ul class="main-navigation">
+    <li >
+    <a href="./category/du-shu-jie-xuan.html">读书节选</a>
+    </li>
+    <li class="active">
+    <a href="./category/python.html">Python</a>
+    </li>
+    <li >
+    <a href="./category/she-ji-mo-shi.html">设计模式</a>
+    </li>
+</ul></nav>
+  <div id="main">
+    <div id="content">
+  <div>
+    <article class="hentry" role="article">
+<header>
+      <h1 class="entry-title">YAML</h1>
+      <p class="meta"><time datetime="2014-12-27T03:23:00+08:00" pubdate>2014 十二月 27 六</time></p>
+</header>
+
+  <div class="entry-content"><h2>注释</h2>
+<div class="codehilite"><pre><span class="c1"># Comment Example</span>
+</pre></div>
+
+
+<h2>文档</h2>
+<p>使用<code>---</code>分隔文档</p>
+<div class="codehilite"><pre><span class="c1"># documents example</span>
+<span class="nn">---</span>
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">Ada</span>
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">APL</span>
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">ASP</span>
+
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">Assembly</span>
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">Awk</span>
+<span class="nn">---</span>
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">Basic</span>
+<span class="nn">---</span>
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">C</span>
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">C#</span>    <span class="c1"># Note that comments are denoted with &#39; #&#39; (space then #).</span>
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">C++</span>
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">Cold Fusion</span>
+</pre></div>
+
+
+<h2>数据结构</h2>
+<p>YAML的设计者认为在配置文件中所要表达的数据内容有三种类型：标量(Scalar，如字符串和整数等)、序列（Sequence，如数组）和Mapping（类似hash的key/value pair）。</p>
+<h3>标量</h3>
+<p>There are 5 styles of scalars in YAML: plain, single-quoted, double-quoted, literal, and folded:</p>
+<div class="codehilite"><pre><span class="c1"># YAML</span>
+<span class="l-Scalar-Plain">plain</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Scroll of Remove Curse</span>
+<span class="l-Scalar-Plain">single-quoted</span><span class="p-Indicator">:</span> <span class="s">&#39;EASY_KNOW&#39;</span>
+<span class="l-Scalar-Plain">double-quoted</span><span class="p-Indicator">:</span> <span class="s">&quot;?&quot;</span>
+<span class="l-Scalar-Plain">literal</span><span class="p-Indicator">:</span> <span class="p-Indicator">|</span>    <span class="c1"># Borrowed from http://www.kersbergen.com/flump/religion.html</span>
+  <span class="no">by hjw              ___</span>
+     <span class="no">__              /.-.\</span>
+    <span class="no">/  )_____________\\  Y</span>
+   <span class="no">/_ /=== == === === =\ _\_</span>
+  <span class="no">( /)=== == === === == Y   \</span>
+   <span class="no">`-------------------(  o  )</span>
+                        <span class="no">\___/</span>
+<span class="l-Scalar-Plain">folded</span><span class="p-Indicator">:</span> <span class="p-Indicator">&gt;</span>
+  <span class="no">It removes all ordinary curses from all equipped items.</span>
+  <span class="no">Heavy or permanent curses are unaffected.</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span class="c"># Python</span>
+<span class="p">{</span><span class="s">&#39;plain&#39;</span><span class="p">:</span> <span class="s">&#39;Scroll of Remove Curse&#39;</span><span class="p">,</span>
+<span class="s">&#39;literal&#39;</span><span class="p">:</span>
+    <span class="s">&#39;by hjw              ___</span><span class="se">\n</span><span class="s">&#39;</span>
+    <span class="s">&#39;   __              /.-.</span><span class="se">\\\n</span><span class="s">&#39;</span>
+    <span class="s">&#39;  /  )_____________</span><span class="se">\\\\</span><span class="s">  Y</span><span class="se">\n</span><span class="s">&#39;</span>
+    <span class="s">&#39; /_ /=== == === === =</span><span class="se">\\</span><span class="s"> _</span><span class="se">\\</span><span class="s">_</span><span class="se">\n</span><span class="s">&#39;</span>
+    <span class="s">&#39;( /)=== == === === == Y   </span><span class="se">\\\n</span><span class="s">&#39;</span>
+    <span class="s">&#39; `-------------------(  o  )</span><span class="se">\n</span><span class="s">&#39;</span>
+    <span class="s">&#39;                      </span><span class="se">\\</span><span class="s">___/</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">,</span>
+<span class="s">&#39;single-quoted&#39;</span><span class="p">:</span> <span class="s">&#39;EASY_KNOW&#39;</span><span class="p">,</span>
+<span class="s">&#39;double-quoted&#39;</span><span class="p">:</span> <span class="s">&#39;?&#39;</span><span class="p">,</span>
+<span class="s">&#39;folded&#39;</span><span class="p">:</span> <span class="s">&#39;It removes all ordinary curses from all equipped items. Heavy or permanent curses are unaffected.</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">}</span>
+</pre></div>
+
+
+<p>Each style has its own quirks. A plain scalar does not use indicators to denote its start and end, therefore it's the most restricted style. Its natural applications are names of attributes and parameters.</p>
+<p>Using single-quoted scalars, you may express any value that does not contain special characters. No escaping occurs for single quoted scalars except that a pair of adjacent quotes '' is replaced with a lone single quote '.</p>
+<p>Double-quoted is the most powerful style and the only style that can express any scalar value. Double-quoted scalars allow escaping. Using escaping sequences \x<strong> and \u</strong>**, you may express any ASCII or Unicode character.</p>
+<p>There are two kind of block scalar styles: literal and folded. The literal style is the most suitable style for large block of text such as source code. The folded style is similar to the literal style, but two adjacent non-empty lines are joined to a single line separated by a space character.</p>
+<h3>序列(Block)</h3>
+<div class="codehilite"><pre><span class="c1"># YAML</span>
+<span class="p-Indicator">-</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">HTML</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">LaTeX</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">SGML</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">VRML</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">XML</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">YAML</span>
+<span class="p-Indicator">-</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">BSD</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">GNU Hurd</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">Linux</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span class="c"># Python</span>
+<span class="p">[[</span><span class="s">&#39;HTML&#39;</span><span class="p">,</span> <span class="s">&#39;LaTeX&#39;</span><span class="p">,</span> <span class="s">&#39;SGML&#39;</span><span class="p">,</span> <span class="s">&#39;VRML&#39;</span><span class="p">,</span> <span class="s">&#39;XML&#39;</span><span class="p">,</span> <span class="s">&#39;YAML&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;BSD&#39;</span><span class="p">,</span> <span class="s">&#39;GNU Hurd&#39;</span><span class="p">,</span> <span class="s">&#39;Linux&#39;</span><span class="p">]]</span>
+</pre></div>
+
+
+<h3>字典(Block)</h3>
+<div class="codehilite"><pre><span class="c1"># YAML</span>
+<span class="l-Scalar-Plain">base armor class</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">0</span>
+<span class="l-Scalar-Plain">base damage</span><span class="p-Indicator">:</span> <span class="p-Indicator">[</span><span class="nv">4</span><span class="p-Indicator">,</span><span class="nv">4</span><span class="p-Indicator">]</span>
+<span class="l-Scalar-Plain">plus to-hit</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">12</span>
+<span class="l-Scalar-Plain">plus to-dam</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">16</span>
+<span class="l-Scalar-Plain">plus to-ac</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">0</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span class="c"># Python</span>
+<span class="p">{</span><span class="s">&#39;plus to-hit&#39;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span> <span class="s">&#39;base damage&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="s">&#39;base armor class&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#39;plus to-ac&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s">&#39;plus to-dam&#39;</span><span class="p">:</span> <span class="mi">16</span><span class="p">}</span>
+</pre></div>
+
+
+<p>Complex keys are denoted with ? (question mark then space):</p>
+<div class="codehilite"><pre><span class="c1"># YAML</span>
+<span class="p-Indicator">?</span> <span class="kt">!!python/tuple</span> <span class="p-Indicator">[</span><span class="nv">0</span><span class="p-Indicator">,</span><span class="nv">0</span><span class="p-Indicator">]</span>
+<span class="p-Indicator">:</span> <span class="l-Scalar-Plain">The Hero</span>
+<span class="p-Indicator">?</span> <span class="kt">!!python/tuple</span> <span class="p-Indicator">[</span><span class="nv">0</span><span class="p-Indicator">,</span><span class="nv">1</span><span class="p-Indicator">]</span>
+<span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Treasure</span>
+<span class="p-Indicator">?</span> <span class="kt">!!python/tuple</span> <span class="p-Indicator">[</span><span class="nv">1</span><span class="p-Indicator">,</span><span class="nv">0</span><span class="p-Indicator">]</span>
+<span class="p-Indicator">:</span> <span class="l-Scalar-Plain">Treasure</span>
+<span class="p-Indicator">?</span> <span class="kt">!!python/tuple</span> <span class="p-Indicator">[</span><span class="nv">1</span><span class="p-Indicator">,</span><span class="nv">1</span><span class="p-Indicator">]</span>
+<span class="p-Indicator">:</span> <span class="l-Scalar-Plain">The Dragon</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span class="c"># Python</span>
+<span class="p">{(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span> <span class="s">&#39;Treasure&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">):</span> <span class="s">&#39;Treasure&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">):</span> <span class="s">&#39;The Hero&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span> <span class="s">&#39;The Dragon&#39;</span><span class="p">}</span>
+</pre></div>
+
+
+<h3>Flow collections</h3>
+<div class="codehilite"><pre><span class="c1"># YAML</span>
+<span class="p-Indicator">{</span> <span class="nv">str</span><span class="p-Indicator">:</span> <span class="p-Indicator">[</span><span class="nv">15</span><span class="p-Indicator">,</span> <span class="nv">17</span><span class="p-Indicator">],</span> <span class="nv">con</span><span class="p-Indicator">:</span> <span class="p-Indicator">[</span><span class="nv">16</span><span class="p-Indicator">,</span> <span class="nv">16</span><span class="p-Indicator">],</span> <span class="nv">dex</span><span class="p-Indicator">:</span> <span class="p-Indicator">[</span><span class="nv">17</span><span class="p-Indicator">,</span> <span class="nv">18</span><span class="p-Indicator">],</span> <span class="nv">wis</span><span class="p-Indicator">:</span> <span class="p-Indicator">[</span><span class="nv">16</span><span class="p-Indicator">,</span> <span class="nv">16</span><span class="p-Indicator">],</span> <span class="nv">int</span><span class="p-Indicator">:</span> <span class="p-Indicator">[</span><span class="nv">10</span><span class="p-Indicator">,</span> <span class="nv">13</span><span class="p-Indicator">],</span> <span class="nv">chr</span><span class="p-Indicator">:</span> <span class="p-Indicator">[</span><span class="nv">5</span><span class="p-Indicator">,</span> <span class="nv">8</span><span class="p-Indicator">]</span> <span class="p-Indicator">}</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span class="c"># Python</span>
+<span class="p">{</span><span class="s">&#39;dex&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">17</span><span class="p">,</span> <span class="mi">18</span><span class="p">],</span> <span class="s">&#39;int&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">13</span><span class="p">],</span> <span class="s">&#39;chr&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span> <span class="s">&#39;wis&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">16</span><span class="p">,</span> <span class="mi">16</span><span class="p">],</span> <span class="s">&#39;str&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">15</span><span class="p">,</span> <span class="mi">17</span><span class="p">],</span> <span class="s">&#39;con&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">16</span><span class="p">,</span> <span class="mi">16</span><span class="p">]}</span>
+</pre></div>
+
+
+<h2>别名(Aliases)</h2>
+<p>Using YAML you may represent objects of arbitrary graph-like structures. If you want to refer to the same object from different parts of a document, you need to use anchors and aliases.</p>
+<p>Anchors are denoted by the <code>&amp;</code> indicator while aliases are denoted by <code>*</code>. For instance, the document</p>
+<div class="codehilite"><pre><span class="l-Scalar-Plain">left hand</span><span class="p-Indicator">:</span> <span class="nl">&amp;A</span>
+  <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">The Bastard Sword of Eowyn</span>
+  <span class="l-Scalar-Plain">weight</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">30</span>
+<span class="l-Scalar-Plain">right hand</span><span class="p-Indicator">:</span> <span class="nv">*A</span>
+</pre></div>
+
+
+<p>expresses the idea of a hero holding a heavy sword in both hands.</p>
+<p>PyYAML now fully supports recursive objects. For instance, the document</p>
+<div class="codehilite"><pre><span class="nl">&amp;A</span> <span class="p-Indicator">[</span> <span class="nv">*A</span> <span class="p-Indicator">]</span>
+</pre></div>
+
+
+<p>will produce a list object containing a reference to itself.</p>
+<h4>学习资料:</h4>
+<p><a href="http://www.cnblogs.com/chwkai/archive/2009/03/01/249924.html">初探YAML</a><br />
+<a href="http://pyyaml.org/wiki/PyYAMLDocumentation">官方文档</a><br />
+<a href="http://www.yaml.org/refcard.html">YAML Reference card</a><br />
+<a href="http://www.ibm.com/developerworks/cn/xml/x-1103linrr/">YAML -- 想要爱你很容易</a></p></div>
+      <footer>
+<p class="meta">
+  <span class="byline author vcard">
+    Posted by <span class="fn">阿七</span>
+  </span>
+<time datetime="2014-12-27T03:23:00+08:00" pubdate>2014 十二月 27 六</time>  <span class="categories">
+    <a class="category" href="./tag/yaml.html">YAML</a>
+  </span>
+</p><div class="sharing">
+</div>      </footer>
+    </article>
+      <!--  -->
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="yaml.html" data-title="YAML" data-url="./yaml.html" style=" margin-left: 30px; margin-right: 30px; "></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:"nobodiness"};
+    (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script> 
+    <!-- 多说公共JS代码 end --> 
+  </div>
+<aside class="sidebar">
+  <section>
+    <h1>Recent Posts</h1>
+    <ul id="recent_posts">
+      <li class="post">
+          <a href="./pythonyu-pyyaml.html">Python与pyYAML</a>
+      </li>
+      <li class="post">
+          <a href="./yaml.html">YAML</a>
+      </li>
+      <li class="post">
+          <a href="./pipe-python-de-zhong-zhui-yu-fa-ku.html">Pipe——Python 的中缀语法库</a>
+      </li>
+      <li class="post">
+          <a href="./pythonjie-shi-qi-jian-jie.html">Python解释器简介</a>
+      </li>
+      <li class="post">
+          <a href="./zhuan-shi-yao-shi-method.html">[转]什么是method？</a>
+      </li>
+    </ul>
+  </section>
+  <section>
+      
+    <h1>Categories</h1>
+    <ul id="recent_posts">
+        <li><a href="./category/du-shu-jie-xuan.html">读书节选</a></li>
+        <li><a href="./category/python.html">Python</a></li>
+        <li><a href="./category/she-ji-mo-shi.html">设计模式</a></li>
+    </ul>
+  </section>
+ 
+
+  <section>
+  <h1>Tags</h1>
+    <a href="./tag/yuan-lei.html">元类</a>,    <a href="./tag/pipe.html">Pipe</a>,    <a href="./tag/pyyaml.html">pyYAML</a>,    <a href="./tag/plantuml.html">PlantUML</a>,    <a href="./tag/pelican.html">Pelican</a>,    <a href="./tag/shu-ju-ku.html">数据库</a>,    <a href="./tag/bencode.html">bencode</a>,    <a href="./tag/sqlite.html">SQLite</a>,    <a href="./tag/xiao-cheng-xu.html">小程序</a>,    <a href="./tag/gu-dai-de-zhong-yi.html">古代的中医</a>,    <a href="./tag/bt.html">bt</a>,    <a href="./tag/yaml.html">YAML</a>,    <a href="./tag/mian-xiang-dui-xiang.html">面向对象</a>,    <a href="./tag/jie-shi-qi.html">解释器</a>,    <a href="./tag/jing-tai-bo-ke.html">静态博客</a>,    <a href="./tag/uml.html">UML</a>,    <a href="./tag/han-shu-shi-bian-cheng.html">函数式编程</a>,    <a href="./tag/yi-bing-shi.html">议病式</a>,    <a href="./tag/zhong-yi.html">中医</a>,    <a href="./tag/md5.html">md5</a>  </section>
+
+
+
+  <section>
+    <h1>GitHub Repos</h1>
+    <ul id="gh_repos">
+      <li class="loading">Status updating...</li>
+    </ul>
+      <a href="https://github.com/nobodiness">@nobodiness</a> on GitHub
+    <script type="text/javascript">
+      $.domReady(function(){
+          if (!window.jXHR){
+              var jxhr = document.createElement('script');
+              jxhr.type = 'text/javascript';
+              jxhr.src = './theme/js/jXHR.js';
+              var s = document.getElementsByTagName('script')[0];
+              s.parentNode.insertBefore(jxhr, s);
+          }
+
+          github.showRepos({
+              user: 'nobodiness',
+              count: 5,
+              skip_forks: false,
+              target: '#gh_repos'
+          });
+      });
+    </script>
+    <script src="./theme/js/github.js" type="text/javascript"> </script>
+  </section>
+
+
+
+  <section>
+  <h1>Recommended</h1>
+  <br/>
+  <div><script type="text/javascript" src="http://www.douban.com/service/badge/53955651/?selection=random&amp;picsize=medium&amp;show=dolist&amp;n=2&amp;hidelogo=on&amp;cat=book&amp;columns=2"></script></div>
+  </section>
+
+  <!-- <section>
+  <h1>Favorite</h1>
+  <br/>
+  <div><script type="text/javascript" src="http://www.douban.com/service/badge/53955651/?selection=favorite&amp;picsize=small&amp;hideself=on&amp;show=collection&amp;n=3&amp;hidelogo=on&amp;cat=movie%7Cbook&amp;columns=3"></script></div>
+  </section> -->
+</aside>    </div>
+  </div>
+  <footer role="contentinfo"><p>
+    Copyright &copy;  2014  - 阿七 -
+  <span class="credit">Powered by <a href="http://getpelican.com">Pelican</a></span>
+</p></footer>
+</body>
+</html>
